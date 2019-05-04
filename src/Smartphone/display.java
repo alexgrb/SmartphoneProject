@@ -41,7 +41,7 @@ public class display extends JWindow {
         setResizable(false); //Empêche le redimensionnement
         setUndecorated(false); //Retire toutes options autour de la fenêtre
         setTitle("SMARTPHONE");*/
-        setLocation(900, 500);
+        //eeethis.setLocationRelativeTo(null); //On centre la fenêtre sur l'écran
 
 
 
