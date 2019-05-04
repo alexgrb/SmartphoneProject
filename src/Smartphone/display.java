@@ -7,13 +7,14 @@ package Smartphone;
  */
 
 import javax.swing.*;
-import javax.swing.border.Border;
+import javax.swing.border.BevelBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class display extends JFrame {
+public class display extends JWindow {
 
     //Main setting wich allows us to switch between panels
     protected CardLayout cardLayout = new CardLayout();
@@ -32,13 +33,18 @@ public class display extends JFrame {
     private JPanel dockPanel = new JPanel();
 
 
+
     public display(){
 
         ///PARAMETRE DE LA FENETRE///
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); //Ferme le programme lorsqu'on ferme la fenêtre
+      /*  setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); //Ferme le programme lorsqu'on ferme la fenêtre
         setResizable(false); //Empêche le redimensionnement
         setUndecorated(false); //Retire toutes options autour de la fenêtre
-        setTitle("SMARTPHONE");
+        setTitle("SMARTPHONE");*/
+        setLocation(900, 500);
+
+
+
         ///                     ///
         ///PATH VERS LES FONDS  ///
         ImageIcon i = new ImageIcon("src\\pictures\\homeBackground.jpg");
@@ -61,6 +67,19 @@ public class display extends JFrame {
         homePanel.add(j);
         JPanel calculPanel = new Calculatrice();
         JPanel contactlPanel = new Contact();
+        JPanel statusPanel = new JPanel();
+
+        statusPanel.setBorder(new BevelBorder(BevelBorder.RAISED));
+        add(statusPanel, BorderLayout.NORTH);
+        statusPanel.setPreferredSize(new Dimension(this.getWidth(), 30));
+        statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.X_AXIS));
+        JLabel statusLabel = new JLabel("status");
+        JButton closeButton = new JButton("X");
+        closeButton.setBackground(Color.RED);
+        closeButton.addActionListener(new closeListener());
+        statusLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        statusPanel.add(statusLabel);
+        statusPanel.add(closeButton);
 
         dockPanel.add(weatherButton);
         dockPanel.add(homeButton);
@@ -89,6 +108,14 @@ public class display extends JFrame {
         public void actionPerformed(ActionEvent e) {
             //Via cette instruction, on passe au conteneur correspondant au nom fourni en paramètre
             cardLayout.show(content, access[i]);
+        }
+    }
+    class closeListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            System.exit(0);
         }
     }
 

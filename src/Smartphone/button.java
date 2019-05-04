@@ -32,12 +32,12 @@ public class button extends JButton {
         }
     }
 
-    public void paintComponent(Graphics g){ //JSP ce que c'est j'ai pris sur internet
+    /*public void paintComponent(Graphics g){ //JSP ce que c'est j'ai pris sur internet
         Graphics2D g2d = (Graphics2D)g;
         GradientPaint gp = new GradientPaint(0, 0, Color.blue, 0, 20, Color.cyan, true);
         g2d.setPaint(gp);
         g2d.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
         g2d.setColor(Color.black);
         g2d.drawString(this.name, this.getWidth() / 2 - (this.getWidth() / 2 /4), (this.getHeight() / 2) + 5);
-    }
+    }*/
 }
