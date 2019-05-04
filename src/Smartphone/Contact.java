@@ -9,6 +9,7 @@ package Smartphone;
 import javafx.scene.control.TextFormatter;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,6 +24,9 @@ public class Contact extends JPanel{
     private JPanel container = new JPanel();
 
     // Les labels
+    private JLabel lbTitre = new JLabel("Contact");
+
+
     private JLabel lbNom = new JLabel("Nom");
     private JLabel lbPrenom = new JLabel("Prenom");
     private JLabel lbNumTel = new JLabel("Numéro de téléphone");
@@ -38,58 +42,85 @@ public class Contact extends JPanel{
 
     //TextFields classiques
     private JTextField jtNom = new JTextField();
-    private JTextField jtPrenom = new JTextField();
+     JTextField jtPrenom = new JTextField();
     private JTextField jtEmail = new JTextField();
     private JTextField jtAdresse = new JTextField();
     //Bouton
     private JButton bOK = new JButton ("OK");
 
+    private JPanel top = new JPanel();
+    private JPanel center = new JPanel();
+    private JPanel bottom = new JPanel();
+
 
     public Contact() {
 
 
-        //Panel pan = second plan
 
-        //Définir la couleur de fond avec le Panel de fond
-        container.setBackground(Color.ORANGE);
-        container.setLayout(new BorderLayout());
+        bOK.addActionListener(new BoutonListener());
 
-        // On créer un nouveau Jpanel qui sera notre ContentPane
-
-        JPanel top = new JPanel();
 
 
         //Nouvelle police
         Font police = new Font("Arial", Font.BOLD, 14);
-        jtfNPA.setPreferredSize(new Dimension(150, 30));
         jtfNPA.setFont(police);
+
+
+        //Taille des JtextField
+
+        lbTitre.setPreferredSize(new Dimension(150, 30));
+        jtNom.setPreferredSize(new Dimension(150, 30));
+        jtPrenom.setPreferredSize(new Dimension(150, 30));
         jtfNumTel.setPreferredSize(new Dimension(150, 30));
+        jtEmail.setPreferredSize(new Dimension(150, 30));
+        jtAdresse.setPreferredSize(new Dimension(150, 30));
+        jtfNPA.setPreferredSize(new Dimension(150, 30));
+        jtfDateNaissance.setPreferredSize(new Dimension(150, 30));
+        bOK.setPreferredSize(new Dimension(150, 30));
 
+        //On ajoute nos TextFields et JLabel en alternance
 
+            //Top
+        top.add(lbTitre);
+        top.setLayout(new GridLayout(1,1));
 
-        //On ajoute nos TextFields, JLabel en alternance
-        //top.add(lbNom);
-        //top.add();
+            //Center
+        center.add(lbNom);
+        center.add(jtNom);
+        center.add(lbPrenom);
+        center.add(jtPrenom);
+        center.add(lbNumTel);
+        center.add(jtfNumTel);
+        center.add(lbEmail);
+        center.add(jtEmail);
+        center.add(lbAdresse);
+        center.add(jtAdresse);
+        center.add(lbNpaLoc);
+        center.add(jtfNPA);
+        center.add(lbDateNaissance);
+        center.add(jtfDateNaissance);
 
+        center.setLayout(new GridLayout(14,1));
+            //Bottom
+        bottom.add(bOK);
 
+        add(top, BorderLayout.NORTH);
+        add(center, BorderLayout.CENTER);
+        add(bottom, BorderLayout.SOUTH);
 
-        top.add(lbNpaLoc);
-        top.add(jtfNPA);
-        top.add(lbNumTel);
-        top.add(jtfNumTel);
-
-
-        bOK.addActionListener(new BoutonListener());
-        top.add(bOK);
-
-        add(top);
 
     }
 
     class BoutonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            System.out.println("NPA : " + jtfNPA.getText());
+            System.out.println("Nom : " + jtNom.getText());
+            System.out.println("Prenom : " + jtPrenom.getText());
             System.out.println("NumTel : " + jtfNumTel.getText());
+            System.out.println("E-mail : " + jtEmail.getText());
+            System.out.println("Adresse : " + jtAdresse.getText());
+            System.out.println("NPA : " + jtfNPA.getText());
+            System.out.println("Date de naissance : " + jtfDateNaissance.getText());
+
         }
 
 }
