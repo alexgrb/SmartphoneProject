@@ -23,10 +23,11 @@ public class display extends JFrame {
     protected JPanel content = new JPanel();
 
     //Array to other apps
-    protected String[] access = {"Weather", "Contacts", "Home"};
+    protected String[] access = {"Weather", "Contacts", "Home", "Calcul"};
 
     private JButton weatherButton = new button("weather"); //Les boutons sont crées via une classe "button"
     private JButton homeButton = new button("home");
+    private JButton calculButton = new button("calculette");
     private JPanel dockPanel = new JPanel();
 
 
@@ -48,15 +49,18 @@ public class display extends JFrame {
         ///ACTION LISTENER SUR LES BOUTONS///
         weatherButton.addActionListener(new homeListener (0));
         homeButton.addActionListener(new homeListener(2));
+        calculButton.addActionListener(new homeListener(3));
 
         ///Panel
         JPanel weatherPanel = new JPanel();
         weatherPanel.add(x);
         JPanel homePanel = new JPanel(); //Homescreen
         homePanel.add(j);
+        JPanel calculPanel = new Calculatrice();
 
         dockPanel.add(weatherButton);
         dockPanel.add(homeButton);
+        dockPanel.add(calculButton);
 
         ///CONFIGURATION DES LAYOUT///
 
@@ -64,6 +68,7 @@ public class display extends JFrame {
 
         content.add(weatherPanel, access[0]);
         content.add(homePanel, access[2]);
+        content.add(calculPanel, access[3]);
 
         add(content, BorderLayout.CENTER);
         add(dockPanel, BorderLayout.SOUTH);

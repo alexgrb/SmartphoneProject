@@ -21,6 +21,9 @@ public class button extends JButton {
                break;
             case "home" :
                 path = "src\\pictures\\iconHome.png";
+                break;
+            default:
+                path = "src\\pictures\\iconHome.png";
         }
         try {
             img = ImageIO.read(new File(path.toString()));
