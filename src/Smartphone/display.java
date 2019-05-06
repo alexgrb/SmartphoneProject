@@ -14,11 +14,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class display extends JWindow {
+public class display extends JFrame {
 
     //Main setting wich allows us to switch between panels
     protected CardLayout cardLayout = new CardLayout();
-
 
     //Panels
     protected JPanel content = new JPanel();
@@ -33,17 +32,14 @@ public class display extends JWindow {
     private JPanel dockPanel = new JPanel();
 
 
-
     public display(){
 
         ///PARAMETRE DE LA FENETRE///
-      /*  setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); //Ferme le programme lorsqu'on ferme la fenêtre
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); //Ferme le programme lorsqu'on ferme la fenêtre
         setResizable(false); //Empêche le redimensionnement
         setUndecorated(false); //Retire toutes options autour de la fenêtre
-        setTitle("SMARTPHONE");*/
-        setLocation(900, 500);
-
-
+        setTitle("SMARTPHONE");
+        setUndecorated(true);
 
         ///                     ///
         ///PATH VERS LES FONDS  ///
