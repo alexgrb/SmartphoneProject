@@ -7,18 +7,28 @@ package Smartphone;
  */
 
 import javafx.scene.control.TextFormatter;
+import org.w3c.dom.ls.LSResourceResolver;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.SAXException;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.text.NumberFormat;
 
 public class Contact extends JPanel{
 
+
+
+    Regex regex = new Regex();
 
     //Jpanel
     private JPanel container = new JPanel();
@@ -36,16 +46,20 @@ public class Contact extends JPanel{
     private JLabel lbDateNaissance = new JLabel("Date de naissance");
 
     // FormattedTextFields
-    private JFormattedTextField jtfNPA = new JFormattedTextField(NumberFormat.getIntegerInstance());
-    private JFormattedTextField jtfNumTel = new JFormattedTextField(NumberFormat.getIntegerInstance());
-    private JFormattedTextField jtfDateNaissance = new JFormattedTextField(DateFormat.getDateInstance());
 
-    //TextFields classiques
+
+    //TextFields
     private JTextField jtNom = new JTextField();
-     JTextField jtPrenom = new JTextField();
+    private JTextField jtPrenom = new JTextField();
+    private JTextField jtNumTel = new JTextField();
     private JTextField jtEmail = new JTextField();
     private JTextField jtAdresse = new JTextField();
+    private JTextField jtNpa = new JTextField();
+    private JTextField jtDateNaissance = new JTextField();
+
+
     //Bouton
+    private JCheckBox checkFav = new JCheckBox("Favori");
     private JButton bOK = new JButton ("OK");
 
     private JPanel top = new JPanel();
@@ -63,7 +77,7 @@ public class Contact extends JPanel{
 
         //Nouvelle police
         Font police = new Font("Arial", Font.BOLD, 14);
-        jtfNPA.setFont(police);
+        jtNpa.setFont(police);
 
 
         //Taille des JtextField
@@ -71,11 +85,11 @@ public class Contact extends JPanel{
         lbTitre.setPreferredSize(new Dimension(150, 30));
         jtNom.setPreferredSize(new Dimension(150, 30));
         jtPrenom.setPreferredSize(new Dimension(150, 30));
-        jtfNumTel.setPreferredSize(new Dimension(150, 30));
+        jtNumTel.setPreferredSize(new Dimension(150, 30));
         jtEmail.setPreferredSize(new Dimension(150, 30));
         jtAdresse.setPreferredSize(new Dimension(150, 30));
-        jtfNPA.setPreferredSize(new Dimension(150, 30));
-        jtfDateNaissance.setPreferredSize(new Dimension(150, 30));
+        jtNpa.setPreferredSize(new Dimension(150, 30));
+        jtDateNaissance.setPreferredSize(new Dimension(150, 30));
         bOK.setPreferredSize(new Dimension(150, 30));
 
         //On ajoute nos TextFields et JLabel en alternance
@@ -90,15 +104,16 @@ public class Contact extends JPanel{
         center.add(lbPrenom);
         center.add(jtPrenom);
         center.add(lbNumTel);
-        center.add(jtfNumTel);
+        center.add(jtNumTel);
         center.add(lbEmail);
         center.add(jtEmail);
         center.add(lbAdresse);
         center.add(jtAdresse);
         center.add(lbNpaLoc);
-        center.add(jtfNPA);
+        center.add(jtNpa);
         center.add(lbDateNaissance);
-        center.add(jtfDateNaissance);
+        center.add(jtDateNaissance);
+        center.add(checkFav);
 
         center.setLayout(new GridLayout(14,1));
             //Bottom
@@ -111,17 +126,38 @@ public class Contact extends JPanel{
 
     }
 
+
+
     class BoutonListener implements ActionListener {
+
         public void actionPerformed(ActionEvent e) {
             System.out.println("Nom : " + jtNom.getText());
             System.out.println("Prenom : " + jtPrenom.getText());
-            System.out.println("NumTel : " + jtfNumTel.getText());
+            System.out.println("NumTel : " + jtNumTel.getText());
             System.out.println("E-mail : " + jtEmail.getText());
             System.out.println("Adresse : " + jtAdresse.getText());
-            System.out.println("NPA : " + jtfNPA.getText());
-            System.out.println("Date de naissance : " + jtfDateNaissance.getText());
+            System.out.println("NPA : " + jtNpa.getText());
+            System.out.println("Date de naissance : " + jtDateNaissance.getText());
+            System.out.println("Favoris - état : " + checkFav.isSelected());
 
+
+            if (!regex.validerEmail(jtEmail.getText()))
+                System.out.println("L'email est faux.");
+            else
+                System.out.println("L'email est juste.");
+
+            if (!regex.validerNPA(jtNpa.getText()))
+                System.out.println("Le NPA est faux.");
+            else
+                System.out.println("Le NPA est juste.");
+
+
+            if (!regex.validerNumTel(jtNumTel.getText()))
+                System.out.println("Le NumTel est faux");
+            else
+                System.out.println("Le NumTel est juste.");
         }
 
-}
+    }
+
 }
