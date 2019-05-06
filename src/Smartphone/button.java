@@ -15,7 +15,7 @@ public class button extends JButton {
         super(str);
         this.setBackground(Color.WHITE);
         this.name = str;
-        switch (str){
+      /*  switch (str){
             case "weather" : //La valeur entrée nous permet de connaitre le fond à mettre
                path =  "src\\pictures\\iconWeather.png";
                break;
@@ -29,7 +29,7 @@ public class button extends JButton {
             img = ImageIO.read(new File(path.toString()));
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     /*public void paintComponent(Graphics g){ //JSP ce que c'est j'ai pris sur internet

@@ -57,14 +57,15 @@ public class display extends JFrame {
 
 
         ///Panel
-        JPanel weatherPanel = new JPanel();
-        weatherPanel.add(x);
+
+
         JPanel homePanel = new JPanel(); //Homescreen
         homePanel.add(j);
         JPanel calculPanel = new Calculatrice();
         JPanel contactlPanel = new Contact();
         JPanel statusPanel = new JPanel();
-
+        JPanel weatherPanel = new GetWeatherData();
+      //  weatherPanel.add(x);
         statusPanel.setBorder(new BevelBorder(BevelBorder.RAISED));
         add(statusPanel, BorderLayout.NORTH);
         statusPanel.setPreferredSize(new Dimension(this.getWidth(), 30));
