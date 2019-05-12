@@ -25,7 +25,7 @@ public class display extends JFrame {
     //Array to other apps
     protected String[] access = {"Weather", "Contacts", "Home", "Calcul", "Gallery"};
 
-    private JButton weatherButton = new button("weather"); //Les boutons sont crées via une classe "button"
+    private JButton weatherButton = new button("weatherData"); //Les boutons sont crées via une classe "button"
     private JButton homeButton = new button("home");
     private JButton calculButton = new button("calculette");
     private JButton contactButton = new button("Contact");
@@ -65,7 +65,7 @@ public class display extends JFrame {
         JPanel calculPanel = new Calculatrice();
         JPanel contactlPanel = new Contact();
         JPanel statusPanel = new JPanel();
-        JPanel weatherPanel = new GetWeatherData();
+        JPanel weatherPanel = new weather();
         JPanel galleryPanel = new Gallery();
 
 

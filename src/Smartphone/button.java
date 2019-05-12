@@ -16,10 +16,7 @@ public class button extends JButton {
         this.setBackground(Color.WHITE);
         this.name = str;
       /*  switch (str){
-            case "weather" : //La valeur entrée nous permet de connaitre le fond à mettre
-               path =  "src\\pictures\\iconWeather.png";
-               break;
-            case "home" :
+           case "home" :
                 path = "src\\pictures\\iconHome.png";
                 break;
             default:
