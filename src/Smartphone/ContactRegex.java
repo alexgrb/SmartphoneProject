@@ -7,12 +7,13 @@ import java.util.regex.*;
 /*
  * @author Piranavan Thambirajah & Alex Gharbi
  * Createad: 04.05.2019 - Last Update: 30.04.2019
+ * Classe qui permet de vérifier les champs dans la classe Contact
  * Main frame for the smartphone
  */
 
-public class Regex {
+public class ContactRegex {
 
-    public Regex() {
+    public ContactRegex() {
     }
 
   //Méthode qui permet de vérfier si l'adresse e-mail est bel et bien correcte.

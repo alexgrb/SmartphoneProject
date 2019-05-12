@@ -6,29 +6,21 @@ package Smartphone;
  * Main frame for the smartphone
  */
 
-import javafx.scene.control.TextFormatter;
-import org.w3c.dom.ls.LSResourceResolver;
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.SAXException;
-
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.xml.transform.Result;
-import javax.xml.transform.Source;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.MessageFormat;
-import java.text.NumberFormat;
 
 public class Contact extends JPanel{
 
 
 
-    Regex regex = new Regex();
+    private static String dataFile = ".\\contact.txt";
+
+
+    ContactRegex regex = new ContactRegex();
 
     //Jpanel
     private JPanel container = new JPanel();
@@ -45,8 +37,6 @@ public class Contact extends JPanel{
     private JLabel lbNpaLoc = new JLabel("NPA / Localité");
     private JLabel lbDateNaissance = new JLabel("Date de naissance");
 
-    // FormattedTextFields
-
 
     //TextFields
     private JTextField jtNom = new JTextField();
@@ -62,12 +52,43 @@ public class Contact extends JPanel{
     private JCheckBox checkFav = new JCheckBox("Favori");
     private JButton bOK = new JButton ("OK");
 
+    //Liste des contacts
+    private static JList jlistContact = new JList();
+
+    protected JPanel topPanel = new JPanel(); // Stores the two top panels
+    protected JPanel leftPanel = new JPanel(); // Scroll Pane
+    protected JPanel rightPanel	= new JPanel(); // Right Panel with buttons + form
+    protected JPanel rightTopPanel = new JPanel(); // Buttons
+    protected static JPanel	rightBottomPanel = new JPanel(); // Form
+    protected JPanel bottomPanel = new JPanel(); // Stores the three bottom panels
+
     private JPanel top = new JPanel();
     private JPanel center = new JPanel();
     private JPanel bottom = new JPanel();
+    private JPanel east = new JPanel();
+
 
 
     public Contact() {
+
+        //Nouvelle police
+        Font police = new Font("Arial", Font.BOLD, 14);
+        jtNpa.setFont(police);
+
+
+
+        // Setting up the scroll pane
+        JScrollPane scrollPane = new JScrollPane(jlistContact);
+        Border emptyBorder = BorderFactory.createEmptyBorder();
+        scrollPane.setBorder(emptyBorder);
+        leftPanel.setBorder(emptyBorder);
+        jlistContact.setBorder(emptyBorder);
+        scrollPane.setBackground(Color.gray);
+        scrollPane.setBounds(0, 0, 500, 500);
+        jlistContact.setBackground(Color.LIGHT_GRAY);
+        jlistContact.setFont(police);
+        east.add(jlistContact);
+        east.add(scrollPane);
 
 
 
@@ -75,9 +96,7 @@ public class Contact extends JPanel{
 
 
 
-        //Nouvelle police
-        Font police = new Font("Arial", Font.BOLD, 14);
-        jtNpa.setFont(police);
+
 
 
         //Taille des JtextField
@@ -94,11 +113,11 @@ public class Contact extends JPanel{
 
         //On ajoute nos TextFields et JLabel en alternance
 
-            //Top
+        //Top
         top.add(lbTitre);
         top.setLayout(new GridLayout(1,1));
 
-            //Center
+        //Center
         center.add(lbNom);
         center.add(jtNom);
         center.add(lbPrenom);
@@ -116,16 +135,16 @@ public class Contact extends JPanel{
         center.add(checkFav);
 
         center.setLayout(new GridLayout(14,1));
-            //Bottom
+        //Bottom
         bottom.add(bOK);
 
         add(top, BorderLayout.NORTH);
         add(center, BorderLayout.CENTER);
         add(bottom, BorderLayout.SOUTH);
+        add(east, BorderLayout.EAST);
 
 
     }
-
 
 
     class BoutonListener implements ActionListener {
@@ -156,8 +175,41 @@ public class Contact extends JPanel{
                 System.out.println("Le NumTel est faux");
             else
                 System.out.println("Le NumTel est juste.");
+
+
+            String[] nomprenom = {jtPrenom.getText(), jtNom.getText()};
+            updateList(nomprenom);
+
         }
 
     }
+
+    private static String[] listAffichageJList;
+
+
+    public void updateList(String[] nomprenom){
+        String contactonlist = "";
+        listAffichageJList = new String[1];
+        try {
+            for (int i = 0; i<nomprenom.length; i++){
+                if(nomprenom[i]!= null){
+                    //listAffichageJList[i] = nomprenom[i];
+                    listAffichageJList[i] = nomprenom[0] + " " + nomprenom[1];
+                    if(nomprenom[i].contains("#deleted")){
+
+                        //listAffichageJList[i] = null;
+                    }
+                }
+            }
+
+            jlistContact.setListData(listAffichageJList);
+            //statutBtnInitial();
+            //panelDroitBas.setVisible(false);
+        }catch (Exception e){
+            System.out.println("Erreur à la mise a jour des informations");
+            System.out.println(e.toString());
+        }
+    }
+
 
 }

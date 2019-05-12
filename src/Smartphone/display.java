@@ -29,6 +29,8 @@ public class display extends JFrame {
     private JButton homeButton = new button("home");
     private JButton calculButton = new button("calculette");
     private JButton contactButton = new button("Contact");
+    private JButton galleryButton = new button("Gallery");
+
     private JPanel dockPanel = new JPanel();
 
 
@@ -54,6 +56,8 @@ public class display extends JFrame {
         contactButton.addActionListener(new homeListener(1));
         homeButton.addActionListener(new homeListener(2));
         calculButton.addActionListener(new homeListener(3));
+        galleryButton.addActionListener(new homeListener(4));
+
 
 
         ///Panel
@@ -65,6 +69,8 @@ public class display extends JFrame {
         JPanel contactlPanel = new Contact();
         JPanel statusPanel = new JPanel();
         JPanel weatherPanel = new GetWeatherData();
+        //JPanel galleryPanel = new Gallery();
+
       //  weatherPanel.add(x);
         statusPanel.setBorder(new BevelBorder(BevelBorder.RAISED));
         add(statusPanel, BorderLayout.NORTH);
@@ -82,6 +88,7 @@ public class display extends JFrame {
         dockPanel.add(homeButton);
         dockPanel.add(calculButton);
         dockPanel.add(contactButton);
+        dockPanel.add(galleryButton);
 
         ///CONFIGURATION DES LAYOUT///
 
@@ -91,6 +98,8 @@ public class display extends JFrame {
         content.add(contactlPanel, access[1]);
         content.add(homePanel, access[2]);
         content.add(calculPanel, access[3]);
+        //content.add(galleryPanel, access[4]);
+
 
         add(content, BorderLayout.CENTER);
         add(dockPanel, BorderLayout.SOUTH);
