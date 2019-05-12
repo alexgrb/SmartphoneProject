@@ -1,10 +1,16 @@
 package Smartphone;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
+
 
 import javax.swing.*;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -13,10 +19,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GetWeatherData extends JPanel {
-    protected JTextArea jTextArea = new JTextArea();
+    protected JTextArea currentTemp = new JTextArea();
+    protected JTextArea windSpeed = new JTextArea();
+    ImageIcon h = new ImageIcon("src\\pictures\\weatherBackground.jpg");
+    JLabel x = new JLabel(h);
 
     public GetWeatherData() {
         showData();
+        this.add(x);
     }
 
     public static Map<String, Object> jsonToMap(String str){
@@ -24,6 +34,8 @@ public class GetWeatherData extends JPanel {
                 str, new TypeToken<HashMap<String, Object>>() {}.getType()
         );
         return map;
+
+
 
     }
     public void showData(){
@@ -44,6 +56,28 @@ public class GetWeatherData extends JPanel {
             read.close();
             System.out.println(result);
 
+            /*String mapObject = result.toString();
+            ObjectMapper objectMapper = new ObjectMapper();
+            Map<String, Object> jsonMap = objectMapper.readValue(mapObject,new TypeReference<Map<String,Object>>(){});
+            System.out.println(jsonMap.get("weather"));
+
+
+*/
+            ObjectMapper objectMapper = new ObjectMapper();
+            currentTemp.append( "Ici les données météo." );
+
+            String temp ="";
+            //Le code suivant permet de rentrer en profondeur dans l'arbre JSON
+            try {
+                JsonNode node = objectMapper.readTree(result.toString());
+                for (JsonNode item : node.get("weather")) {
+                    System.out.println(item.get("icon"));
+                }
+
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+            //Ce code permet de récupérer les données en surface du JSON
             Map<String, Object> respMap = jsonToMap(result.toString());
             Map<String, Object> mainMap = jsonToMap(respMap.get("main").toString());
             Map<String, Object> windMap = jsonToMap(respMap.get("wind").toString());
@@ -53,14 +87,13 @@ public class GetWeatherData extends JPanel {
             System.out.println("Wind Speeds : " + windMap.get("speed"));
             System.out.println("Wind Angle" + windMap.get("deg"));
 
-            jTextArea.append( "Ici les données météo." );
+            currentTemp.append("Current temperature : " + temp);
 
-            jTextArea.append("Current temperature : " + mainMap.get("temp"));
-            jTextArea.append("Wind Speeds : " + windMap.get("speed"));
-            jTextArea.append("Wind Angle" + windMap.get("deg"));
-            add( jTextArea );
+                    add(currentTemp);
+            add(windSpeed);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
+
 }

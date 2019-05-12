@@ -23,14 +23,13 @@ public class display extends JFrame {
     protected JPanel content = new JPanel();
 
     //Array to other apps
-    protected String[] access = {"Weather", "Contacts", "Home", "Calcul"};
+    protected String[] access = {"Weather", "Contacts", "Home", "Calcul", "Gallery"};
 
     private JButton weatherButton = new button("weather"); //Les boutons sont crées via une classe "button"
     private JButton homeButton = new button("home");
     private JButton calculButton = new button("calculette");
     private JButton contactButton = new button("Contact");
-    private JButton galleryButton = new button("Gallery");
-
+    private JButton galleryButton = new button("galerie");
     private JPanel dockPanel = new JPanel();
 
 
@@ -39,8 +38,6 @@ public class display extends JFrame {
         ///PARAMETRE DE LA FENETRE///
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); //Ferme le programme lorsqu'on ferme la fenêtre
         setResizable(false); //Empêche le redimensionnement
-        setUndecorated(false); //Retire toutes options autour de la fenêtre
-        setTitle("SMARTPHONE");
         setUndecorated(true);
 
         ///                     ///
@@ -49,7 +46,7 @@ public class display extends JFrame {
         JLabel j = new JLabel(i);
 
         ImageIcon h = new ImageIcon("src\\pictures\\weatherBackground.jpg");
-        JLabel x = new JLabel(h);
+
 
         ///ACTION LISTENER SUR LES BOUTONS///
         weatherButton.addActionListener(new homeListener (0));
@@ -69,9 +66,9 @@ public class display extends JFrame {
         JPanel contactlPanel = new Contact();
         JPanel statusPanel = new JPanel();
         JPanel weatherPanel = new GetWeatherData();
-        //JPanel galleryPanel = new Gallery();
+        JPanel galleryPanel = new Gallery();
 
-      //  weatherPanel.add(x);
+
         statusPanel.setBorder(new BevelBorder(BevelBorder.RAISED));
         add(statusPanel, BorderLayout.NORTH);
         statusPanel.setPreferredSize(new Dimension(this.getWidth(), 30));
@@ -98,8 +95,7 @@ public class display extends JFrame {
         content.add(contactlPanel, access[1]);
         content.add(homePanel, access[2]);
         content.add(calculPanel, access[3]);
-        //content.add(galleryPanel, access[4]);
-
+        content.add(galleryPanel, access[4]);
 
         add(content, BorderLayout.CENTER);
         add(dockPanel, BorderLayout.SOUTH);

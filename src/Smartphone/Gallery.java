@@ -3,18 +3,19 @@ package Smartphone;
 import javax.swing.*;
 import java.awt.*;
 
-public class Gallery extends JFrame {
+public class Gallery extends JPanel {
 
 
 
     public Gallery (){
-        JFrame frame = new JFrame("Test");
-        JPanel panel = new JPanel(new GridLayout(3, 3, 2,2 ));
-        frame.setContentPane(panel);
+       // JPanel panel = new JPanel(new GridLayout(3, 3, 2,2 ));
 
+       // JFrame frame = new JFrame();
 
+        //frame.add(panel);
+      //  add(panel);
 
-
+        setLayout(new GridLayout(3, 3, 2,2 ));
         //Ajout de chaque image dans un label
         ImageIcon image1 = new ImageIcon("src\\pictures\\1.jpg");
         JLabel label1 = new JLabel(image1);
@@ -65,7 +66,7 @@ public class Gallery extends JFrame {
         frame.add(scrollPane);
 */
         // Ajout des label dans le panel
-        panel.add(label1);
+       /* panel.add(label1);
         //add(scrollPane);
 
         panel.add(label2);
@@ -76,12 +77,24 @@ public class Gallery extends JFrame {
         panel.add(label7);
         panel.add(label8);
         panel.add(label9);
+
+        */
         /*panel.add(label10);
         panel.add(label11);
         panel.add(label12);
 */
+        add(label1);
+        //add(scrollPane);
 
-        add(panel);
+        add(label2);
+        add(label3);
+        add(label4);
+        add(label5);
+        add(label6);
+        add(label7);
+        add(label8);
+        add(label9);
+        //add(panel);
 
     }
 
