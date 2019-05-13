@@ -7,8 +7,6 @@ import com.google.gson.reflect.TypeToken;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -19,17 +17,14 @@ import java.util.Map;
 
 public class GetWeatherData extends JPanel {
 
-    ImageIcon h = new ImageIcon("src\\pictures\\weatherBackground.jpg");
-    JLabel x = new JLabel(h);
     String icon = "01d";
     String description = "";
-    String cityLabel="Montreux";
 
     public GetWeatherData(String city) {
-        cityLabel = city;
-        setLayout(new GridLayout(5,2));
+        setLayout(new GridLayout(3,2));
+        ///////////////////////////////
         String API_KEY = "bca5b91d81e883aa7988a8ff953ea56e"; //API gratuite obtenu sur OpenWeather
-        String urlString = "https://api.openweathermap.org/data/2.5/weather?q=" + cityLabel + "&appid=" + API_KEY + "&units=metric";
+        String urlString = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + API_KEY + "&units=metric";
         try {
             StringBuilder result = new StringBuilder();
             URL url = new URL(urlString);
@@ -41,9 +36,9 @@ public class GetWeatherData extends JPanel {
             }
             read.close();
             System.out.println(result);
+        ////////////////////////////////
 
             ObjectMapper objectMapper = new ObjectMapper();
-
             //Le code suivant permet de rentrer en profondeur dans l'arbre JSON
             try {
                 JsonNode node = objectMapper.readTree(result.toString());
@@ -56,13 +51,12 @@ public class GetWeatherData extends JPanel {
             }
             JLabel descriptionLabel = new JLabel(description);
 
-            ImageIcon weatherIcon = new ImageIcon("src\\pictures\\" + icon + ".png");
+            ImageIcon weatherIcon = new ImageIcon(icon);
             //Ce code permet de récupérer les données en surface du JSON
             Map<String, Object> respMap = jsonToMap(result.toString());
             Map<String, Object> mainMap = jsonToMap(respMap.get("main").toString());
             Map<String, Object> windMap = jsonToMap(respMap.get("wind").toString());
 
-            System.out.println(mainMap.get("description"));
             JLabel currentTemp = new JLabel(mainMap.get("temp") + "°");
             JLabel currentHumidity = new JLabel(mainMap.get("humidity") + "% taux d'humidité");
             JLabel windSpeed = new JLabel(windMap.get("speed") + " km/h");
@@ -70,9 +64,10 @@ public class GetWeatherData extends JPanel {
             JLabel cityLabel = new JLabel(city);
             JLabel image = new JLabel(weatherIcon);
 
-          //  weather.setText(coursField.getText());
         add(currentTemp);
-
+        System.out.println(weatherIcon.toString());
+        add(image);
+        add(descriptionLabel);
         add(windSpeed);
         add(cityLabel);
 
@@ -89,10 +84,6 @@ public class GetWeatherData extends JPanel {
         );
         return map;
     }
-    public String getCityLabel(){
-        return cityLabel;
-    }
-
 }
 
 
