@@ -1,29 +1,17 @@
 package Smartphone;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.HashMap;
-import java.util.Map;
 
 public class weather extends JPanel {
 
     //Array to other apps
-    protected String[] cities = {"Montreux", "Sion", "Lausanne", "Zurich"};
     JButton montreux = new JButton("Montreux");
     JLabel cityLabel = new JLabel("Lausanne");
+    JPanel contentWeather = new JPanel();
 
     public void setMontreux(JButton montreux) {
         this.montreux = montreux;
@@ -36,31 +24,28 @@ public class weather extends JPanel {
             cityList = new JComboBox(cities);
             cityList.addActionListener(new comboListener());
             add(cityList);
-
-
             add(cityLabel);
-
             montreux.addActionListener(new comboListener());
 
-
-            //add(new GetWeatherData(cityList.getSelectedItem().toString()));
+            setLayout(new FlowLayout());
+            add(contentWeather);
         }
 
     class comboListener implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                int i =0;
-               JPanel montreuxPanel = new GetWeatherData("Montreux");
-               add(montreuxPanel);
+               JPanel montreuxPanel = new GetWeatherData(cityList.getSelectedItem().toString());
 
-                String s = ((GetWeatherData) montreuxPanel).showModal();
+               remove(contentWeather);
+               contentWeather = montreuxPanel;
+               add(contentWeather);
+                String s = ((GetWeatherData) montreuxPanel).getCityLabel();
                 cityLabel.setText(s);
-
             }
         }
     public void setCityLabel(String cityLabel) {
         this.cityLabel.setText(cityLabel);
-
         }
 }
 

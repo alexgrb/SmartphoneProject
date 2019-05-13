@@ -26,9 +26,10 @@ public class GetWeatherData extends JPanel {
     String cityLabel="Montreux";
 
     public GetWeatherData(String city) {
+        cityLabel = city;
         setLayout(new GridLayout(5,2));
         String API_KEY = "bca5b91d81e883aa7988a8ff953ea56e"; //API gratuite obtenu sur OpenWeather
-        String urlString = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + API_KEY + "&units=metric";
+        String urlString = "https://api.openweathermap.org/data/2.5/weather?q=" + cityLabel + "&appid=" + API_KEY + "&units=metric";
         try {
             StringBuilder result = new StringBuilder();
             URL url = new URL(urlString);
@@ -67,16 +68,19 @@ public class GetWeatherData extends JPanel {
             JLabel windSpeed = new JLabel(windMap.get("speed") + " km/h");
             JLabel windAngle = new JLabel(windMap.get("deg") + "°");
             JLabel cityLabel = new JLabel(city);
+            JLabel image = new JLabel(weatherIcon);
 
           //  weather.setText(coursField.getText());
         add(currentTemp);
+
+        add(windSpeed);
+        add(cityLabel);
+
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
-
-
 
     public static Map<String, Object> jsonToMap(String str) {
         Map<String, Object> map = new Gson().fromJson(
@@ -85,7 +89,7 @@ public class GetWeatherData extends JPanel {
         );
         return map;
     }
-    public String showModal(){
+    public String getCityLabel(){
         return cityLabel;
     }
 
