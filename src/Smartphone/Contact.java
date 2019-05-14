@@ -8,16 +8,16 @@ package Smartphone;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
+import java.util.List;
 
-public class Contact extends JPanel{
-
-
-
-    private static String dataFile = ".\\contact.txt";
+public class Contact extends JPanel {
 
 
     ContactRegex regex = new ContactRegex();
@@ -50,16 +50,16 @@ public class Contact extends JPanel{
 
     //Bouton
     private JCheckBox checkFav = new JCheckBox("Favori");
-    private JButton bOK = new JButton ("OK");
+    private JButton bOK = new JButton("OK");
 
     //Liste des contacts
-    private static JList jlistContact = new JList();
+    private JList jlistContact = new JList();
 
     protected JPanel topPanel = new JPanel(); // Stores the two top panels
     protected JPanel leftPanel = new JPanel(); // Scroll Pane
-    protected JPanel rightPanel	= new JPanel(); // Right Panel with buttons + form
+    protected JPanel rightPanel = new JPanel(); // Right Panel with buttons + form
     protected JPanel rightTopPanel = new JPanel(); // Buttons
-    protected static JPanel	rightBottomPanel = new JPanel(); // Form
+    protected JPanel rightBottomPanel = new JPanel(); // Form
     protected JPanel bottomPanel = new JPanel(); // Stores the three bottom panels
 
     private JPanel top = new JPanel();
@@ -67,6 +67,8 @@ public class Contact extends JPanel{
     private JPanel bottom = new JPanel();
     private JPanel east = new JPanel();
 
+    private String week[] = {"Monday", "Tuesday", "Wednesday",
+            "Thursday", "Friday", "Saturday", "Sunday"};
 
 
     public Contact() {
@@ -74,7 +76,6 @@ public class Contact extends JPanel{
         //Nouvelle police
         Font police = new Font("Arial", Font.BOLD, 14);
         jtNpa.setFont(police);
-
 
 
         // Setting up the scroll pane
@@ -91,13 +92,42 @@ public class Contact extends JPanel{
         east.add(scrollPane);
 
 
-
         bOK.addActionListener(new BoutonListener());
 
 
+        // Liste
 
 
 
+        /*
+        DefaultListModel listModel = new DefaultListModel();
+
+
+        listModel.addElement("Jane Doe");
+        listModel.addElement("John Smith");
+        listModel.addElement("Kathy Green");
+        */
+
+
+        //Implémente le String[] dans la Jlist
+        jlistContact = new JList(week);
+
+        //Lorsque l'on clique sur un éléments de la liste, il s'affiche sur la console
+        jlistContact.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    final List selectedValuesList = jlistContact.getSelectedValuesList();
+                    System.out.println(selectedValuesList);
+                }
+            }
+        });
+
+        //Ajoute un scrollpane à la Jlist
+        add(new JScrollPane(jlistContact));
+
+        //Ajoute la liste dans le Jpanel top (qui est instancié plus bas)
+        top.add(jlistContact);
 
         //Taille des JtextField
 
@@ -115,7 +145,7 @@ public class Contact extends JPanel{
 
         //Top
         top.add(lbTitre);
-        top.setLayout(new GridLayout(1,1));
+        top.setLayout(new GridLayout(1, 1));
 
         //Center
         center.add(lbNom);
@@ -134,9 +164,11 @@ public class Contact extends JPanel{
         center.add(jtDateNaissance);
         center.add(checkFav);
 
-        center.setLayout(new GridLayout(14,1));
+        center.setLayout(new GridLayout(14, 1));
+
+        center.add(bOK);
+
         //Bottom
-        bottom.add(bOK);
 
         add(top, BorderLayout.NORTH);
         add(center, BorderLayout.CENTER);
@@ -177,8 +209,21 @@ public class Contact extends JPanel{
                 System.out.println("Le NumTel est juste.");
 
 
-            String[] nomprenom = {jtPrenom.getText(), jtNom.getText()};
-            updateList(nomprenom);
+            ContactData alex = new ContactData("Alex", "Gharbi", "08292982873", "alex.gharbi@hotmail.com", "Wow", "1009", "01.06.1996");
+
+            try {
+                Serialisation(alex);
+                Deserialisation();
+                WriteData();
+                WriteData();
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
+
+            //String[] nomprenom = {jtPrenom.getText(), jtNom.getText()};
+            //updateList(nomprenom);
 
         }
 
@@ -187,15 +232,15 @@ public class Contact extends JPanel{
     private static String[] listAffichageJList;
 
 
-    public void updateList(String[] nomprenom){
+    public void updateList(String[] nomprenom) {
         String contactonlist = "";
         listAffichageJList = new String[1];
         try {
-            for (int i = 0; i<nomprenom.length; i++){
-                if(nomprenom[i]!= null){
+            for (int i = 0; i < nomprenom.length; i++) {
+                if (nomprenom[i] != null) {
                     //listAffichageJList[i] = nomprenom[i];
                     listAffichageJList[i] = nomprenom[0] + " " + nomprenom[1];
-                    if(nomprenom[i].contains("#deleted")){
+                    if (nomprenom[i].contains("#deleted")) {
 
                         //listAffichageJList[i] = null;
                     }
@@ -205,10 +250,72 @@ public class Contact extends JPanel{
             jlistContact.setListData(listAffichageJList);
             //statutBtnInitial();
             //panelDroitBas.setVisible(false);
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Erreur à la mise a jour des informations");
             System.out.println(e.toString());
         }
+    }
+
+
+
+    public static String pathFiletxt = ".\\contact.txt";
+
+    //Méthode qui permet de sérialiser et inscrire le conetnu d'un objet ContactData préparé à l'avance, dans le fichier .txt
+
+    public static void Serialisation(ContactData contactData) throws FileNotFoundException {
+
+        try {
+            FileOutputStream fos = new FileOutputStream(pathFiletxt);
+            ObjectOutputStream os = new ObjectOutputStream(fos);
+            os.writeObject(contactData);
+            System.out.println("Objet sérialisé");
+            os.close();
+            System.out.println("Fermeture");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    //Méthode qui permet de lire le fichier .txt (illisible pour nous) et le traduire en charactères lisibles dans la console
+    public void Deserialisation() throws FileNotFoundException {
+
+        try {
+
+
+            FileInputStream fis = new FileInputStream(pathFiletxt);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            ContactData cd = (ContactData) ois.readObject();
+            System.out.println("Mon objet " + cd);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    //Méthode qui permet de parcourir notre String [] et de l'afficher en toute lettres dans notre fichier .txt
+    public void WriteData() {
+
+
+        try {
+            PrintWriter fichierSortie = new PrintWriter(new BufferedWriter(new FileWriter(pathFiletxt, false)));
+            for (int i = 0; i<week.length; i++){
+                if(week[i]!= null){
+                    if(!week[i].contains("#delete")){
+                        fichierSortie.println(week[i]);
+                        System.out.println("Il se passe un truc!!");
+
+                    }
+                }
+            }
+            //fermeture fichier
+            fichierSortie.close();
+        } catch (IOException e) {
+            System.out.println("erreur inscription dans fichier");
+            e.printStackTrace();
+        }
+
     }
 
 

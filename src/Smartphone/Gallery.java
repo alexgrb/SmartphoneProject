@@ -2,6 +2,9 @@ package Smartphone;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.Image;
 import java.awt.event.MouseListener;
 
 public class Gallery extends JPanel {
@@ -13,6 +16,7 @@ public class Gallery extends JPanel {
         setLayout(new BorderLayout());
 
         imgPanel.setLayout(new GridLayout(0, 2));
+
 
 
 
@@ -40,56 +44,25 @@ public class Gallery extends JPanel {
 
 
 
-        /*
-        //Ajout de chaque image dans un label
-        ImageIcon image1 = new ImageIcon("src\\pictures\\1.jpg");
-        JLabel label1 = new JLabel(image1);
 
 
-        ImageIcon image2 = new ImageIcon("src\\pictures\\2.jpg");
-        JLabel label2 = new JLabel(image2);
-
-
-        ImageIcon image3 = new ImageIcon("src\\pictures\\3.jpg");
-        JLabel label3 = new JLabel(image3);
-        //label3.setPreferredSize(new Dimension(160, 500));
-
-        ImageIcon image4 = new ImageIcon("src\\pictures\\4.jpg");
-        JLabel label4 = new JLabel(image4);
-
-        ImageIcon image5 = new ImageIcon("src\\pictures\\5.jpg");
-        JLabel label5 = new JLabel(image5);
-
-        ImageIcon image6 = new ImageIcon("src\\pictures\\6.jpg");
-        JLabel label6 = new JLabel(image6);
-
-        ImageIcon image7 = new ImageIcon("src\\pictures\\7.jpg");
-        JLabel label7 = new JLabel(image7);
-
-        ImageIcon image8 = new ImageIcon("src\\pictures\\8.jpg");
-        JLabel label8 = new JLabel(image8);
-
-        ImageIcon image9 = new ImageIcon("src\\pictures\\9.jpg");
-        JLabel label9 = new JLabel(image9);
-
-        ImageIcon image10 = new ImageIcon("src\\pictures\\10.PNG");
-        JLabel label10 = new JLabel(image10);
-
-        ImageIcon image11 = new ImageIcon("src\\pictures\\11.jpg");
-        JLabel label11 = new JLabel(image11);
-
+/*
         ImageIcon image12 = new ImageIcon("src\\pictures\\goals.jpg");
         JLabel label12 = new JLabel(image12);
 
-*/
-
-
-        /*
-        ImageIcon image12 = new ImageIcon("src\\pictures\\goals.jpg");
-        JLabel label12 = new JLabel(image12);
-        label12.addMouseListener(new MouseListener());
         imgPanel.add(label12);
+
+        label12.addMouseListener(new MouseAdapter()
+        {
+            @Override
+            public void mouseClicked(MouseEvent e)
+            {
+                Image scaleImage = image12.getImage().getScaledInstance(280, 280,Image.SCALE_DEFAULT);                System.out.println("wooooow mdr");
+            }
+        });
+
 */
+
 
 
 
