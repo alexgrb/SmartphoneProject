@@ -24,18 +24,7 @@ public class display extends JFrame {
 
     //Array to other apps
     protected String[] access = {"Weather", "Contacts", "Home", "Calcul", "Gallery"};
-
-
-    //private JButton weatherButton = new button("weatherData"); //Les boutons sont crées via une classe "button"
-    private JButton weatherButton = new JButton("weather");
-    private JButton homeButton = new button("home");
-    private JButton calculButton = new button("calculette");
-    private JButton contactButton = new button("Contact");
-    private JButton galleryButton = new button("galerie");
     private JButton[] appButton= new JButton[maxApp];
-
-    private JPanel dockPanel = new JPanel();
-
 
     public display(){
 

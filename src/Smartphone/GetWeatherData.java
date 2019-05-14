@@ -1,5 +1,6 @@
 package Smartphone;
-import tools.imageLabel;
+import tools.*;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -69,10 +70,13 @@ public class GetWeatherData extends JPanel {
             JLabel whiteSpace = new JLabel("");
             JLabel windText = new JLabel("Wind speed : ");
 
-            JLabel image = new imageLabel(icon);
-            image.setBounds(0,0,50,50);
-            add(image);
 
+            int scaledWidth = 100;
+            int scaledHeight = 100;
+            ImageResizer.resize("src\\pictures\\" + icon+ ".png", "src\\pictures\\" + icon+ "2.png", scaledWidth, scaledHeight);
+            JLabel image = new imageLabel(icon+"2");
+            image.setBounds(0,0,100,100);
+            add(image);
             descriptionText.setBounds(110, 0,150,50);
             add(descriptionText);
 
@@ -80,21 +84,12 @@ public class GetWeatherData extends JPanel {
             System.out.println(description);
             add(descriptionLabel);
 
-            currentTemp.setBounds(10,55,50,50);
+            currentTemp.setBounds(10,65,50,50);
             add(currentTemp);
 
-            windSpeed.setBounds(110, 55, 150,50);
+            windSpeed.setBounds(110, 65, 150,50);
             add(windSpeed);
-/*
-            add(currentTempText);
-            add(currentTemp);
-            add(whiteSpace);
-            add(descriptionText);
-            add(descriptionLabel);
-            add(windText);
-            add(windSpeed);
-            add(cityLabel);
-*/
+
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
