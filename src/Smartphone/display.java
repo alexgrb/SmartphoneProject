@@ -18,18 +18,22 @@ public class display extends JFrame {
 
     //Main setting wich allows us to switch between panels
     protected CardLayout cardLayout = new CardLayout();
-
+    protected int maxApp = 5;
     //Panels
     protected JPanel content = new JPanel();
 
     //Array to other apps
     protected String[] access = {"Weather", "Contacts", "Home", "Calcul", "Gallery"};
 
-    private JButton weatherButton = new button("weatherData"); //Les boutons sont crées via une classe "button"
+
+    //private JButton weatherButton = new button("weatherData"); //Les boutons sont crées via une classe "button"
+    private JButton weatherButton = new JButton("weather");
     private JButton homeButton = new button("home");
     private JButton calculButton = new button("calculette");
     private JButton contactButton = new button("Contact");
     private JButton galleryButton = new button("galerie");
+    private JButton[] appButton= new JButton[maxApp];
+
     private JPanel dockPanel = new JPanel();
 
 
@@ -40,29 +44,37 @@ public class display extends JFrame {
         setResizable(false); //Empêche le redimensionnement
         setUndecorated(true);
 
-        ///                     ///
-        ///PATH VERS LES FONDS  ///
-        ImageIcon i = new ImageIcon("src\\pictures\\homeBackground.jpg");
-        JLabel j = new JLabel(i);
+        ///BOUTONS///
+        for (int i=0 ; i<appButton.length;i++){
+            appButton[i] = new JButton();
+            appButton[i].addActionListener(new homeListener(i));
+        }
+        appButton[0].setText("weather");
+        appButton[1].setText("contact");
+        appButton[2].setText("home");
+        appButton[3].setText("calculette");
+        appButton[4].setText("galerie");
+        int x=10; //Position X
+        int y=700; //Position Y
+        int width=90;
+        int height=35;
+        int cpt=0; //Compteur pour changer de ligne qu'on arrive à 4
+        for(int z = 0; z< maxApp; z++){
+            appButton[z].setBounds(x,y,width,height);
+            add(appButton[z]);
+            x+=95; //On se déplace sur la droite de 105 pixel
+            cpt++;
+            if(cpt==4) { //Si on a déjà 4 app sur la ligne
+                y += 50; //On décale vers le bas
+                x = 10; //On revient tout à gauche
+            }
+        }
+        /////////////////////////////////
+        JLabel j = new imageLabel("homeBackground"); //Background Image
 
-        ImageIcon h = new ImageIcon("src\\pictures\\weatherBackground.jpg");
-
-
-        ///ACTION LISTENER SUR LES BOUTONS///
-        weatherButton.addActionListener(new homeListener (0));
-        contactButton.addActionListener(new homeListener(1));
-        homeButton.addActionListener(new homeListener(2));
-        calculButton.addActionListener(new homeListener(3));
-        galleryButton.addActionListener(new homeListener(4));
-
-
-
-        ///Panel
-
-
+        //Panel
         JPanel homePanel = new JPanel(); //Homescreen
         homePanel.add(j);
-
         JPanel calculPanel = new Calculatrice();
         JPanel contactlPanel = new Contact();
         JPanel statusPanel = new JPanel();
@@ -82,12 +94,6 @@ public class display extends JFrame {
         statusPanel.add(statusLabel);
         statusPanel.add(closeButton);
 
-        dockPanel.add(weatherButton);
-        dockPanel.add(homeButton);
-        dockPanel.add(calculButton);
-        dockPanel.add(contactButton);
-        dockPanel.add(galleryButton);
-
         ///CONFIGURATION DES LAYOUT///
         content.setLayout(cardLayout);
         content.add(homePanel, access[2]);
@@ -96,7 +102,6 @@ public class display extends JFrame {
         content.add(calculPanel, access[3]);
         content.add(galleryPanel, access[4]);
         add(content, BorderLayout.CENTER);
-        add(dockPanel, BorderLayout.SOUTH);
     }
 
     class homeListener implements ActionListener{
@@ -104,7 +109,6 @@ public class display extends JFrame {
         public homeListener(int appId){
             i = appId;
         }
-
         public void actionPerformed(ActionEvent e) {
             //Via cette instruction, on passe au conteneur correspondant au nom fourni en paramètre
             cardLayout.show(content, access[i]);
@@ -114,7 +118,6 @@ public class display extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-
             System.exit(0);
         }
     }

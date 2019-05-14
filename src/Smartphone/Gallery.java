@@ -1,5 +1,7 @@
 package Smartphone;
 
+import tools.imageLabel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -10,17 +12,13 @@ import java.awt.event.MouseListener;
 public class Gallery extends JPanel {
 
     JPanel imgPanel = new JPanel();
-
+    private int nbPhotos = 11;
     public Gallery (){
 
         setLayout(new BorderLayout());
-
         imgPanel.setLayout(new GridLayout(0, 2));
 
-
-
-
-        String [] tabFileName = {"src\\pictures\\1.jpg",
+      /*  String [] tabFileName = {"src\\pictures\\1.jpg",
                 "src\\pictures\\2.jpg",
                 "src\\pictures\\3.jpg",
                 "src\\pictures\\4.jpg",
@@ -30,22 +28,22 @@ public class Gallery extends JPanel {
                 "src\\pictures\\8.jpg",
                 "src\\pictures\\9.jpg",
                 "src\\pictures\\10.PNG",
-                "src\\pictures\\11.jpg",
-                "src\\pictures\\goals.jpg"};
+                "src\\pictures\\11.jpg"};
 
-        JLabel label[] = new JLabel[12];
-        ImageIcon img [] = new ImageIcon[12];
+
+        ImageIcon img [] = new ImageIcon[11];
 
         for (int i = 0 ; i < tabFileName.length ; i++){
             img [i] = new ImageIcon(tabFileName[i]);
             label[i] = new JLabel(img [i]);
             imgPanel.add(label[i]);
+        }*/
+
+        JLabel label[] = new JLabel[11];
+        for (int j = 1; j<nbPhotos; j++){
+            label[j] = new imageLabel(String.valueOf(j));
+            imgPanel.add(label[j]);
         }
-
-
-
-
-
 /*
         ImageIcon image12 = new ImageIcon("src\\pictures\\goals.jpg");
         JLabel label12 = new JLabel(image12);
@@ -62,16 +60,9 @@ public class Gallery extends JPanel {
         });
 
 */
-
-
-
-
-
-
         JScrollPane scroll = new JScrollPane();
         scroll.setViewportView(imgPanel);
         add(new JScrollPane(imgPanel));
-
 
     }
 

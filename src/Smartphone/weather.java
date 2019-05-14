@@ -17,9 +17,7 @@ public class weather extends JPanel {
             cityList = new JComboBox(cities);
             cityList.addActionListener(new comboListener());
 
-            //setLayout(new BorderLayout());
             setLayout(null);
-            //setLayout(null);
             cityList.setBounds(10,10,120,35);
             add(cityList);
 
