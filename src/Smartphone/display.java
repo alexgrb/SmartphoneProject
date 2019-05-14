@@ -6,13 +6,13 @@ package Smartphone;
  * Main frame for the smartphone
  */
 
+import tools.imageLabel;
+
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class display extends JFrame {
 
@@ -62,6 +62,7 @@ public class display extends JFrame {
 
         JPanel homePanel = new JPanel(); //Homescreen
         homePanel.add(j);
+
         JPanel calculPanel = new Calculatrice();
         JPanel contactlPanel = new Contact();
         JPanel statusPanel = new JPanel();
@@ -88,15 +89,12 @@ public class display extends JFrame {
         dockPanel.add(galleryButton);
 
         ///CONFIGURATION DES LAYOUT///
-
         content.setLayout(cardLayout);
-
+        content.add(homePanel, access[2]);
         content.add(weatherPanel, access[0]);
         content.add(contactlPanel, access[1]);
-        content.add(homePanel, access[2]);
         content.add(calculPanel, access[3]);
         content.add(galleryPanel, access[4]);
-
         add(content, BorderLayout.CENTER);
         add(dockPanel, BorderLayout.SOUTH);
     }

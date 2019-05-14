@@ -11,33 +11,33 @@ public class weather extends JPanel {
     //Array to other apps
     public JPanel contentWeather = new GetWeatherData("Lausanne,CH");
     public JComboBox cityList;
-    private JLabel cityLabel= new JLabel();
 
         public weather() {
             Object[] cities = new Object[]{"Lausanne,CH", "Sion,CH", "Zurich,CH", "Montreux,CH", "Sierre,CH"};
             cityList = new JComboBox(cities);
             cityList.addActionListener(new comboListener());
+
+            //setLayout(new BorderLayout());
+            setLayout(null);
+            //setLayout(null);
+            cityList.setBounds(10,10,120,35);
             add(cityList);
 
-            setLayout(new BorderLayout());
-
-            add(cityList, BorderLayout.NORTH);
-            add(contentWeather, BorderLayout.CENTER);
-
+            contentWeather.setBounds(0,55,480,745);
+            add(contentWeather);
         }
 
     class comboListener implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-
-              contentWeather.removeAll();
-
-               JPanel weatherPanel = new GetWeatherData(cityList.getSelectedItem().toString());
-                contentWeather.add(weatherPanel,BorderLayout.CENTER);
-               contentWeather.validate();
+                contentWeather.removeAll();
+                JPanel weatherPanel = new GetWeatherData(cityList.getSelectedItem().toString());
+                contentWeather.setLayout(null);
+                weatherPanel.setBounds(0,0,480,745);
+                contentWeather.add(weatherPanel);
+                contentWeather.validate();
                 contentWeather.repaint();
-            setVisible(true);
+                setVisible(true);
             }
         }
 }
