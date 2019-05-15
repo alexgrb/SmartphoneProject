@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import javax.swing.*;
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -71,23 +72,24 @@ public class GetWeatherData extends JPanel {
             JLabel windText = new JLabel("Wind speed : ");
 
 
-            int scaledWidth = 100;
-            int scaledHeight = 100;
+            int scaledWidth = 150;
+            int scaledHeight = 150;
             ImageResizer.resize("src\\pictures\\" + icon+ ".png", "src\\pictures\\" + icon+ "2.png", scaledWidth, scaledHeight);
             JLabel image = new imageLabel(icon+"2");
-            image.setBounds(0,0,100,100);
+            image.setBounds(0,0,150,150);
             add(image);
-            descriptionText.setBounds(110, 0,150,50);
-            add(descriptionText);
 
-            descriptionLabel.setBounds(200,0,150,50);
+           // descriptionText.setBounds(160, 0,90,50);
+            //add(descriptionText);
+            descriptionLabel.setBounds(150,50,150,50);
+            new textResizer(descriptionLabel);
             System.out.println(description);
             add(descriptionLabel);
 
-            currentTemp.setBounds(10,65,50,50);
+            currentTemp.setBounds(10,160,50,50);
             add(currentTemp);
 
-            windSpeed.setBounds(110, 65, 150,50);
+            windSpeed.setBounds(110, 160, 150,50);
             add(windSpeed);
 
         } catch (IOException e) {

@@ -21,6 +21,7 @@ public class display extends JFrame {
     protected int maxApp = 5;
     //Panels
     protected JPanel content = new JPanel();
+    protected JPanel bottom = new JPanel();
 
     //Array to other apps
     protected String[] access = {"Weather", "Contacts", "Home", "Calcul", "Gallery"};
@@ -50,7 +51,7 @@ public class display extends JFrame {
         int cpt=0; //Compteur pour changer de ligne qu'on arrive à 4
         for(int z = 0; z< maxApp; z++){
             appButton[z].setBounds(x,y,width,height);
-            add(appButton[z]);
+            bottom.add(appButton[z]);
             x+=95; //On se déplace sur la droite de 105 pixel
             cpt++;
             if(cpt==4) { //Si on a déjà 4 app sur la ligne
@@ -91,6 +92,7 @@ public class display extends JFrame {
         content.add(calculPanel, access[3]);
         content.add(galleryPanel, access[4]);
         add(content, BorderLayout.CENTER);
+        add(bottom, BorderLayout.SOUTH);
     }
 
     class homeListener implements ActionListener{
