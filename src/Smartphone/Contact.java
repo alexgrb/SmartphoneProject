@@ -53,7 +53,7 @@ public class Contact extends JPanel {
     private JButton bOK = new JButton("OK");
 
     //Liste des contacts
-    private JList jlistContact = new JList();
+    private static JList jlistContact = new JList();
 
     protected JPanel topPanel = new JPanel(); // Stores the two top panels
     protected JPanel leftPanel = new JPanel(); // Scroll Pane
@@ -67,8 +67,10 @@ public class Contact extends JPanel {
     private JPanel bottom = new JPanel();
     private JPanel east = new JPanel();
 
-    private String week[] = {"Monday", "Tuesday", "Wednesday",
+    private static String week[] = {"Monday", "Tuesday", "Wednesday",
             "Thursday", "Friday", "Saturday", "Sunday"};
+    // Tableau apr�s lecture du fichier
+    protected static ContactData[] tabContactData;
 
 
     public Contact() {
@@ -170,6 +172,8 @@ public class Contact extends JPanel {
 
         //Bottom
 
+        jlistContact.addListSelectionListener(new EcouteurList());
+
         add(top, BorderLayout.NORTH);
         add(center, BorderLayout.CENTER);
         add(bottom, BorderLayout.SOUTH);
@@ -178,6 +182,8 @@ public class Contact extends JPanel {
 
     }
 
+
+    // ------------------ LIST + ACTION LISTENER ---------------------- //
 
     class BoutonListener implements ActionListener {
 
@@ -212,6 +218,7 @@ public class Contact extends JPanel {
             ContactData alex = new ContactData("Alex", "Gharbi", "08292982873", "alex.gharbi@hotmail.com", "Wow", "1009", "01.06.1996");
 
             try {
+                LectureContact();
                 Serialisation(alex);
                 Deserialisation();
                 WriteData();
@@ -228,6 +235,39 @@ public class Contact extends JPanel {
         }
 
     }
+    // Action effectuée lors de la séléction d'un élément dans la JList
+
+    class EcouteurList implements ListSelectionListener {
+        /**
+         * M�thode effectu�e lors de l'action du click sur un �l�ment de la JList et va r�cup�rer la ligne s�l�ctionn�e
+         * Va afficher le formulaire en bas afin d'afficher les informations du contact s�l�ctionn� et le rendre non-editable
+         * Va rechercher dans le tableau de contact, le contact s�l�ctionner et l'affecter dans les champs JTextField
+         */
+        public void valueChanged(ListSelectionEvent evt){
+            int i = jlistContact.getSelectedIndex();
+           /*
+            panelDroitBas.setVisible(true);
+            setEditable(false);
+            if(valModifSupp == false){
+                jbEdit.setVisible(true);
+                jbDelete.setVisible(true);
+            } */
+            if(i != -1){
+                jtNom.setText(tabContactData[i].getNom());
+                jtPrenom.setText(tabContactData[i].getPrenom());
+                jtNumTel.setText(tabContactData[i].getNumTel());
+                jtEmail.setText(tabContactData[i].getEmail());
+                jtAdresse.setText(tabContactData[i].getAdresse());
+                jtNpa.setText(tabContactData[i].getNPAloc());
+                jtDateNaissance.setText(tabContactData[i].getDateNaissance());
+            }
+        }
+    }
+
+
+    //------------------------------- METHODES -----------------------------//
+
+
 
     private static String[] listAffichageJList;
 
@@ -315,9 +355,91 @@ public class Contact extends JPanel {
             e.printStackTrace();
         }
 
-
-
     }
+
+    /**
+     * Méthode de lecture du fichier afin de créer un tableau de contact et une chaine à partir des données contenue dans le fichier.
+     * le premier try va calculer le nombre de ligne contenue dans le fichier afin de créer les tableaux nécessaires
+     * le deuxième try va s'occuper de rajouter chaque ligne dans le fichier sur le tableau définit afin d'être utilisé dans le programme
+     * @see BufferedReader
+     * @see Contact
+     * @exception 2 gestion d'exception en cas de problème lors de la lecture du fichier ou de l'execution des lignes
+     */
+
+    public void LectureContact() {
+        String ligne;
+        try{
+            BufferedReader br = new BufferedReader( new InputStreamReader( new FileInputStream(pathFiletxt)));
+            int cptLengthChaine = 0;
+            while ((br.readLine())!= null){
+                cptLengthChaine++;
+            }
+            week = new String[cptLengthChaine];
+            listAffichageJList = new String[week.length];
+            tabContactData = new ContactData[week.length];
+            br.close();
+
+        }catch (Exception e){
+            System.out.println("Lecture fichier");
+            System.out.println(e.toString());
+        }
+
+        try{
+            int cpt = 0;
+            BufferedReader br=new BufferedReader( new InputStreamReader( new FileInputStream(pathFiletxt)));
+
+            while ((ligne=br.readLine())!=null ){
+                week[cpt] = ligne ;
+                cpt++;
+            }
+            br.close();
+            updateList();
+            jlistContact.setEnabled(true);
+        }
+        catch (Exception e){
+            System.out.println("problème Lecture fichier");
+            System.out.println(e.toString());
+        }
+    }
+
+    /**
+     * M�thode de mise � jour de la liste des contacts dans la Jlist
+     * La méthode va créer un tableau temporaire afin de placer à chaque position, et dans l'ordre, les informations
+     * de nom, prenom etc... du contact
+     * On va ensuite créer un tableau de contact TabContactData contenant des contacts placer dans le tableau temporaire
+     * Il va aussi omettre d'y inclure les lignes contenant un #delete
+     * @see Contact
+     */
+    @SuppressWarnings("unchecked")
+    public static void updateList(){
+        listAffichageJList = new String[week.length];
+        tabContactData = new ContactData[week.length];
+
+        String[] tempo = new String[6];
+        try {
+            for (int i = 0; i<week.length; i++){
+                if(week[i]!= null){
+                    // On découpe chaque ligne du fichier en 6 partie distinctement séparées
+                    tempo = week[i].split(" - ", 7);
+                    // On crée un tableau de contact qui contiendra un objet contact avec les infos
+                    tabContactData[i] = new ContactData(tempo[0], tempo[1], tempo[2], tempo[3], tempo[4], tempo[5], tempo[6]);
+                    // On crée le text d'affichage de la JList
+                    listAffichageJList[i] = tempo[0] + " " + tempo[1];
+                    if(week[i].contains("#deleted")){
+                        listAffichageJList[i] = null;
+                    }
+                }
+            }
+
+            jlistContact.setListData(listAffichageJList);
+            //statutBtnInitial();
+            //panelDroitBas.setVisible(false);
+        }catch (Exception e){
+            System.out.println("Erreur à la mise a jour des informations");
+            System.out.println(e.toString());
+        }
+    }
+
 
 
 }
