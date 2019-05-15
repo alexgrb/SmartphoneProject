@@ -297,7 +297,6 @@ public class Contact extends JPanel {
     //Méthode qui permet de parcourir notre String [] et de l'afficher en toute lettres dans notre fichier .txt
     public void WriteData() {
 
-
         try {
             PrintWriter fichierSortie = new PrintWriter(new BufferedWriter(new FileWriter(pathFiletxt, false)));
             for (int i = 0; i<week.length; i++){
@@ -315,6 +314,8 @@ public class Contact extends JPanel {
             System.out.println("erreur inscription dans fichier");
             e.printStackTrace();
         }
+
+
 
     }
 
