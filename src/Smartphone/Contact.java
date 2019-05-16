@@ -34,7 +34,7 @@ public class Contact extends JPanel {
     private JLabel lbNumTel = new JLabel("Numéro de téléphone");
     private JLabel lbEmail = new JLabel("E-mail");
     private JLabel lbAdresse = new JLabel("Adresse");
-    private JLabel lbNpaLoc = new JLabel("NPA / Localité");
+    private JLabel lbNpa = new JLabel("NPA");
     private JLabel lbDateNaissance = new JLabel("Date de naissance");
 
 
@@ -51,6 +51,10 @@ public class Contact extends JPanel {
     //Bouton
     private JCheckBox checkFav = new JCheckBox("Favori");
     private JButton bOK = new JButton("OK");
+    protected static JButton jbAdd = new JButton ("Ajouter");
+    private static JButton jbValiderEdit = new JButton ("Valider edit");
+
+
 
     //Liste des contacts
     private static JList jlistContact = new JList();
@@ -69,6 +73,8 @@ public class Contact extends JPanel {
 
     private static String week[] = {"Monday", "Tuesday", "Wednesday",
             "Thursday", "Friday", "Saturday", "Sunday"};
+
+
     // Tableau apr�s lecture du fichier
     protected static ContactData[] tabContactData;
 
@@ -94,7 +100,10 @@ public class Contact extends JPanel {
         east.add(scrollPane);
 
 
-        bOK.addActionListener(new BoutonListener());
+        bOK.addActionListener(new BoutonOK());
+        jbValiderEdit.addActionListener(new ValiderEditAdd());
+
+        //jbAdd.addActionListener(new ActionAdd());
 
 
         // Liste
@@ -142,7 +151,8 @@ public class Contact extends JPanel {
         jtNpa.setPreferredSize(new Dimension(150, 30));
         jtDateNaissance.setPreferredSize(new Dimension(150, 30));
         bOK.setPreferredSize(new Dimension(150, 30));
-
+        jbAdd.setPreferredSize(new Dimension(150, 30));
+        jbValiderEdit.setPreferredSize(new Dimension(150, 30));
         //On ajoute nos TextFields et JLabel en alternance
 
         //Top
@@ -160,7 +170,7 @@ public class Contact extends JPanel {
         center.add(jtEmail);
         center.add(lbAdresse);
         center.add(jtAdresse);
-        center.add(lbNpaLoc);
+        center.add(lbNpa);
         center.add(jtNpa);
         center.add(lbDateNaissance);
         center.add(jtDateNaissance);
@@ -169,6 +179,8 @@ public class Contact extends JPanel {
         center.setLayout(new GridLayout(14, 1));
 
         center.add(bOK);
+        center.add(jbAdd);
+        center.add(jbValiderEdit);
 
         //Bottom
 
@@ -185,7 +197,7 @@ public class Contact extends JPanel {
 
     // ------------------ LIST + ACTION LISTENER ---------------------- //
 
-    class BoutonListener implements ActionListener {
+    class BoutonOK implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
             System.out.println("Nom : " + jtNom.getText());
@@ -221,7 +233,6 @@ public class Contact extends JPanel {
                 LectureContact();
                 Serialisation(alex);
                 Deserialisation();
-                WriteData();
                 WriteData();
 
             } catch (Exception ex) {
@@ -263,6 +274,94 @@ public class Contact extends JPanel {
             }
         }
     }
+
+    class ValiderEditAdd implements ActionListener{
+        /**
+         * M�thode effectu�e lors de l'action du click sur le bouton et va r�cup�rer la ligne s�l�ctionn�e dans la JList
+         * Va appeler les methodes de validation (validEmain, validPhone, validBirthday) qui si elles retournent toutes une valeur vrai(true)
+         * va appeler la m�thode ModifChaine afin d'effectuer la modification
+         * Si une des 3 m�thodes de validation retournent false, va afficher le text faut en rouge afin d'effectuer les modifications n�cessaires
+         * @see Contact#validEmail
+         * @see Contact#validPhone
+         * @see Contact#validNPA
+         * @see Contact#ModifChaine
+         */
+        public void actionPerformed(ActionEvent e){
+            try {
+                int numJList = jlistContact.getSelectedIndex();
+                // Test les champs
+                if(validPhone(jtNumTel.getText())) {
+                    jtNumTel.setForeground(Color.BLACK);
+                    if (validEmail(jtEmail.getText())){
+                        jtEmail.setForeground(Color.BLACK);
+                        if(validNPA(jtNpa.getText())) {
+                            jtNpa.setForeground(Color.BLACK);
+                            // On recupère tous les champs, et on réecrit la ligne avec les nouvelles données
+                            //checkFav.isSelected()
+                            ModifChaine(jtNom.getText(), jtPrenom.getText(), jtNumTel.getText(), jtEmail.getText(), jtAdresse.getText(), jtNpa.getText(), jtDateNaissance.getText(), numJList);
+                        } else {
+                            jtNpa.setForeground(Color.RED);
+                        }
+                    } else {
+                        jtEmail.setForeground(Color.RED);
+                    }
+                } else {
+                    jtNumTel.setForeground(Color.RED);
+                }
+            } catch (Exception f) {
+                System.out.println("Erreur à la modification des contacts");
+                System.out.println(f.toString());
+            }
+        }
+    }
+
+
+
+
+    //---------------------------- Validators ------------------------//
+
+    /**
+     * M�thode qui va �tre appel�e afin de valider le t�l�phone.
+     * @param tel est le num�ro de t�l�phone pass� en param�tre
+     * @return retournera une valeur apr�s le test de validatePhone vrai(true) ou fausse(false) afin de valider ou non la valeur test�e
+     */
+    public boolean validPhone(String tel){
+        boolean response;
+        response = regex.validerNumTel(tel);
+        return response;
+    }
+
+    /**
+     * M�thode qui va �tre appel�e afin de valider l'adresse mail.
+     * @param mail est l'adresse email pass�e en param�tre
+     * @return retournera une valeur apr�s le test de validateMail vrai(true) ou fausse(false) afin de valider ou non la valeur test�e dans le programme
+     */
+
+
+    public boolean validEmail(String mail){
+        boolean response;
+        response = regex.validerEmail(mail);
+        return response;
+    }
+
+    /**
+     * M�thode qui va �tre appel�e afin de valider la date de de naisssance.
+     * @param npa est la date de naissance pass�e en param�tre
+     * @return retournera une valeur apr�s le test de validateBirthday vrai(true) ou fausse(false) afin de valider ou non la valeur test�e dans le programme
+     */
+    public boolean validNPA(String npa){
+        boolean response;
+        response = regex.validerNPA(npa);
+        return response;
+    }
+
+
+
+
+
+
+
+
 
 
     //------------------------------- METHODES -----------------------------//
@@ -438,6 +537,25 @@ public class Contact extends JPanel {
             System.out.println("Erreur à la mise a jour des informations");
             System.out.println(e.toString());
         }
+    }
+
+    /**
+     * M�thode qui va modifier un tableau de chaine (liste de contact) selon les param�tre re�u � la ligne s�l�ctionn�.
+     * va lire le tableau au complet jusqu'a une valeur null et se positionn� � la ligne du contact que on d�sire modifier
+     * va ecraser la valeur � la position s�l�ctionn�e par un nouveau String d�finit
+     */
+
+    public void ModifChaine(String nom, String prenom, String mail, String adresse, String num, String npaLoc, String date, int numJList) {
+        for(int i = 0; i<week.length; i++){
+            if(week[i] != null){
+                if(i == numJList){
+                    week[i] = nom + " - " + prenom + " - " + num + " - " + mail + " - " + adresse + " - " + npaLoc +" - " + date;
+                }
+            }
+        }
+        updateList();
+        jlistContact.setEnabled(true);
+        //statutBtnInitial();
     }
 
 
