@@ -95,6 +95,12 @@ public class display extends JFrame {
         add(bottom, BorderLayout.SOUTH);
     }
 
+    /*
+    protected Contact co = new Contact();
+    co.LectureContact();
+     */
+
+
     class homeListener implements ActionListener{
         int i = 0; // Variable to represent the choosen menu item id
         public homeListener(int appId){
