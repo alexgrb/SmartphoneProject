@@ -175,9 +175,7 @@ public class Contact extends JPanel {
         add(bottom, BorderLayout.SOUTH);
         add(east, BorderLayout.EAST);
 
-
     }
-
 
     class BoutonListener implements ActionListener {
 
@@ -274,16 +272,12 @@ public class Contact extends JPanel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
     //Méthode qui permet de lire le fichier .txt (illisible pour nous) et le traduire en charactères lisibles dans la console
     public void Deserialisation() throws FileNotFoundException {
 
         try {
-
-
             FileInputStream fis = new FileInputStream(pathFiletxt);
             ObjectInputStream ois = new ObjectInputStream(fis);
             ContactData cd = (ContactData) ois.readObject();
@@ -291,7 +285,6 @@ public class Contact extends JPanel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     //Méthode qui permet de parcourir notre String [] et de l'afficher en toute lettres dans notre fichier .txt
@@ -305,7 +298,6 @@ public class Contact extends JPanel {
                     if(!week[i].contains("#delete")){
                         fichierSortie.println(week[i]);
                         System.out.println("Il se passe un truc!!");
-
                     }
                 }
             }
@@ -315,8 +307,5 @@ public class Contact extends JPanel {
             System.out.println("erreur inscription dans fichier");
             e.printStackTrace();
         }
-
     }
-
-
 }

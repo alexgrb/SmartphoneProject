@@ -8,12 +8,8 @@ public class imageLabel extends JLabel {
 
     //String rootPath = "src\\pictures\\";
     public imageLabel(String path) {
-      //  mshi = new ImageIcon("src\\pictures\\" + path.toString()+ ".png");
-        //Filereader
-        //this get weight et get height
         loadImage(path);
         setSurfaceSize();
-        //set pathname après au lieu de recréer un JLAbel
     }
 
     private void loadImage(String path) {

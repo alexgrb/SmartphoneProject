@@ -71,7 +71,6 @@ public class GetWeatherData extends JPanel {
             JLabel whiteSpace = new JLabel("");
             JLabel windText = new JLabel("Wind speed : ");
 
-
             int scaledWidth = 150;
             int scaledHeight = 150;
             ImageResizer.resize("src\\pictures\\" + icon+ ".png", "src\\pictures\\" + icon+ "2.png", scaledWidth, scaledHeight);
@@ -79,17 +78,16 @@ public class GetWeatherData extends JPanel {
             image.setBounds(0,0,150,150);
             add(image);
 
-           // descriptionText.setBounds(160, 0,90,50);
-            //add(descriptionText);
             descriptionLabel.setBounds(150,50,150,50);
             new textResizer(descriptionLabel);
-            System.out.println(description);
             add(descriptionLabel);
 
-            currentTemp.setBounds(10,160,50,50);
+            currentTemp.setBounds(10,160,150,200);
+            new textResizer(currentTemp);
             add(currentTemp);
 
-            windSpeed.setBounds(110, 160, 150,50);
+            windSpeed.setBounds(180, 160, 100,200);
+            new textResizer(windSpeed);
             add(windSpeed);
 
         } catch (IOException e) {
