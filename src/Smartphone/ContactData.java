@@ -5,14 +5,6 @@ import java.io.*;
 
 public class ContactData implements Serializable {
 
-
-
-    //output contactdata
-    //input contactdata
-
-    //Classe qui pourrait permettre à aller chercher les attributs dans le fichier conatct.txt
-    // mdr pas encore su comment faire lol
-
     private String nom;
     private String prenom;
     private String numTel;

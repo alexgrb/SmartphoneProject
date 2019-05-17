@@ -50,9 +50,11 @@ public class Contact extends JPanel {
 
     //Bouton
     private JCheckBox checkFav = new JCheckBox("Favori");
-    private JButton bOK = new JButton("OK");
+    private JButton bOK = new JButton("OK / Lecture .txt");
     protected static JButton jbAdd = new JButton ("Ajouter");
     private static JButton jbValiderEdit = new JButton ("Valider edit");
+    private static JButton jbValiderAdd = new JButton ("Valider add");
+
 
 
 
@@ -71,8 +73,8 @@ public class Contact extends JPanel {
     private JPanel bottom = new JPanel();
     private JPanel east = new JPanel();
 
-    private static String week[] = {"Monday", "Tuesday", "Wednesday",
-            "Thursday", "Friday", "Saturday", "Sunday"};
+    private static String week[] = {" "};
+
 
 
     // Tableau apr�s lecture du fichier
@@ -102,8 +104,8 @@ public class Contact extends JPanel {
 
         bOK.addActionListener(new BoutonOK());
         jbValiderEdit.addActionListener(new ValiderEditAdd());
-
-        //jbAdd.addActionListener(new ActionAdd());
+        jbValiderAdd.addActionListener(new ValiderAdd());
+        jbAdd.addActionListener(new ActionAdd());
 
 
         // Liste
@@ -153,6 +155,7 @@ public class Contact extends JPanel {
         bOK.setPreferredSize(new Dimension(150, 30));
         jbAdd.setPreferredSize(new Dimension(150, 30));
         jbValiderEdit.setPreferredSize(new Dimension(150, 30));
+        jbValiderAdd.setPreferredSize(new Dimension(150, 30));
         //On ajoute nos TextFields et JLabel en alternance
 
         //Top
@@ -181,6 +184,7 @@ public class Contact extends JPanel {
         center.add(bOK);
         center.add(jbAdd);
         center.add(jbValiderEdit);
+        center.add(jbValiderAdd);
 
         //Bottom
 
@@ -231,9 +235,9 @@ public class Contact extends JPanel {
 
             try {
                 LectureContact();
-                Serialisation(alex);
-                Deserialisation();
-                WriteData();
+                //Serialisation(alex);
+                //Deserialisation();
+                //WriteData();
 
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -315,7 +319,66 @@ public class Contact extends JPanel {
         }
     }
 
+    /**
+     * @author Fran�ois Steiner
+     * Class ActionAdd qui va ecouter les actions effectuer lors de son appel
+     * @see ActionAdd#actionPerformed(ActionEvent)
+     */
+    class ActionAdd implements ActionListener{
 
+        /**
+         * M�thode effectu�e lors de l'action du click sur le bouton et va appeler la m�thode "resetChamp" qui va mettre les champs JTextField vide et afficher les boutons correspondant
+         * dans le formulaire afin de continuer l'execution du programme. Elle va aussi rendre les JTextField editable afin de pouvoir ajouter des donn�es
+         * @see Contact#resetChamp()
+         */
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            jlistContact.setEnabled(false);
+            resetChamp();
+            //panelDroitBas.setVisible(true);
+            jbAdd.setVisible(false);
+            //jbEdit.setVisible(false);
+            //jbDelete.setVisible(false);
+            jbValiderEdit.setVisible(false);
+            jbValiderAdd.setVisible(true);
+            //jbAnnuler.setVisible(true);
+            //setEditable(true);
+        }
+
+    }
+
+    class ValiderAdd implements ActionListener{
+        /**
+         * M�thode effectu�e lors de l'action du click sur le bouton et va r�cup�rer la ligne s�l�ctionn�e dans la JList
+         * Va appeler les methodes de validation (validEmain, validPhone, validBirthday) qui si elles retournent toutes une valeur vrai(true)
+         * va appeler la m�thode addInChaine qui va rajouter une ligne � la chaine de contact
+         * Si une des 3 m�thodes de validation retournent false, va afficher le text faut en rouge afin d'effectuer les modifications n�cessaires
+
+         */
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int valJList = jlistContact.getSelectedIndex();
+            if(validPhone(jtNumTel.getText())) {
+                jtNumTel.setForeground(Color.BLACK);
+                if (validEmail(jtEmail.getText())){
+                    jtEmail.setForeground(Color.BLACK);
+                    if(validNPA(jtNpa.getText())) {
+                        jtNpa.setForeground(Color.BLACK);
+                        addInChaine(valJList);
+                        resetChamp();
+                        statutBtnInitial();
+                    } else {
+                        jtNpa.setForeground(Color.RED);
+                    }
+                } else {
+                    jtEmail.setForeground(Color.RED);
+                }
+            } else {
+                jtNumTel.setForeground(Color.RED);
+            }
+        }
+
+    }
 
 
     //---------------------------- Validators ------------------------//
@@ -371,28 +434,26 @@ public class Contact extends JPanel {
     private static String[] listAffichageJList;
 
 
-    public void updateList(String[] nomprenom) {
-        String contactonlist = "";
-        listAffichageJList = new String[1];
-        try {
-            for (int i = 0; i < nomprenom.length; i++) {
-                if (nomprenom[i] != null) {
-                    //listAffichageJList[i] = nomprenom[i];
-                    listAffichageJList[i] = nomprenom[0] + " " + nomprenom[1];
-                    if (nomprenom[i].contains("#deleted")) {
+    /**
+     * M�thode qui va ajouter une ligne au tableau de chaine.
+     * Elle va cr�er un tableau temporaire de la longueur du tableau de chaine + 1 pour la nouvelle ligne et y affecter les valeur du tableau de chaine
+     * Puis va rechercher les valeur dans les JTextField et ajouter la valeur � la derni�re ligne du tableau temporaire
+     * Finallement affectera le tableau temporaire � un nouveau tableau de chaine avec la nouvelle valeur
+     * @param numJList numero s�l�ctionner dans la JList
+     * @see Contact#updateList()
+     */
+    public void addInChaine(int numJList){
+        String temp [] = new String[week.length+1];
 
-                        //listAffichageJList[i] = null;
-                    }
-                }
-            }
+        for(int i=0; i<week.length; i++){
+            temp[i] = week[i];
 
-            jlistContact.setListData(listAffichageJList);
-            //statutBtnInitial();
-            //panelDroitBas.setVisible(false);
-        } catch (Exception e) {
-            System.out.println("Erreur à la mise a jour des informations");
-            System.out.println(e.toString());
         }
+        // Creation du tableau temporaire avec les valeur � inscrire
+        temp[week.length] = jtNom.getText() + " - " + jtPrenom.getText() + " - " + jtNumTel.getText() + " - "+ jtEmail.getText() + " - " + jtAdresse.getText() + " - " + jtNpa.getText() + " - " +  jtDateNaissance.getText();
+        week = new String [temp.length];
+        week = temp;
+        updateList();
     }
 
 
@@ -531,7 +592,7 @@ public class Contact extends JPanel {
             }
 
             jlistContact.setListData(listAffichageJList);
-            //statutBtnInitial();
+            statutBtnInitial();
             //panelDroitBas.setVisible(false);
         }catch (Exception e){
             System.out.println("Erreur à la mise a jour des informations");
@@ -558,6 +619,35 @@ public class Contact extends JPanel {
         //statutBtnInitial();
     }
 
+    /**
+     * Méthode qui va simplement reset les champs JTextField null afin de pouvoir inscrire des nouveaux contact
+     */
+
+    public void resetChamp(){
+        jtNom.setText(null);
+        jtPrenom.setText(null);
+        jtNumTel.setText(null);
+        jtEmail.setText(null);
+        jtAdresse.setText(null);
+        jtNpa.setText(null);
+        jtDateNaissance.setText(null);
+    }
+
+    /**
+     * Méthode qui va simplement réinitialiser les bouton comme si venaient d'arriver sur la page (statut initial)
+     */
+
+    public static void statutBtnInitial(){
+        jbAdd.setVisible(true);
+        //jbEdit.setVisible(false);
+        //jbDelete.setVisible(false);
+        jbValiderEdit.setVisible(true);
+        jbValiderAdd.setVisible(false);
+        //jbAnnuler.setVisible(false);
+        jlistContact.setEnabled(true);
+        //jbRetourner.setVisible(false);
+
+    }
 
 
 }
