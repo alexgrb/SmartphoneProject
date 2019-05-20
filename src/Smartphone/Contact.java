@@ -234,6 +234,7 @@ public class Contact extends JPanel {
 
             try {
                 LectureContact();
+                statutBtnInitial();
                 //Serialisation(alex);
                 //Deserialisation();
                 //WriteData();
@@ -261,6 +262,8 @@ public class Contact extends JPanel {
             //panelDroitBas.setVisible(true);
             setEditable(false);
             if(valModifSupp == false){
+                //jbAdd.setVisible(false);
+                //jbAnnuler.setVisible(true);
                 jbEdit.setVisible(true);
                 jbDelete.setVisible(true);
             }
@@ -503,7 +506,9 @@ public class Contact extends JPanel {
         temp[week.length] = jtNom.getText() + " - " + jtPrenom.getText() + " - " + jtNumTel.getText() + " - "+ jtEmail.getText() + " - " + jtAdresse.getText() + " - " + jtNpa.getText() + " - " +  jtDateNaissance.getText();
         week = new String [temp.length];
         week = temp;
+        writeContact();
         updateList();
+
     }
 
 
@@ -672,6 +677,7 @@ public class Contact extends JPanel {
             }
         }
         updateList();
+        writeContact();
         jlistContact.setEnabled(true);
         //statutBtnInitial();
     }
@@ -736,6 +742,35 @@ public class Contact extends JPanel {
             ModifChaine("#deleted", "#deleted", "#deleted", "#deleted", "#deleted", "#deleted", "#deleted", numJList);
         }
 
+    }
+
+    /**
+     *
+     * Méthode pour ajouter le data d'un contact à l'aide d'un printwriter
+     * Check s'il n'y a pas de valeurs nulles ou deleted avant l'écriture
+     *
+     */
+
+    public void writeContact(){
+        try {
+            try {
+                PrintWriter pw = new PrintWriter(pathFiletxt);
+                // Check s'il n'y a pas de valeurs nulles ou #deleted avant l'écriture
+                for (int i = 0; i<week.length; i++){
+                    if(week[i]!= null){
+                        if(!week[i].contains("#delete")){
+                            pw.println(week[i]);
+                        }
+                    }
+                }
+                pw.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }catch (Exception e){
+            System.out.println("Erreur lors de l'écriture dans le fichier contact");
+            System.out.println(e.toString());
+        }
     }
 
 }
