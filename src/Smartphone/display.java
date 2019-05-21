@@ -14,17 +14,19 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static Smartphone.Gallery.imgPanel;
+
 public class display extends JFrame {
 
     //Main setting wich allows us to switch between panels
-    protected CardLayout cardLayout = new CardLayout();
+    protected static CardLayout cardLayout = new CardLayout();
     protected int maxApp = 5;
     //Panels
-    protected JPanel content = new JPanel();
+    protected static JPanel content = new JPanel();
     protected JPanel bottom = new JPanel();
 
     //Array to other apps
-    protected String[] access = {"Weather", "Contacts", "Home", "Calcul", "Gallery"};
+    protected static String[] access = {"Weather", "Contacts", "Home", "Calcul", "Gallery", "Image"};
     private JButton[] appButton= new JButton[maxApp];
 
     public display(){
@@ -44,6 +46,8 @@ public class display extends JFrame {
         appButton[2].setText("home");
         appButton[3].setText("calculette");
         appButton[4].setText("galerie");
+
+
         int x=10; //Position X
         int y=700; //Position Y
         int width=90;
@@ -70,7 +74,7 @@ public class display extends JFrame {
         JPanel statusPanel = new JPanel();
         JPanel weatherPanel = new weather();
         JPanel galleryPanel = new Gallery();
-
+        JPanel picturePanel = new Picture("");
 
         statusPanel.setBorder(new BevelBorder(BevelBorder.RAISED));
         add(statusPanel, BorderLayout.NORTH);
@@ -101,14 +105,25 @@ public class display extends JFrame {
      */
 
 
-    class homeListener implements ActionListener{
+     static class homeListener implements ActionListener{
         int i = 0; // Variable to represent the choosen menu item id
         public homeListener(int appId){
             i = appId;
         }
         public void actionPerformed(ActionEvent e) {
             //Via cette instruction, on passe au conteneur correspondant au nom fourni en paramètre
-            cardLayout.show(content, access[i]);
+
+            if(i>10) {
+
+                cardLayout.show(content, access[1]);
+
+                System.out.println("Click");
+            }
+            else {
+                cardLayout.show(content, access[i]);
+
+            }
+
         }
     }
     class closeListener implements ActionListener{

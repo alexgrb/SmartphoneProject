@@ -29,7 +29,7 @@ public class weather extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 contentWeather.removeAll();
-                JPanel weatherPanel = new GetWeatherData(cityList.getSelectedItem().toString());
+                JPanel weatherPanel = new GetWeatherData(cityList.getSelectedItem().toString()); //photo
                 contentWeather.setLayout(null);
                 weatherPanel.setBounds(0,0,480,745);
                 contentWeather.add(weatherPanel);
