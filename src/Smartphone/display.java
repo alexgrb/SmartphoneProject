@@ -14,7 +14,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static Smartphone.Gallery.imgPanel;
 
 public class display extends JFrame {
 
@@ -41,11 +40,12 @@ public class display extends JFrame {
             appButton[i] = new JButton();
             appButton[i].addActionListener(new homeListener(i));
         }
-        appButton[0].setText("weather");
-        appButton[1].setText("contact");
-        appButton[2].setText("home");
-        appButton[3].setText("calculette");
-        appButton[4].setText("galerie");
+        appButton[0].setIcon(new ImageIcon("src\\pictures\\iconWeather.png"));
+        appButton[1].setIcon(new ImageIcon("src\\pictures\\iconContact.png"));
+        appButton[2].setIcon(new ImageIcon("src\\pictures\\iconeHome.png"));
+        appButton[3].setIcon(new ImageIcon("src\\pictures\\iconCalculette.png"));
+        appButton[4].setIcon(new ImageIcon("src\\pictures\\iconGallery.png"));
+
 
 
         int x=10; //Position X
@@ -98,12 +98,6 @@ public class display extends JFrame {
         add(content, BorderLayout.CENTER);
         add(bottom, BorderLayout.SOUTH);
     }
-
-    /*
-    protected Contact co = new Contact();
-    co.LectureContact();
-     */
-
 
      static class homeListener implements ActionListener{
         int i = 0; // Variable to represent the choosen menu item id

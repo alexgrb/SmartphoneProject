@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class textResizer {
-    private JLabel text = new JLabel();
+    private JLabel text;
 
     public textResizer(JLabel givenLabel) {
         text = givenLabel;
@@ -27,6 +27,5 @@ public class textResizer {
         // Set the label's font size to the newly determined size.
         text.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
     }
-
 
 }
