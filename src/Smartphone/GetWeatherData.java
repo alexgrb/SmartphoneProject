@@ -63,43 +63,45 @@ public class GetWeatherData extends JPanel {
             Map<String, Object> respMap = jsonToMap(result.toString());
             Map<String, Object> mainMap = jsonToMap(respMap.get("main").toString());
             Map<String, Object> windMap = jsonToMap(respMap.get("wind").toString());
-            Map<String, Object> sysMap = jsonToMap(respMap.get("sys").toString());
+           // Map<String, Object> sysMap = jsonToMap(respMap.get("sys").toString());
 
-            JLabel currentTemp = new JLabel(mainMap.get("temp") + "C°");
-            JLabel currentHumidity = new JLabel( mainMap.get("humidity") +"%");
+            String currentTempT = mainMap.get("temp").toString().substring(0,2) +"C°";
+            JLabel currentTemp = new JLabel(currentTempT);
+            String currentHumidityT = mainMap.get("humidity").toString().substring(0,2)+"%";
+            JLabel currentHumidity = new JLabel( currentHumidityT);
             JLabel windSpeed = new JLabel(windMap.get("speed") + " km/h");
-            JLabel cityLabel = new JLabel(city);
+           // JLabel cityLabel = new JLabel(city);
 
             int scaledWidth = 150;
             int scaledHeight = 150;
             ImageResizer.resize("src\\pictures\\" + icon+ ".png", "src\\pictures\\" + icon+ "2.png", scaledWidth, scaledHeight);
             JLabel image = new imageLabel(icon+"2");
 
-            ImageResizer.resize("src\\pictures\\iconHumidity.png", "src\\pictures\\iconHumidity.png", 100, 100);
+            ImageResizer.resize("src\\pictures\\iconHumidity.png", "src\\pictures\\iconHumidity.png", 70, 70);
             JLabel imageHumidity = new imageLabel("iconHumidity");
 
 
 
-            image.setBounds(0,0,scaledWidth,scaledHeight);
+            image.setBounds(330,290,scaledWidth,scaledHeight);
             add(image);
 
-            descriptionLabel.setBounds(150,50,150,50);
+            descriptionLabel.setBounds(40,330,150,50);
             new textResizer(descriptionLabel);
             add(descriptionLabel);
 
-            currentTemp.setBounds(10,160,150,200);
-            new textResizer(currentTemp);
+            currentTemp.setBounds(360,350,150,200);
+            new textResizer(currentTemp,35);
             add(currentTemp);
 
-            windSpeed.setBounds(180, 160, 100,200);
-            new textResizer(windSpeed);
+            windSpeed.setBounds(45, 360, 150,200);
+            new textResizer(windSpeed,35);
             add(windSpeed);
 
-            imageHumidity.setBounds(10,300,100,100);
+            imageHumidity.setBounds(265,485,70,70);
             add(imageHumidity);
 
-            currentHumidity.setBounds(105, 320, 150,50);
-            new textResizer(currentHumidity);
+            currentHumidity.setBounds(355, 500, 70,50);
+            new textResizer(currentHumidity, 35);
             add(currentHumidity);
 
             String backPath = "";
@@ -124,7 +126,7 @@ public class GetWeatherData extends JPanel {
             ImageIcon imgBack = new ImageIcon("src\\pictures\\"+backPath+".gif");
             JLabel back = new JLabel(imgBack);
 
-            back.setBounds(0,400,480,274);
+            back.setBounds(0,10,480,275);
             add(back);
 
         } catch (IOException e) {

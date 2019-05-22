@@ -14,6 +14,8 @@ public class textResizer {
 
         int stringWidth = text.getFontMetrics(labelFont).stringWidth(labelText);
         int componentWidth = text.getWidth();
+        System.out.println("Width : "+ text.getWidth());
+        System.out.println(" w2 : "+ text.getFontMetrics(labelFont).stringWidth(labelText));
 
         // Find out how much the font can grow in width.
         double widthRatio = (double)componentWidth / (double)stringWidth;
@@ -25,6 +27,13 @@ public class textResizer {
         int fontSizeToUse = Math.min(newFontSize, componentHeight);
 
         // Set the label's font size to the newly determined size.
+        text.setFont(new Font(labelFont.getName(), Font.PLAIN, (fontSizeToUse)));
+    }
+    public textResizer(JLabel givenLabel, int fontSizeToUse) {
+        text = givenLabel;
+
+        Font labelFont = text.getFont();
+
         text.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
     }
 

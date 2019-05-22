@@ -18,7 +18,7 @@ public class weather extends JPanel {
             cityList.addActionListener(new comboListener());
 
             setLayout(null);
-            cityList.setBounds(10,10,120,35);
+            cityList.setBounds(160,10,150,50);
             add(cityList);
 
             contentWeather.setBounds(0,55,480,745);
