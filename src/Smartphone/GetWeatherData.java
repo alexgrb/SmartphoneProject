@@ -70,7 +70,6 @@ public class GetWeatherData extends JPanel {
             JLabel windSpeed = new JLabel(windMap.get("speed") + " km/h");
             JLabel cityLabel = new JLabel(city);
 
-
             int scaledWidth = 150;
             int scaledHeight = 150;
             ImageResizer.resize("src\\pictures\\" + icon+ ".png", "src\\pictures\\" + icon+ "2.png", scaledWidth, scaledHeight);
@@ -127,7 +126,6 @@ public class GetWeatherData extends JPanel {
 
             back.setBounds(0,400,480,274);
             add(back);
-
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
