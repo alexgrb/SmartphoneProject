@@ -45,10 +45,7 @@ public class Gallery extends JPanel {
 
                     //jbRetour.setPreferredSize(new Dimension(150, 30));
                     //imgzoomPanel.add(jbRetour);
-
-
                     setVisible(true);
-
                 }
             });
         }

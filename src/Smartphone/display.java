@@ -14,7 +14,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
 public class display extends JFrame {
 
     //Main setting wich allows us to switch between panels
@@ -28,7 +27,7 @@ public class display extends JFrame {
     protected static String[] access = {"Weather", "Contacts", "Home", "Calcul", "Gallery", "Image"};
     private JButton[] appButton= new JButton[maxApp];
 
-    public display(){
+    public display() {
 
         ///PARAMETRE DE LA FENETRE///
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); //Ferme le programme lorsqu'on ferme la fenêtre
@@ -46,8 +45,6 @@ public class display extends JFrame {
         appButton[3].setIcon(new ImageIcon("src\\pictures\\iconCalculette.png"));
         appButton[4].setIcon(new ImageIcon("src\\pictures\\iconGallery.png"));
 
-
-
         int x=10; //Position X
         int y=700; //Position Y
         int width=90;
@@ -63,30 +60,24 @@ public class display extends JFrame {
                 x = 10; //On revient tout à gauche
             }
         }
-        /////////////////////////////////
-        JLabel j = new imageLabel("homeBackground"); //Background Image
+        JLabel j = new imageLabel("ddBack"); //Background Image
 
         //Panel
         JPanel homePanel = new JPanel(); //Homescreen
         homePanel.add(j);
         JPanel calculPanel = new Calculatrice();
         JPanel contactlPanel = new Contact();
-        JPanel statusPanel = new JPanel();
+        try {
+        JPanel statusPanel = new StatusBar();
+            add(statusPanel, BorderLayout.NORTH);
+             } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         JPanel weatherPanel = new weather();
         JPanel galleryPanel = new Gallery();
         JPanel picturePanel = new Picture("");
 
-        statusPanel.setBorder(new BevelBorder(BevelBorder.RAISED));
-        add(statusPanel, BorderLayout.NORTH);
-        statusPanel.setPreferredSize(new Dimension(this.getWidth(), 30));
-        statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.X_AXIS));
-        JLabel statusLabel = new JLabel("status");
-        JButton closeButton = new JButton("X");
-        closeButton.setBackground(Color.RED);
-        closeButton.addActionListener(new closeListener());
-        statusLabel.setHorizontalAlignment(SwingConstants.LEFT);
-        statusPanel.add(statusLabel);
-        statusPanel.add(closeButton);
+
 
         ///CONFIGURATION DES LAYOUT///
         content.setLayout(cardLayout);
@@ -106,27 +97,13 @@ public class display extends JFrame {
         }
         public void actionPerformed(ActionEvent e) {
             //Via cette instruction, on passe au conteneur correspondant au nom fourni en paramètre
-
             if(i>10) {
-
                 cardLayout.show(content, access[1]);
-
-                System.out.println("Click");
             }
             else {
                 cardLayout.show(content, access[i]);
-
             }
-
         }
     }
-    class closeListener implements ActionListener{
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            System.exit(0);
-        }
-    }
-
 }
 
