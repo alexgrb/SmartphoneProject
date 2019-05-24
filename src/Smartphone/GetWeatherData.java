@@ -9,6 +9,7 @@ import com.google.gson.reflect.TypeToken;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -80,6 +81,11 @@ public class GetWeatherData extends JPanel {
             ImageResizer.resize("src\\pictures\\iconHumidity.png", "src\\pictures\\iconHumidity.png", 70, 70);
             JLabel imageHumidity = new imageLabel("iconHumidity");
 
+            Border border = BorderFactory.createLineBorder(Color.GRAY, 3);
+
+
+            // set the border of this component
+
 
 
             image.setBounds(330,290,scaledWidth,scaledHeight);
@@ -87,10 +93,15 @@ public class GetWeatherData extends JPanel {
 
             descriptionLabel.setBounds(40,330,150,50);
             new textResizer(descriptionLabel);
+          //  descriptionLabel.setBorder(new RoundedBorder(Color.gray, 15));
+            descriptionLabel.setOpaque(true);
             add(descriptionLabel);
 
+
             currentTemp.setBounds(360,350,150,200);
+
             new textResizer(currentTemp,35);
+            //currentTemp.setBorder(new RoundedBorder(Color.GRAY,15));
             add(currentTemp);
 
             windSpeed.setBounds(45, 360, 150,200);

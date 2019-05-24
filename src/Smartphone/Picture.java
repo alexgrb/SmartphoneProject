@@ -21,7 +21,7 @@ public class Picture extends JPanel {
         imgPanel.add(picture, BorderLayout.CENTER);
 
         JButton back = new JButton("back");
-        back.addActionListener(new display.homeListener(12));
+        back.addActionListener(new display.homeListener(4));
         imgPanel.add(back, BorderLayout.NORTH);
 
         add(imgPanel);

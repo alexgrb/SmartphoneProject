@@ -38,6 +38,9 @@ public class display extends JFrame {
         for (int i=0 ; i<appButton.length;i++){
             appButton[i] = new JButton();
             appButton[i].addActionListener(new homeListener(i));
+            appButton[i].setOpaque(false);
+            appButton[i].setBackground(new Color(0,true));
+            appButton[i].setBorder(null);
         }
         appButton[0].setIcon(new ImageIcon("src\\pictures\\iconWeather.png"));
         appButton[1].setIcon(new ImageIcon("src\\pictures\\iconContact.png"));
@@ -60,7 +63,7 @@ public class display extends JFrame {
                 x = 10; //On revient tout à gauche
             }
         }
-        JLabel j = new imageLabel("ddBack"); //Background Image
+        JLabel j = new imageLabel("homeBackground"); //Background Image
 
         //Panel
         JPanel homePanel = new JPanel(); //Homescreen
@@ -69,7 +72,8 @@ public class display extends JFrame {
         JPanel contactlPanel = new Contact();
         try {
         JPanel statusPanel = new StatusBar();
-            add(statusPanel, BorderLayout.NORTH);
+        statusPanel.setBounds(0,0,480,40);
+            add(statusPanel);
              } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -78,6 +82,9 @@ public class display extends JFrame {
         JPanel picturePanel = new Picture("");
 
 
+        bottom.setOpaque(false);
+        bottom.setBackground(new Color(0,true));
+        bottom.setBorder(null);
 
         ///CONFIGURATION DES LAYOUT///
         content.setLayout(cardLayout);
@@ -86,8 +93,12 @@ public class display extends JFrame {
         content.add(contactlPanel, access[1]);
         content.add(calculPanel, access[3]);
         content.add(galleryPanel, access[4]);
-        add(content, BorderLayout.CENTER);
-        add(bottom, BorderLayout.SOUTH);
+        setLayout(null);
+        content.setBounds(0,35,480,705);
+        add(content);
+        bottom.setBounds(0,740,480,60);
+        add(bottom);
+        getRootPane().setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.gray));
     }
 
      static class homeListener implements ActionListener{
@@ -98,7 +109,7 @@ public class display extends JFrame {
         public void actionPerformed(ActionEvent e) {
             //Via cette instruction, on passe au conteneur correspondant au nom fourni en paramètre
             if(i>10) {
-                cardLayout.show(content, access[1]);
+                cardLayout.show(content, access[4]);
             }
             else {
                 cardLayout.show(content, access[i]);

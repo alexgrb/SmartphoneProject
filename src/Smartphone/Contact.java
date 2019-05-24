@@ -6,6 +6,8 @@ package Smartphone;
  * Main frame for the smartphone
  */
 
+import tools.imageLabel;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.event.ListSelectionEvent;
@@ -23,6 +25,7 @@ public class Contact extends JPanel {
 
     //Jpanel
     private JPanel container = new JPanel();
+    JLabel j = new imageLabel("contactBack");
 
     // Les labels
     private JLabel lbTitre = new JLabel("Contact");
@@ -67,6 +70,7 @@ public class Contact extends JPanel {
 
     private JPanel top = new JPanel();
     private JPanel center = new JPanel();
+
     private JPanel bottom = new JPanel();
     private JPanel east = new JPanel();
 
@@ -81,6 +85,7 @@ public class Contact extends JPanel {
 
 
     public Contact() {
+
 
 
         //Nouvelle police
@@ -170,6 +175,7 @@ public class Contact extends JPanel {
         center.add(jtDateNaissance);
         center.add(checkFav);
 
+
         center.setLayout(new GridLayout(14, 1));
 
         center.add(bOK);
@@ -190,7 +196,6 @@ public class Contact extends JPanel {
         add(center, BorderLayout.CENTER);
         add(bottom, BorderLayout.SOUTH);
         add(east, BorderLayout.EAST);
-
 
     }
 
