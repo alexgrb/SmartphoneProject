@@ -21,6 +21,14 @@ public class Contact extends JPanel {
 
     ContactRegex regex = new ContactRegex();
 
+    //Fonts
+    protected Font fontBouton = new Font("Arial",Font.PLAIN ,14);
+    protected Font fontJList = new Font("Arial",Font.PLAIN ,14);
+    protected Font fontlabels = new Font("Arial",Font.BOLD ,14);
+    protected Font fontJtextfields = new Font("Arial",Font.PLAIN ,14);
+    protected Dimension dim = new Dimension(200, 30);
+
+
     //Jpanel
     private JPanel container = new JPanel();
 
@@ -130,23 +138,58 @@ public class Contact extends JPanel {
         //Ajoute la liste dans le Jpanel top (qui est instancié plus bas)
         top.add(jlistContact);
 
+        //Fonts et dim sur les labels
+        lbTitre.setFont(fontlabels);
+        lbNom.setFont(fontlabels);
+        lbPrenom.setFont(fontlabels);
+        lbNumTel.setFont(fontlabels);
+        lbEmail.setFont(fontlabels);
+        lbAdresse.setFont(fontlabels);
+        lbNpa.setFont(fontlabels);
+        lbDateNaissance.setFont(fontlabels);
 
-        //Taille des JtextField
-        lbTitre.setPreferredSize(new Dimension(150, 30));
-        jtNom.setPreferredSize(new Dimension(150, 30));
-        jtPrenom.setPreferredSize(new Dimension(150, 30));
-        jtNumTel.setPreferredSize(new Dimension(150, 30));
-        jtEmail.setPreferredSize(new Dimension(150, 30));
-        jtAdresse.setPreferredSize(new Dimension(150, 30));
-        jtNpa.setPreferredSize(new Dimension(150, 30));
-        jtDateNaissance.setPreferredSize(new Dimension(150, 30));
+        lbTitre.setPreferredSize(dim);
+        lbNom.setPreferredSize(dim);
+        lbPrenom.setPreferredSize(dim);
+        lbNumTel.setPreferredSize(dim);
+        lbEmail.setPreferredSize(dim);
+        lbAdresse.setPreferredSize(dim);
+        lbNpa.setPreferredSize(dim);
+        lbDateNaissance.setPreferredSize(dim);
 
-        //Taille des boutons
-        bOK.setPreferredSize(new Dimension(150, 30));
-        jbAdd.setPreferredSize(new Dimension(150, 30));
-        jbValiderEdit.setPreferredSize(new Dimension(150, 30));
-        jbValiderAdd.setPreferredSize(new Dimension(150, 30));
-        jbAnnuler.setPreferredSize(new Dimension(150, 30));
+        //Fonts et dim des JtextField
+
+        jtNom.setFont (fontJtextfields);
+        jtNom.setFont (fontJtextfields);
+        jtPrenom.setFont (fontJtextfields);
+        jtNumTel.setFont (fontJtextfields);
+        jtEmail.setFont (fontJtextfields);
+        jtAdresse.setFont (fontJtextfields);
+        jtNpa.setFont (fontJtextfields);
+        jtDateNaissance.setFont (fontJtextfields);
+
+        jtNom.setPreferredSize(dim);
+        jtNom.setPreferredSize(dim);
+        jtPrenom.setPreferredSize(dim);
+        jtNumTel.setPreferredSize(dim);
+        jtEmail.setPreferredSize(dim);
+        jtAdresse.setPreferredSize(dim);
+        jtNpa.setPreferredSize(dim);
+        jtDateNaissance.setPreferredSize(dim);
+
+        //Fonts des boutons
+        bOK.setFont(fontBouton);
+        jbAdd.setFont(fontBouton);
+        jbValiderEdit.setFont(fontBouton);
+        jbValiderAdd.setFont(fontBouton);
+        jbEdit.setFont(fontBouton);
+        jbDelete.setFont(fontBouton);
+        jbAnnuler.setFont(fontBouton);
+
+        //Font de la Jlist
+
+        jlistContact.setFont(fontJList);
+
         //On ajoute nos TextFields et JLabel en alternance
 
         //Top
