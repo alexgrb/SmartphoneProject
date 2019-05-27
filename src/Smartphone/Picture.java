@@ -1,22 +1,21 @@
 package Smartphone;
 
+import tools.ImageResizer;
 import tools.imageLabel;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
+import java.io.IOException;
 
 public class Picture extends JPanel {
-
-    private static JPanel picPanel = new JPanel();
-    private int nbPhotos = 11;
 
     public Picture(String path){
 
         setLayout(null);
-
+     /*   try {
+            ImageResizer.resize("src\\pictures\\" + path+ ".png", "src\\pictures\\" + path+ "Bis.png", 350, 500);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
         imageLabel picture = new imageLabel(path);
 
         picture.setBounds(30,30,350,500);

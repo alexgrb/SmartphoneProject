@@ -23,6 +23,7 @@ public class Contact extends JPanel {
 
     ContactRegex regex = new ContactRegex();
 
+    private imageLabel photoDuContact = new imageLabel("10");
     //Fonts
     protected Font fontBouton = new Font("Arial",Font.PLAIN ,14);
     protected Font fontJList = new Font("Arial",Font.PLAIN ,14);
@@ -58,7 +59,7 @@ public class Contact extends JPanel {
 
     //Bouton
     private JCheckBox checkFav = new JCheckBox("Favori");
-    private JButton bOK = new JButton("Synchroniser");
+
     protected static JButton jbAdd = new JButton ("Ajouter");
     private static JButton jbValiderEdit = new JButton ("Valider edit");
     private static JButton jbValiderAdd = new JButton ("Valider add");
@@ -115,7 +116,7 @@ public class Contact extends JPanel {
         east.add(scrollPane);
 
 
-        bOK.addActionListener(new BoutonOK());
+
         jbValiderEdit.addActionListener(new ValiderEditAdd());
         jbValiderAdd.addActionListener(new ValiderAdd());
         jbAdd.addActionListener(new ActionAdd());
@@ -181,9 +182,10 @@ public class Contact extends JPanel {
         jtAdresse.setPreferredSize(dim);
         jtNpa.setPreferredSize(dim);
         jtDateNaissance.setPreferredSize(dim);
+        photoDuContact.setPreferredSize(new Dimension(200,300));
 
         //Fonts des boutons
-        bOK.setFont(fontBouton);
+
         jbAdd.setFont(fontBouton);
         jbValiderEdit.setFont(fontBouton);
         jbValiderAdd.setFont(fontBouton);
@@ -217,11 +219,11 @@ public class Contact extends JPanel {
         center.add(lbDateNaissance);
         center.add(jtDateNaissance);
         center.add(checkFav);
+        bottom.add(photoDuContact);
 
 
         center.setLayout(new GridLayout(14, 1));
 
-        center.add(bOK);
         center.add(jbAdd);
         center.add(jbValiderEdit);
         center.add(jbValiderAdd);
@@ -245,55 +247,7 @@ public class Contact extends JPanel {
 
     // ------------------ LIST + ACTION LISTENER ---------------------- //
 
-    class BoutonOK implements ActionListener {
 
-        public void actionPerformed(ActionEvent e) {
-            System.out.println("Nom : " + jtNom.getText());
-            System.out.println("Prenom : " + jtPrenom.getText());
-            System.out.println("NumTel : " + jtNumTel.getText());
-            System.out.println("E-mail : " + jtEmail.getText());
-            System.out.println("Adresse : " + jtAdresse.getText());
-            System.out.println("NPA : " + jtNpa.getText());
-            System.out.println("Date de naissance : " + jtDateNaissance.getText());
-            System.out.println("Favoris - état : " + checkFav.isSelected());
-
-            if (!regex.validerEmail(jtEmail.getText()))
-                System.out.println("L'email est faux.");
-            else
-                System.out.println("L'email est juste.");
-
-            if (!regex.validerNPA(jtNpa.getText()))
-                System.out.println("Le NPA est faux.");
-            else
-                System.out.println("Le NPA est juste.");
-
-
-            if (!regex.validerNumTel(jtNumTel.getText()))
-                System.out.println("Le NumTel est faux");
-            else
-                System.out.println("Le NumTel est juste.");
-
-
-            ContactData alex = new ContactData("Alex", "Gharbi", "08292982873", "alex.gharbi@hotmail.com", "Wow", "1009", "01.06.1996");
-
-            try {
-                LectureContact();
-                statutBtnInitial();
-                //Serialisation(alex);
-                //Deserialisation();
-                //WriteData();
-
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-
-
-            //String[] nomprenom = {jtPrenom.getText(), jtNom.getText()};
-            //updateList(nomprenom);
-
-        }
-
-    }
 
     class EcouteurList implements ListSelectionListener {
         /**
@@ -631,7 +585,7 @@ public class Contact extends JPanel {
      *
      */
 
-    public void LectureContact() {
+    public static void LectureContact() {
         String ligne;
         try{
             BufferedReader br = new BufferedReader( new InputStreamReader( new FileInputStream(pathFiletxt)));

@@ -3,6 +3,7 @@ package Smartphone;
 import tools.imageLabel;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,17 +23,14 @@ public class Gallery extends JPanel {
 
         setLayout(new BorderLayout());
         imgPanel.setLayout(new GridLayout(0, 2));
-
+        Border blackline = BorderFactory.createLineBorder(Color.black);
         JLabel label[] = new JLabel[11];
         for (int j = 1; j<nbPhotos; j++){ //rempalcer 6 par nbPhotos
             String path = String.valueOf(j);
             label[j] = new imageLabel(path);
             imgPanel.add(label[j]);
-
-            label[j].addMouseListener (new MouseAdapter() {
-
+            label[j].addMouseListener(new MouseAdapter() {
                                            public void mousePressed(MouseEvent me) {
-
                                                if(imgzoomPanel.isVisible()) {
                                                    imgzoomPanel.setVisible(false);
                                                }
@@ -41,21 +39,15 @@ public class Gallery extends JPanel {
                                                    imgzoomPanel = new Picture(path);
                                                    add(imgzoomPanel);
                                                    imgzoomPanel.setVisible(true);
-
                                                }
                                            }
                                        }
-
-
             );
+            label[j].setBorder(blackline);
         }
-
         scroll.setViewportView(imgPanel);
         add(new JScrollPane(imgPanel));
-
     }
-
-
 }
 
 

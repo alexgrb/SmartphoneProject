@@ -15,7 +15,7 @@ public class Main {
                wow.setVisible(true); //Affiche la fenêtre
                Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
                wow.setLocation(dim.width/2-wow.getSize().width/2, dim.height/2-wow.getSize().height/2);
-
+        Contact.LectureContact();
 
 
     }
