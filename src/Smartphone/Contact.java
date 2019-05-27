@@ -338,7 +338,7 @@ public class Contact extends JPanel {
             jbValiderEdit.setVisible(false);
             jbValiderAdd.setVisible(true);
             jbAnnuler.setVisible(true);
-            //setEditable(true);
+            setEditable(true);
         }
 
     }
