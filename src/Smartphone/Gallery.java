@@ -15,7 +15,6 @@ public class Gallery extends JPanel {
     public static JPanel imgPanel = new JPanel();
     private int nbPhotos = 11;
     JScrollPane scroll = new JScrollPane();
-
     private static JButton jbRetour = new JButton ("Retour");
     private static JButton jbSuppr = new JButton ("Suppr");
 

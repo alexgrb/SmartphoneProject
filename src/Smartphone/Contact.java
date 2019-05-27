@@ -58,7 +58,7 @@ public class Contact extends JPanel {
 
     //Bouton
     private JCheckBox checkFav = new JCheckBox("Favori");
-    private JButton bOK = new JButton("OK / Lecture .txt");
+    private JButton bOK = new JButton("Synchroniser");
     protected static JButton jbAdd = new JButton ("Ajouter");
     private static JButton jbValiderEdit = new JButton ("Valider edit");
     private static JButton jbValiderAdd = new JButton ("Valider add");

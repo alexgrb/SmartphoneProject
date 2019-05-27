@@ -13,7 +13,7 @@ public class weather extends JPanel {
     public JComboBox cityList;
 
         public weather() {
-            Object[] cities = new Object[]{"Lausanne,CH", "Sion,CH", "Zurich,CH", "Montreux,CH", "Sierre,CH"};
+            Object[] cities = new Object[]{"Lausanne,CH", "Sion,CH", "Zurich,CH", "Montreux,CH", "Sierre,CH", "Dubai, AE"};
             cityList = new JComboBox(cities);
             cityList.addActionListener(new comboListener());
 
