@@ -11,6 +11,10 @@ public class imageLabel extends JLabel {
         loadImage(path);
         setSurfaceSize();
     }
+    public imageLabel(String path, int i) { //i Nous permet de faire une autre méthode quasi identique
+        loadImage("gallery\\"+path);
+        setSurfaceSize();
+    }
 
     public void loadImage(String path) {
         mshi =  new ImageIcon("src\\pictures\\" + path+ ".png").getImage();
