@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 
 public class Gallery extends JPanel {
 
+    JPanel imgzoomPanel = new Picture("");
     public static JPanel imgPanel = new JPanel();
     private int nbPhotos = 11;
     JScrollPane scroll = new JScrollPane();
@@ -24,47 +25,36 @@ public class Gallery extends JPanel {
         imgPanel.setLayout(new GridLayout(0, 2));
 
         JLabel label[] = new JLabel[11];
-        for (int j = 1; j<nbPhotos; j++){
+        for (int j = 1; j<nbPhotos; j++){ //rempalcer 6 par nbPhotos
             String path = String.valueOf(j);
             label[j] = new imageLabel(path);
             imgPanel.add(label[j]);
+
             label[j].addMouseListener (new MouseAdapter() {
 
-                public void mousePressed(MouseEvent me) {
-                    imgPanel.removeAll();
-                    JPanel imgzoomPanel = new Picture(path); //photo
-                    imgPanel.setLayout(null);
-                    imgzoomPanel.setBounds(0,0,480,745);
-                    imgPanel.add(imgzoomPanel);
+                                           public void mousePressed(MouseEvent me) {
 
-                    imgPanel.validate();
-                    imgPanel.repaint();
+                                               if(imgzoomPanel.isVisible()) {
+                                                   imgzoomPanel.setVisible(false);
+                                               }
+                                               else {
+                                                   //remove(imgzoomPanel);
+                                                   imgzoomPanel = new Picture(path);
+                                                   add(imgzoomPanel);
+                                                   imgzoomPanel.setVisible(true);
 
-                    //Bouton
-                   jbRetour.addActionListener(new display.homeListener(4));
+                                               }
+                                           }
+                                       }
 
-                    //jbRetour.setPreferredSize(new Dimension(150, 30));
-                    //imgzoomPanel.add(jbRetour);
-                    setVisible(true);
-                }
-            });
+
+            );
         }
-
 
         scroll.setViewportView(imgPanel);
         add(new JScrollPane(imgPanel));
 
     }
-
-    /*class homeListener implements ActionListener{
-
-        public void actionPerformed(ActionEvent e) {
-            //Via cette instruction, on passe au conteneur correspondant au nom fourni en paramètre
-            cardLayout.show(content, access[i]);
-        }
-    }
-*/
-
 
 
 }

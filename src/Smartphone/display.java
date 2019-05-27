@@ -13,6 +13,8 @@ import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class display extends JFrame {
 
@@ -79,7 +81,7 @@ public class display extends JFrame {
             }
         JPanel weatherPanel = new weather();
         JPanel galleryPanel = new Gallery();
-        JPanel picturePanel = new Picture("");
+        //JPanel picturePanel = new Picture("ddBack");
 
 
         bottom.setOpaque(false);
@@ -93,12 +95,16 @@ public class display extends JFrame {
         content.add(contactlPanel, access[1]);
         content.add(calculPanel, access[3]);
         content.add(galleryPanel, access[4]);
+
+
         setLayout(null);
         content.setBounds(0,35,480,705);
         add(content);
         bottom.setBounds(0,740,480,60);
         add(bottom);
         getRootPane().setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.gray));
+
+
     }
 
      static class homeListener implements ActionListener{

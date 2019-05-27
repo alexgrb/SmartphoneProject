@@ -6,25 +6,21 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 
 public class Picture extends JPanel {
 
-    JPanel imgPanel = new JPanel();
+    private static JPanel picPanel = new JPanel();
     private int nbPhotos = 11;
 
-    public Picture (String path){
+    public Picture(String path){
 
-        setLayout(new BorderLayout());
+        setLayout(null);
 
         imageLabel picture = new imageLabel(path);
 
-        imgPanel.add(picture, BorderLayout.CENTER);
-
-        JButton back = new JButton("back");
-        back.addActionListener(new display.homeListener(4));
-        imgPanel.add(back, BorderLayout.NORTH);
-
-        add(imgPanel);
+        picture.setBounds(30,30,350,500);
+        add(picture);
     }
 
 }

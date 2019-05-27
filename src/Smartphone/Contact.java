@@ -245,8 +245,6 @@ public class Contact extends JPanel {
 
     // ------------------ LIST + ACTION LISTENER ---------------------- //
 
-
-
     class BoutonOK implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
@@ -258,7 +256,6 @@ public class Contact extends JPanel {
             System.out.println("NPA : " + jtNpa.getText());
             System.out.println("Date de naissance : " + jtDateNaissance.getText());
             System.out.println("Favoris - état : " + checkFav.isSelected());
-
 
             if (!regex.validerEmail(jtEmail.getText()))
                 System.out.println("L'email est faux.");
