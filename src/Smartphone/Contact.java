@@ -10,6 +10,7 @@ import tools.imageLabel;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -23,21 +24,23 @@ public class Contact extends JPanel {
 
     ContactRegex regex = new ContactRegex();
 
-    private imageLabel photoDuContact = new imageLabel("10");
-    //Fonts
+    // private imageLabel photoDuContact = new imageLabel("10");
+    // Fonts
+
+
     protected Font fontBouton = new Font("Arial",Font.PLAIN ,14);
-    protected Font fontJList = new Font("Arial",Font.PLAIN ,14);
     protected Font fontlabels = new Font("Arial",Font.BOLD ,14);
     protected Font fontJtextfields = new Font("Arial",Font.PLAIN ,14);
+    protected Font fontJList = new Font("Arial",Font.PLAIN ,18);
+
+
+
+
     protected Dimension dim = new Dimension(200, 30);
+    protected Dimension dimJlist = new Dimension(400, 100);
 
-
-    //Jpanel
-    private JPanel container = new JPanel();
-    JLabel j = new imageLabel("contactBack");
 
     // Les labels
-    private JLabel lbTitre = new JLabel("Contact");
     private JLabel lbNom = new JLabel("Nom");
     private JLabel lbPrenom = new JLabel("Prenom");
     private JLabel lbNumTel = new JLabel("Numéro de téléphone");
@@ -45,6 +48,8 @@ public class Contact extends JPanel {
     private JLabel lbAdresse = new JLabel("Adresse");
     private JLabel lbNpa = new JLabel("NPA");
     private JLabel lbDateNaissance = new JLabel("Date de naissance");
+    private JCheckBox checkFav = new JCheckBox("Favori");
+
 
 
     //TextFields
@@ -58,34 +63,26 @@ public class Contact extends JPanel {
 
 
     //Bouton
-    private JCheckBox checkFav = new JCheckBox("Favori");
-
-    protected static JButton jbAdd = new JButton ("Ajouter");
-    private static JButton jbValiderEdit = new JButton ("Valider edit");
-    private static JButton jbValiderAdd = new JButton ("Valider add");
-    protected static JButton jbEdit = new JButton ("Editer");
-    protected static JButton jbDelete = new JButton ("Delete");
+    protected static JButton jbAdd = new JButton ();
+    private static JButton jbValiderEdit = new JButton ("Valider modification(s)");
+    private static JButton jbValiderAdd = new JButton ("Valider ajout");
+    protected static JButton jbEdit = new JButton ("Modifier");
+    protected static JButton jbDelete = new JButton ("Supprimer");
     private static JButton jbAnnuler = new JButton ("Annuler");
 
+
     //Liste des contacts
-    private static JList jlistContact = new JList();
-
-    protected JPanel topPanel = new JPanel(); // Stores the two top panels
-    protected JPanel leftPanel = new JPanel(); // Scroll Pane
-    protected JPanel rightPanel = new JPanel(); // Right Panel with buttons + form
-    protected JPanel rightTopPanel = new JPanel(); // Buttons
-    protected JPanel rightBottomPanel = new JPanel(); // Form
-    protected JPanel bottomPanel = new JPanel(); // Stores the three bottom panels
-
-    private JPanel top = new JPanel();
-    private JPanel center = new JPanel();
-
-    private JPanel bottom = new JPanel();
-    private JPanel east = new JPanel();
 
     private static String week[] = {" "};
-    private static boolean valModifSupp = false;
+    private static JList jlistContact = new JList();
 
+
+    private JPanel topPanel = new JPanel();
+    private JPanel centerPanel = new JPanel();
+    private static JPanel panelDroitBas = new JPanel();
+
+
+    private static boolean valModifSupp = false;
 
     public static String pathFiletxt = ".\\contact.txt";
 
@@ -96,6 +93,10 @@ public class Contact extends JPanel {
     public Contact() {
 
 
+        jbAdd.setIcon(new ImageIcon("src\\pictures\\addresized.png"));
+        jbAdd.setOpaque(false);
+        jbAdd.setBackground(new Color(0,true));
+        jbAdd.setBorder(null);
 
         //Nouvelle police
         Font police = new Font("Arial", Font.BOLD, 14);
@@ -103,19 +104,12 @@ public class Contact extends JPanel {
 
 
         // Setting up the scroll pane
-        JScrollPane scrollPane = new JScrollPane(jlistContact);
-        Border emptyBorder = BorderFactory.createEmptyBorder();
-        scrollPane.setBorder(emptyBorder);
-        leftPanel.setBorder(emptyBorder);
-        jlistContact.setBorder(emptyBorder);
-        scrollPane.setBackground(Color.gray);
-        scrollPane.setBounds(0, 0, 500, 500);
-        jlistContact.setBackground(Color.LIGHT_GRAY);
-        jlistContact.setFont(police);
-        east.add(jlistContact);
-        east.add(scrollPane);
 
 
+
+
+
+        //----------- Les boutons -----//
 
         jbValiderEdit.addActionListener(new ValiderEditAdd());
         jbValiderAdd.addActionListener(new ValiderAdd());
@@ -124,28 +118,68 @@ public class Contact extends JPanel {
         jbDelete.addActionListener(new ActionDelete());
         jbAnnuler.addActionListener(new ActionCancel());
 
+        jbAdd.setFont(fontBouton);
+        jbValiderEdit.setFont(fontBouton);
+        jbValiderAdd.setFont(fontBouton);
+        jbEdit.setFont(fontBouton);
+        jbDelete.setFont(fontBouton);
+        jbAnnuler.setFont(fontBouton);
 
-        //Implémente le String[] dans la Jlist
+        centerPanel.add(jbAdd);
+        centerPanel.add(jbValiderEdit);
+        centerPanel.add(jbValiderAdd);
+        centerPanel.add(jbEdit);
+        centerPanel.add(jbDelete);
+        centerPanel.add(jbAnnuler);
+
+
+        //---------------------------//
+        JScrollPane scrollPane = new JScrollPane(jlistContact);
+        Border emptyBorder = BorderFactory.createEmptyBorder();
+        scrollPane.setBorder(emptyBorder);
+        jlistContact.setBorder(emptyBorder);
+
+        //------------- JList babyyyyyyy --------------//
+
+
+
+
+
+        scrollPane.setBackground(Color.gray);
+        scrollPane.setBounds(0, 0, 500, 500);
+        jlistContact.setBackground(Color.LIGHT_GRAY);
+        jlistContact.setFont(police);
+        topPanel.add(jlistContact);
+        //topPanel.add(scrollPane);
         jlistContact = new JList(week);
-        //Lorsque l'on clique sur un éléments de la liste, il s'affiche sur la console
-        jlistContact.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) {
-                    final List selectedValuesList = jlistContact.getSelectedValuesList();
-                    System.out.println(selectedValuesList);
-                }
-            }
-        });
-
-        //Ajoute un scrollpane à la Jlist
         add(new JScrollPane(jlistContact));
+        jlistContact.setFont(fontJList);
+        jlistContact.setPreferredSize(dimJlist);
+        jlistContact.setBorder(new EmptyBorder(15,10, 15, 10));
+        jlistContact.add(topPanel);
 
-        //Ajoute la liste dans le Jpanel top (qui est instancié plus bas)
-        top.add(jlistContact);
+
+
+        //topPanel.add(jlistContact);
+
+
+
+
+
+        //panelGauche.setBackground(Color.LIGHT_GRAY);
+        //centerPanel.setBackground(Color.pink);
+        //topPanel.setBackground(Color.pink);
+        //panelDroitBas.setBackground(Color.pink);
+
+
+
+
+
+        //---------------------------//
+
 
         //Fonts et dim sur les labels
-        lbTitre.setFont(fontlabels);
+
         lbNom.setFont(fontlabels);
         lbPrenom.setFont(fontlabels);
         lbNumTel.setFont(fontlabels);
@@ -154,7 +188,7 @@ public class Contact extends JPanel {
         lbNpa.setFont(fontlabels);
         lbDateNaissance.setFont(fontlabels);
 
-        lbTitre.setPreferredSize(dim);
+
         lbNom.setPreferredSize(dim);
         lbPrenom.setPreferredSize(dim);
         lbNumTel.setPreferredSize(dim);
@@ -182,68 +216,44 @@ public class Contact extends JPanel {
         jtAdresse.setPreferredSize(dim);
         jtNpa.setPreferredSize(dim);
         jtDateNaissance.setPreferredSize(dim);
-        photoDuContact.setPreferredSize(new Dimension(200,300));
 
-        //Fonts des boutons
-
-        jbAdd.setFont(fontBouton);
-        jbValiderEdit.setFont(fontBouton);
-        jbValiderAdd.setFont(fontBouton);
-        jbEdit.setFont(fontBouton);
-        jbDelete.setFont(fontBouton);
-        jbAnnuler.setFont(fontBouton);
-
-        //Font de la Jlist
 
         jlistContact.setFont(fontJList);
 
-        //On ajoute nos TextFields et JLabel en alternance
-
-        //Top
-        top.add(lbTitre);
-        top.setLayout(new GridLayout(1, 1));
-
-        //Center
-        center.add(lbNom);
-        center.add(jtNom);
-        center.add(lbPrenom);
-        center.add(jtPrenom);
-        center.add(lbNumTel);
-        center.add(jtNumTel);
-        center.add(lbEmail);
-        center.add(jtEmail);
-        center.add(lbAdresse);
-        center.add(jtAdresse);
-        center.add(lbNpa);
-        center.add(jtNpa);
-        center.add(lbDateNaissance);
-        center.add(jtDateNaissance);
-        center.add(checkFav);
-        bottom.add(photoDuContact);
 
 
-        center.setLayout(new GridLayout(14, 1));
-
-        center.add(jbAdd);
-        center.add(jbValiderEdit);
-        center.add(jbValiderAdd);
-        center.add(jbEdit);
-        center.add(jbDelete);
-        center.add(jbAnnuler);
+        panelDroitBas.add(lbNom);
+        panelDroitBas.add(jtNom);
+        panelDroitBas.add(lbPrenom);
+        panelDroitBas.add(jtPrenom);
+        panelDroitBas.add(lbNumTel);
+        panelDroitBas.add(jtNumTel);
+        panelDroitBas.add(lbEmail);
+        panelDroitBas.add(jtEmail);
+        panelDroitBas.add(lbAdresse);
+        panelDroitBas.add(jtAdresse);
+        panelDroitBas.add(lbNpa);
+        panelDroitBas.add(jtNpa);
+        panelDroitBas.add(lbDateNaissance);
+        panelDroitBas.add(jtDateNaissance);
+        panelDroitBas.add(checkFav);
+        panelDroitBas.setLayout(new GridLayout(14, 1));
 
 
         //Bottom
         jlistContact.addListSelectionListener(new EcouteurList());
 
+        centerPanel.setBorder(BorderFactory.createEmptyBorder(30, 10, 30, 10));
 
         //Layouts
-        add(top, BorderLayout.NORTH);
-        add(center, BorderLayout.CENTER);
-        add(bottom, BorderLayout.SOUTH);
-        add(east, BorderLayout.EAST);
+        add(topPanel);
+        add(centerPanel);
+        add(panelDroitBas);
+
+        panelDroitBas.setVisible(false);
+
 
     }
-
 
     // ------------------ LIST + ACTION LISTENER ---------------------- //
 
@@ -257,7 +267,7 @@ public class Contact extends JPanel {
         public void valueChanged(ListSelectionEvent evt){
             int i = jlistContact.getSelectedIndex();
 
-            //panelDroitBas.setVisible(true);
+            panelDroitBas.setVisible(true);
             setEditable(false);
             if(valModifSupp == false){
                 //jbAdd.setVisible(false);
@@ -331,7 +341,7 @@ public class Contact extends JPanel {
         public void actionPerformed(ActionEvent e) {
             jlistContact.setEnabled(false);
             resetChamp();
-            //panelDroitBas.setVisible(true);
+            panelDroitBas.setVisible(true);
             jbAdd.setVisible(false);
             jbEdit.setVisible(false);
             jbDelete.setVisible(false);
@@ -397,7 +407,7 @@ public class Contact extends JPanel {
             jbValiderEdit.setVisible(true);
             jbAnnuler.setVisible(true);
             setEditable(true);
-            //panelDroitBas.setVisible(true);
+            panelDroitBas.setVisible(true);
         }
     }
 
@@ -427,7 +437,7 @@ public class Contact extends JPanel {
                 resetChamp();
                 statutBtnInitial();
                 jlistContact.clearSelection();
-                //panelDroitBas.setVisible(false);
+                panelDroitBas.setVisible(false);
             } catch (Exception f){
                 System.out.println("Erreur a l'annulation");
                 System.out.println(f.toString());
@@ -653,7 +663,7 @@ public class Contact extends JPanel {
 
             jlistContact.setListData(listAffichageJList);
             statutBtnInitial();
-            //panelDroitBas.setVisible(false);
+            panelDroitBas.setVisible(false);
         }catch (Exception e){
             System.out.println("Erreur à la mise a jour des informations");
             System.out.println(e.toString());
