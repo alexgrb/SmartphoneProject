@@ -57,21 +57,18 @@ public class GetWeatherData extends JPanel {
                 System.out.println(e.getMessage());
             }
 
-
             JLabel descriptionLabel = new JLabel(description);
 
             //Ce code permet de récupérer les données en surface du JSON
             Map<String, Object> respMap = jsonToMap(result.toString());
             Map<String, Object> mainMap = jsonToMap(respMap.get("main").toString());
             Map<String, Object> windMap = jsonToMap(respMap.get("wind").toString());
-           // Map<String, Object> sysMap = jsonToMap(respMap.get("sys").toString());
 
             String currentTempT = mainMap.get("temp").toString().substring(0,2) +"C°";
             JLabel currentTemp = new JLabel(currentTempT);
             String currentHumidityT = mainMap.get("humidity").toString().substring(0,2)+"%";
             JLabel currentHumidity = new JLabel( currentHumidityT);
             JLabel windSpeed = new JLabel(windMap.get("speed") + " km/h");
-           // JLabel cityLabel = new JLabel(city);
 
             int scaledWidth = 150;
             int scaledHeight = 150;
@@ -81,27 +78,12 @@ public class GetWeatherData extends JPanel {
             ImageResizer.resize("src\\pictures\\iconHumidity.png", "src\\pictures\\iconHumidity.png", 70, 70);
             JLabel imageHumidity = new imageLabel("iconHumidity");
 
-            Border border = BorderFactory.createLineBorder(Color.GRAY, 3);
-
-
-            // set the border of this component
-
-
-
-            image.setBounds(330,290,scaledWidth,scaledHeight);
-            add(image);
-
             descriptionLabel.setBounds(40,330,150,50);
             new textResizer(descriptionLabel);
-          //  descriptionLabel.setBorder(new RoundedBorder(Color.gray, 15));
-            descriptionLabel.setOpaque(true);
             add(descriptionLabel);
 
-
             currentTemp.setBounds(360,350,150,200);
-
             new textResizer(currentTemp,35);
-            //currentTemp.setBorder(new RoundedBorder(Color.GRAY,15));
             add(currentTemp);
 
             windSpeed.setBounds(45, 360, 150,200);
@@ -116,6 +98,11 @@ public class GetWeatherData extends JPanel {
             add(currentHumidity);
 
             String backPath = "";
+            image.setBounds(330,290,scaledWidth,scaledHeight);
+            add(image);
+            JLabel backGround = new imageLabel("weatherBack");
+            backGround.setBounds(0,275,480,500);
+            add(backGround);
 
             switch (icon){
                 case "01d" :
