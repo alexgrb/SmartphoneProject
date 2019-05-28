@@ -16,57 +16,57 @@ public class Gallery extends JPanel {
 
     static JPanel imgzoomPanel = new Picture("");
     public static JPanel imgPanel = new JPanel();
+
     private static int nbPhotos = (new File("src\\pictures\\gallery\\").list().length);
     JScrollPane scroll = new JScrollPane();
     private static JButton jbRetour = new JButton ("Ajouter");
-    private static JLabel label[] = new JLabel[nbPhotos+1];
+
+
 
     public Gallery (){
 
-        System.out.println(nbPhotos);
-
-        setLayout(new BorderLayout());
-        imgPanel.setLayout(new GridLayout(0, 2));
-
-        jbRetour.addActionListener(new addButton());
-        add(jbRetour, BorderLayout.SOUTH);
-
-
-
         loadImages();
-
-        scroll.setViewportView(imgPanel);
-        add(new JScrollPane(imgPanel), BorderLayout.CENTER);
     }
 
     class addButton implements ActionListener{
 
         public void actionPerformed(ActionEvent e) {
+
             File file = new File("C:\\Users\\Public");
             JFileChooser chooser = new JFileChooser(file);
+
+            File folder = new File("src\\pictures\\gallery\\");
 
             int returnValue = chooser.showOpenDialog(null);
             if (returnValue == JFileChooser.APPROVE_OPTION) {
                 File selectedFile = chooser.getSelectedFile();
                 System.out.println(selectedFile.getAbsolutePath());
                 addImage(selectedFile);
+
             }
+            revalidate();
+            reloadNbPhotos();
+            loadImages();
+              //  System.out.println("chargement");
+
         }
     }
 
     public void addImage(File path){
 
         File dest = new File("src\\pictures\\gallery\\" + (nbPhotos+1)+ ".png");
+
         try {
-            copyFileUsingStream(path, dest);
+            copyFileUsingStream(path.getPath(), dest.getPath());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private static void copyFileUsingStream(File source, File dest) throws IOException {
+    private  void copyFileUsingStream(String source, String dest) throws IOException {
         InputStream is = null;
         OutputStream os = null;
+
         try {
             is = new FileInputStream(source);
             os = new FileOutputStream(dest);
@@ -79,21 +79,30 @@ public class Gallery extends JPanel {
             is.close();
             os.close();
         }
-        loadImages();
     }
 
-     public static void loadImages(){
+     public  void loadImages(){
 
-        for (int j = 1; j<(nbPhotos+1); j++){ //rempalcer 6 par nbPhotos
+         removeAll();
+         imgPanel.removeAll();
+         JLabel label[] = new JLabel[nbPhotos+1];
+         setLayout(new BorderLayout());
+         imgPanel.setLayout(new GridLayout(0, 2));
+
+         for (int j = 1; j<(nbPhotos+1); j++){ //rempalcer 6 par nbPhotos
             String path = String.valueOf(j);
             label[j] = new imageLabel(path,1);
             imgPanel.add(label[j]);
+
             //label[j].addMouseListener(new mouseListener());
 
             Border blackline = BorderFactory.createLineBorder(Color.black);
             label[j].setBorder(blackline);
         }
-
+         jbRetour.addActionListener(new addButton());
+         add(jbRetour, BorderLayout.SOUTH);
+         scroll.setViewportView(imgPanel);
+         add(new JScrollPane(imgPanel), BorderLayout.CENTER);
     }
 
     class mouseListener extends MouseAdapter {
@@ -115,6 +124,12 @@ public class Gallery extends JPanel {
         }
 
         }
+
+    public static void reloadNbPhotos() {
+
+        Gallery.nbPhotos = (new File("src\\pictures\\gallery\\").list().length);
+        System.out.println("Actuellement "+ nbPhotos + " photos dans le dossier");
+    }
     }
 
 
