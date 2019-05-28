@@ -72,10 +72,10 @@ public class GetWeatherData extends JPanel {
 
             int scaledWidth = 150;
             int scaledHeight = 150;
-            ImageResizer.resize("src\\pictures\\" + icon+ ".png", "src\\pictures\\" + icon+ "2.png", scaledWidth, scaledHeight);
+            ImageResizer.resize("src\\main\\java\\pictures\\" + icon+ ".png", "src\\main\\java\\pictures\\" + icon+ "2.png", scaledWidth, scaledHeight);
             JLabel image = new imageLabel(icon+"2");
 
-            ImageResizer.resize("src\\pictures\\iconHumidity.png", "src\\pictures\\iconHumidity.png", 70, 70);
+            ImageResizer.resize("src\\main\\java\\pictures\\iconHumidity.png", "src\\main\\java\\pictures\\iconHumidity.png", 70, 70);
             JLabel imageHumidity = new imageLabel("iconHumidity");
 
             descriptionLabel.setBounds(40,330,150,50);
@@ -121,7 +121,7 @@ public class GetWeatherData extends JPanel {
                     backPath = "rain";
                     break;
             }
-            ImageIcon imgBack = new ImageIcon("src\\pictures\\"+backPath+".gif");
+            ImageIcon imgBack = new ImageIcon("src\\main\\java\\pictures\\"+backPath+".gif");
             JLabel back = new JLabel(imgBack);
 
             back.setBounds(0,10,480,275);

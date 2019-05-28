@@ -1,4 +1,4 @@
-package Smartphone;
+package main.java.Smartphone;
 
 import java.awt.*;
 import java.io.IOException;

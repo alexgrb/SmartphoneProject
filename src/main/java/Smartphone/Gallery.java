@@ -17,7 +17,7 @@ public class Gallery extends JPanel {
     static JPanel imgzoomPanel = new Picture("");
     public static JPanel imgPanel = new JPanel();
 
-    private static int nbPhotos = (new File("src\\pictures\\gallery\\").list().length);
+    private static int nbPhotos = (new File("src\\main\\java\\pictures\\gallery\\").list().length);
     JScrollPane scroll = new JScrollPane();
     private static JButton jbRetour = new JButton ("Ajouter");
 
@@ -35,26 +35,21 @@ public class Gallery extends JPanel {
             File file = new File("C:\\Users\\Public");
             JFileChooser chooser = new JFileChooser(file);
 
-            File folder = new File("src\\pictures\\gallery\\");
-
             int returnValue = chooser.showOpenDialog(null);
             if (returnValue == JFileChooser.APPROVE_OPTION) {
                 File selectedFile = chooser.getSelectedFile();
                 System.out.println(selectedFile.getAbsolutePath());
                 addImage(selectedFile);
-
             }
             revalidate();
             reloadNbPhotos();
             loadImages();
-              //  System.out.println("chargement");
-
         }
     }
 
     public void addImage(File path){
 
-        File dest = new File("src\\pictures\\gallery\\" + (nbPhotos+1)+ ".png");
+        File dest = new File("src\\main\\java\\pictures\\gallery\\" + (nbPhotos+1)+ ".png");
 
         try {
             copyFileUsingStream(path.getPath(), dest.getPath());
@@ -87,8 +82,9 @@ public class Gallery extends JPanel {
          imgPanel.removeAll();
          JLabel label[] = new JLabel[nbPhotos+1];
          setLayout(new BorderLayout());
-         imgPanel.setLayout(new GridLayout(0, 2));
+        // imgPanel.setLayout(new GridLayout(0, 2));
 
+         imgPanel.setLayout(new FlowLayout(5,5,5));
          for (int j = 1; j<(nbPhotos+1); j++){ //rempalcer 6 par nbPhotos
             String path = String.valueOf(j);
             label[j] = new imageLabel(path,1);
@@ -96,8 +92,6 @@ public class Gallery extends JPanel {
 
             //label[j].addMouseListener(new mouseListener());
 
-            Border blackline = BorderFactory.createLineBorder(Color.black);
-            label[j].setBorder(blackline);
         }
          jbRetour.addActionListener(new addButton());
          add(jbRetour, BorderLayout.SOUTH);
@@ -127,7 +121,7 @@ public class Gallery extends JPanel {
 
     public static void reloadNbPhotos() {
 
-        Gallery.nbPhotos = (new File("src\\pictures\\gallery\\").list().length);
+        Gallery.nbPhotos = (new File("src\\main\\java\\pictures\\gallery\\").list().length);
         System.out.println("Actuellement "+ nbPhotos + " photos dans le dossier");
     }
     }

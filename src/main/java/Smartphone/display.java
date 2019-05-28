@@ -44,11 +44,11 @@ public class display extends JFrame {
             appButton[i].setBackground(new Color(0,true));
             appButton[i].setBorder(null);
         }
-        appButton[0].setIcon(new ImageIcon("src\\pictures\\iconWeather.png"));
-        appButton[1].setIcon(new ImageIcon("src\\pictures\\iconContact.png"));
-        appButton[2].setIcon(new ImageIcon("src\\pictures\\iconeHome.png"));
-        appButton[3].setIcon(new ImageIcon("src\\pictures\\iconCalculette.png"));
-        appButton[4].setIcon(new ImageIcon("src\\pictures\\iconGallery.png"));
+        appButton[0].setIcon(new ImageIcon("src\\main\\java\\pictures\\iconWeather.png"));
+        appButton[1].setIcon(new ImageIcon("src\\main\\java\\pictures\\iconContact.png"));
+        appButton[2].setIcon(new ImageIcon("src\\main\\java\\pictures\\iconeHome.png"));
+        appButton[3].setIcon(new ImageIcon("src\\main\\java\\pictures\\iconCalculette.png"));
+        appButton[4].setIcon(new ImageIcon("src\\main\\java\\pictures\\iconGallery.png"));
 
         int x=10; //Position X
         int y=700; //Position Y

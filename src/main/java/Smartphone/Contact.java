@@ -93,7 +93,7 @@ public class Contact extends JPanel {
     public Contact() {
 
 
-        jbAdd.setIcon(new ImageIcon("src\\pictures\\addresized.png"));
+        jbAdd.setIcon(new ImageIcon("src\\main\\java\\pictures\\addresized.png"));
         jbAdd.setOpaque(false);
         jbAdd.setBackground(new Color(0,true));
         jbAdd.setBorder(null);

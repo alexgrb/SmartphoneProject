@@ -17,7 +17,7 @@ public class imageLabel extends JLabel {
     }
 
     public void loadImage(String path) {
-        mshi =  new ImageIcon("src\\pictures\\" + path+ ".png").getImage();
+        mshi =  new ImageIcon("src\\main\\java\\pictures\\" + path+ ".png").getImage();
     }
 
     private void setSurfaceSize() {

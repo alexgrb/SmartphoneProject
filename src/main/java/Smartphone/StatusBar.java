@@ -26,7 +26,7 @@ public class StatusBar extends JPanel {
         final DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
         int interval = 1000; // 1000 ms
         Calendar now = Calendar.getInstance();
-        JLabel currentTime = new JLabel(dateFormat.format(now.getTime()));
+        final JLabel currentTime = new JLabel(dateFormat.format(now.getTime()));
 
 
         currentTime.setBounds(10,0,200,30);
