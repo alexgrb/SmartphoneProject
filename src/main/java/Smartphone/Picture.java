@@ -9,14 +9,13 @@ import java.io.IOException;
 public class Picture extends JPanel {
 
     public Picture(String path){
-
         setLayout(null);
      /*   try {
             ImageResizer.resize("src\\pictures\\" + path+ ".png", "src\\pictures\\" + path+ "Bis.png", 350, 500);
         } catch (IOException e) {
             e.printStackTrace();
         }*/
-        imageLabel picture = new imageLabel(path);
+        imageLabel picture = new imageLabel(path,2);
 
         picture.setBounds(30,30,350,500);
         add(picture);

@@ -1,10 +1,9 @@
 package Smartphone;
 
-import javafx.stage.FileChooser;
+import net.miginfocom.swing.MigLayout;
 import tools.imageLabel;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,14 +16,11 @@ public class Gallery extends JPanel {
     static JPanel imgzoomPanel = new Picture("");
     public static JPanel imgPanel = new JPanel();
 
-    private static int nbPhotos = (new File("src\\main\\java\\pictures\\gallery\\").list().length);
+    private static int nbPhotos = (new File("src\\main\\java\\pictures\\gallery\\").list().length)/2; //Divided by two because there is always 2 version
     JScrollPane scroll = new JScrollPane();
     private static JButton jbRetour = new JButton ("Ajouter");
 
-
-
     public Gallery (){
-
         loadImages();
     }
 
@@ -32,7 +28,7 @@ public class Gallery extends JPanel {
 
         public void actionPerformed(ActionEvent e) {
 
-            File file = new File("C:\\Users\\Public");
+            File file = new File("C:\\Users\\piran\\IdeaProjects\\SmartphoneProject\\src\\main\\java\\picturesToAdd");
             JFileChooser chooser = new JFileChooser(file);
 
             int returnValue = chooser.showOpenDialog(null);
@@ -82,15 +78,13 @@ public class Gallery extends JPanel {
          imgPanel.removeAll();
          JLabel label[] = new JLabel[nbPhotos+1];
          setLayout(new BorderLayout());
-        // imgPanel.setLayout(new GridLayout(0, 2));
 
-         imgPanel.setLayout(new FlowLayout(5,5,5));
-         for (int j = 1; j<(nbPhotos+1); j++){ //rempalcer 6 par nbPhotos
+         imgPanel.setLayout(new MigLayout("wrap 4"));
+         for (int j = 1; j<(nbPhotos+1); j++){
             String path = String.valueOf(j);
             label[j] = new imageLabel(path,1);
             imgPanel.add(label[j]);
-
-            //label[j].addMouseListener(new mouseListener());
+            label[j].addMouseListener(new mouseListener(path));
 
         }
          jbRetour.addActionListener(new addButton());
@@ -101,7 +95,8 @@ public class Gallery extends JPanel {
 
     class mouseListener extends MouseAdapter {
         String path;
-        public void mouseListener(String path) {
+
+        public  mouseListener(String path) {
             this.path = path;
         }
         @Override
@@ -111,20 +106,18 @@ public class Gallery extends JPanel {
             }
             else {
                 imgzoomPanel = new Picture(path);
+                System.out.println("Jessai d'ouvrir l'img : "+path);
                 add(imgzoomPanel);
                 imgzoomPanel.setVisible(true);
-
             }
         }
-
-        }
+    }
 
     public static void reloadNbPhotos() {
-
         Gallery.nbPhotos = (new File("src\\main\\java\\pictures\\gallery\\").list().length);
         System.out.println("Actuellement "+ nbPhotos + " photos dans le dossier");
     }
-    }
+}
 
 
 

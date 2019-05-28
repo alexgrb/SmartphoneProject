@@ -2,6 +2,7 @@ package tools;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class imageLabel extends JLabel {
     private Image mshi;
@@ -12,12 +13,28 @@ public class imageLabel extends JLabel {
         setSurfaceSize();
     }
     public imageLabel(String path, int i) { //i Nous permet de faire une autre méthode quasi identique
-        loadImage("gallery\\"+path);
+        if(i==1) {
+            String imageToResize = "src\\main\\java\\pictures\\gallery\\" + path + ".png";
+            String resizedImagePath = "src\\main\\java\\pictures\\gallery\\min_" + path + ".png";
+            try {
+                ImageResizer.resize(imageToResize, resizedImagePath, 100, 100);
+            } catch (IOException e) {
+                // e.printStackTrace();
+            }
+            loadImageGallery(resizedImagePath);
+        }
+        else {
+        loadImage("gallery\\" + path);
+        }
         setSurfaceSize();
+
     }
 
     public void loadImage(String path) {
         mshi =  new ImageIcon("src\\main\\java\\pictures\\" + path+ ".png").getImage();
+    }
+    public void loadImageGallery(String path) {
+        mshi =  new ImageIcon(path).getImage();
     }
 
     private void setSurfaceSize() {

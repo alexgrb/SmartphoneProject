@@ -8,6 +8,7 @@ import java.io.IOException;
 
 public class ImageResizer {
 
+
         /**
          * Resizes an image to a absolute width and height (the image may not be
          * proportional)
@@ -40,4 +41,5 @@ public class ImageResizer {
             // writes to output file
             ImageIO.write(outputImage, formatName, new File(outputImagePath));
         }
+
 }
