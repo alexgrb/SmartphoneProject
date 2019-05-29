@@ -31,7 +31,7 @@ public class Contact extends JPanel {
     protected Font fontBouton = new Font("Arial",Font.PLAIN ,14);
     protected Font fontlabels = new Font("Arial",Font.BOLD ,14);
     protected Font fontJtextfields = new Font("Arial",Font.PLAIN ,14);
-    protected Font fontJList = new Font("Arial",Font.PLAIN ,18);
+    protected Font fontJList = new Font("Arial",Font.PLAIN ,20);
 
 
 
@@ -73,13 +73,13 @@ public class Contact extends JPanel {
 
     //Liste des contacts
 
-    private static String week[] = {" "};
+    private static String chaine[];
     private static JList jlistContact = new JList();
 
 
     private JPanel topPanel = new JPanel();
     private JPanel centerPanel = new JPanel();
-    private static JPanel panelDroitBas = new JPanel();
+    private static JPanel bottomPanel = new JPanel();
 
 
     private static boolean valModifSupp = false;
@@ -93,13 +93,13 @@ public class Contact extends JPanel {
     public Contact() {
 
 
-        jbAdd.setIcon(new ImageIcon("src\\main\\java\\pictures\\addresized.png"));
+        jbAdd.setIcon(new ImageIcon("src\\pictures\\addresized.png"));
         jbAdd.setOpaque(false);
         jbAdd.setBackground(new Color(0,true));
         jbAdd.setBorder(null);
 
         //Nouvelle police
-        Font police = new Font("Arial", Font.BOLD, 14);
+        Font police = new Font("Arial", Font.BOLD, 16);
         jtNpa.setFont(police);
 
 
@@ -117,6 +117,8 @@ public class Contact extends JPanel {
         jbEdit.addActionListener(new ActionEdit());
         jbDelete.addActionListener(new ActionDelete());
         jbAnnuler.addActionListener(new ActionCancel());
+        jlistContact.addListSelectionListener(new EcouteurList());
+
 
         jbAdd.setFont(fontBouton);
         jbValiderEdit.setFont(fontBouton);
@@ -134,48 +136,36 @@ public class Contact extends JPanel {
 
 
         //---------------------------//
+
+
         JScrollPane scrollPane = new JScrollPane(jlistContact);
+        topPanel.add(scrollPane);
+
+
+        /*
+        JScrollPane scrollPane = new JScrollPane();
+        jlistContact.add(scrollPane);
+        topPanel.add(scrollPane);
+        */
+
+        /*
         Border emptyBorder = BorderFactory.createEmptyBorder();
         scrollPane.setBorder(emptyBorder);
         jlistContact.setBorder(emptyBorder);
+        */
 
-        //------------- JList babyyyyyyy --------------//
-
-
-
+        // -------------- END   -----------//
 
 
-        scrollPane.setBackground(Color.gray);
-        scrollPane.setBounds(0, 0, 500, 500);
+        //------------- JList --------------//
+
         jlistContact.setBackground(Color.LIGHT_GRAY);
-        jlistContact.setFont(police);
-        topPanel.add(jlistContact);
-        //topPanel.add(scrollPane);
-        jlistContact = new JList(week);
-        add(new JScrollPane(jlistContact));
         jlistContact.setFont(fontJList);
         jlistContact.setPreferredSize(dimJlist);
         jlistContact.setBorder(new EmptyBorder(15,10, 15, 10));
-        jlistContact.add(topPanel);
 
 
-
-        //topPanel.add(jlistContact);
-
-
-
-
-
-        //panelGauche.setBackground(Color.LIGHT_GRAY);
-        //centerPanel.setBackground(Color.pink);
-        //topPanel.setBackground(Color.pink);
-        //panelDroitBas.setBackground(Color.pink);
-
-
-
-
-
-        //---------------------------//
+        //-------------- END   -----------//
 
 
         //Fonts et dim sur les labels
@@ -218,39 +208,38 @@ public class Contact extends JPanel {
         jtDateNaissance.setPreferredSize(dim);
 
 
-        jlistContact.setFont(fontJList);
 
 
-
-        panelDroitBas.add(lbNom);
-        panelDroitBas.add(jtNom);
-        panelDroitBas.add(lbPrenom);
-        panelDroitBas.add(jtPrenom);
-        panelDroitBas.add(lbNumTel);
-        panelDroitBas.add(jtNumTel);
-        panelDroitBas.add(lbEmail);
-        panelDroitBas.add(jtEmail);
-        panelDroitBas.add(lbAdresse);
-        panelDroitBas.add(jtAdresse);
-        panelDroitBas.add(lbNpa);
-        panelDroitBas.add(jtNpa);
-        panelDroitBas.add(lbDateNaissance);
-        panelDroitBas.add(jtDateNaissance);
-        panelDroitBas.add(checkFav);
-        panelDroitBas.setLayout(new GridLayout(14, 1));
+        bottomPanel.add(lbNom);
+        bottomPanel.add(jtNom);
+        bottomPanel.add(lbPrenom);
+        bottomPanel.add(jtPrenom);
+        bottomPanel.add(lbNumTel);
+        bottomPanel.add(jtNumTel);
+        bottomPanel.add(lbEmail);
+        bottomPanel.add(jtEmail);
+        bottomPanel.add(lbAdresse);
+        bottomPanel.add(jtAdresse);
+        bottomPanel.add(lbNpa);
+        bottomPanel.add(jtNpa);
+        bottomPanel.add(lbDateNaissance);
+        bottomPanel.add(jtDateNaissance);
+        bottomPanel.add(checkFav);
+        bottomPanel.setLayout(new GridLayout(14, 1));
 
 
         //Bottom
-        jlistContact.addListSelectionListener(new EcouteurList());
+
+
 
         centerPanel.setBorder(BorderFactory.createEmptyBorder(30, 10, 30, 10));
 
         //Layouts
         add(topPanel);
         add(centerPanel);
-        add(panelDroitBas);
+        add(bottomPanel);
 
-        panelDroitBas.setVisible(false);
+        bottomPanel.setVisible(false);
 
 
     }
@@ -267,7 +256,7 @@ public class Contact extends JPanel {
         public void valueChanged(ListSelectionEvent evt){
             int i = jlistContact.getSelectedIndex();
 
-            panelDroitBas.setVisible(true);
+            bottomPanel.setVisible(true);
             setEditable(false);
             if(valModifSupp == false){
                 //jbAdd.setVisible(false);
@@ -341,7 +330,7 @@ public class Contact extends JPanel {
         public void actionPerformed(ActionEvent e) {
             jlistContact.setEnabled(false);
             resetChamp();
-            panelDroitBas.setVisible(true);
+            bottomPanel.setVisible(true);
             jbAdd.setVisible(false);
             jbEdit.setVisible(false);
             jbDelete.setVisible(false);
@@ -407,7 +396,7 @@ public class Contact extends JPanel {
             jbValiderEdit.setVisible(true);
             jbAnnuler.setVisible(true);
             setEditable(true);
-            panelDroitBas.setVisible(true);
+            bottomPanel.setVisible(true);
         }
     }
 
@@ -437,7 +426,7 @@ public class Contact extends JPanel {
                 resetChamp();
                 statutBtnInitial();
                 jlistContact.clearSelection();
-                panelDroitBas.setVisible(false);
+                bottomPanel.setVisible(false);
             } catch (Exception f){
                 System.out.println("Erreur a l'annulation");
                 System.out.println(f.toString());
@@ -504,16 +493,16 @@ public class Contact extends JPanel {
      */
 
     public void addInChaine(int numJList){
-        String temp [] = new String[week.length+1];
+        String temp [] = new String[chaine.length+1];
 
-        for(int i=0; i<week.length; i++){
-            temp[i] = week[i];
+        for(int i=0; i<chaine.length; i++){
+            temp[i] = chaine[i];
 
         }
         // Creation du tableau temporaire avec les valeur à inscrire
-        temp[week.length] = jtNom.getText() + " - " + jtPrenom.getText() + " - " + jtNumTel.getText() + " - "+ jtEmail.getText() + " - " + jtAdresse.getText() + " - " + jtNpa.getText() + " - " +  jtDateNaissance.getText();
-        week = new String [temp.length];
-        week = temp;
+        temp[chaine.length] = jtNom.getText() + " - " + jtPrenom.getText() + " - " + jtNumTel.getText() + " - "+ jtEmail.getText() + " - " + jtAdresse.getText() + " - " + jtNpa.getText() + " - " +  jtDateNaissance.getText();
+        chaine = new String [temp.length];
+        chaine = temp;
         writeContact();
         updateList();
 
@@ -522,8 +511,8 @@ public class Contact extends JPanel {
 
 
     /**
-    *
-    * Méthode qui permet de sérialiser et inscrire le conetnu d'un objet ContactData préparé à l'avance, dans le fichier .txt
+     *
+     * Méthode qui permet de sérialiser et inscrire le conetnu d'un objet ContactData préparé à l'avance, dans le fichier .txt
      *
      */
 
@@ -544,7 +533,7 @@ public class Contact extends JPanel {
     }
 
     /**
-    Méthode qui permet de lire le fichier .txt (illisible pour nous) et le traduire en charactères lisibles dans la console
+     Méthode qui permet de lire le fichier .txt (illisible pour nous) et le traduire en charactères lisibles dans la console
      */
     public void Deserialisation() throws FileNotFoundException {
 
@@ -570,10 +559,10 @@ public class Contact extends JPanel {
 
         try {
             PrintWriter fichierSortie = new PrintWriter(new BufferedWriter(new FileWriter(pathFiletxt, false)));
-            for (int i = 0; i<week.length; i++){
-                if(week[i]!= null){
-                    if(!week[i].contains("#delete")){
-                        fichierSortie.println(week[i]);
+            for (int i = 0; i<chaine.length; i++){
+                if(chaine[i]!= null){
+                    if(!chaine[i].contains("#delete")){
+                        fichierSortie.println(chaine[i]);
                         System.out.println("Il se passe un truc!!");
 
                     }
@@ -603,9 +592,9 @@ public class Contact extends JPanel {
             while ((br.readLine())!= null){
                 cptLengthChaine++;
             }
-            week = new String[cptLengthChaine];
-            listAffichageJList = new String[week.length];
-            tabContactData = new ContactData[week.length];
+            chaine = new String[cptLengthChaine];
+            listAffichageJList = new String[chaine.length];
+            tabContactData = new ContactData[chaine.length];
             br.close();
 
         }catch (Exception e){
@@ -618,7 +607,7 @@ public class Contact extends JPanel {
             BufferedReader br=new BufferedReader( new InputStreamReader( new FileInputStream(pathFiletxt)));
 
             while ((ligne=br.readLine())!=null ){
-                week[cpt] = ligne ;
+                chaine[cpt] = ligne ;
                 cpt++;
             }
             br.close();
@@ -642,20 +631,20 @@ public class Contact extends JPanel {
 
 
     public static void updateList(){
-        listAffichageJList = new String[week.length];
-        tabContactData = new ContactData[week.length];
+        listAffichageJList = new String[chaine.length];
+        tabContactData = new ContactData[chaine.length];
 
         String[] tempo = new String[6];
         try {
-            for (int i = 0; i<week.length; i++){
-                if(week[i]!= null){
+            for (int i = 0; i<chaine.length; i++){
+                if(chaine[i]!= null){
                     // On découpe chaque ligne du fichier en 6 partie distinctement séparées
-                    tempo = week[i].split(" - ", 7);
+                    tempo = chaine[i].split(" - ", 7);
                     // On crée un tableau de contact qui contiendra un objet contact avec les infos
                     tabContactData[i] = new ContactData(tempo[0], tempo[1], tempo[2], tempo[3], tempo[4], tempo[5], tempo[6]);
                     // On crée le text d'affichage de la JList
                     listAffichageJList[i] = tempo[0] + " " + tempo[1];
-                    if(week[i].contains("#deleted")){
+                    if(chaine[i].contains("#deleted")){
                         listAffichageJList[i] = null;
                     }
                 }
@@ -663,7 +652,7 @@ public class Contact extends JPanel {
 
             jlistContact.setListData(listAffichageJList);
             statutBtnInitial();
-            panelDroitBas.setVisible(false);
+            bottomPanel.setVisible(false);
         }catch (Exception e){
             System.out.println("Erreur à la mise a jour des informations");
             System.out.println(e.toString());
@@ -676,11 +665,11 @@ public class Contact extends JPanel {
      * va ecraser la valeur à la position séléctionnée par un nouveau String définit
      */
 
-    public void ModifChaine(String nom, String prenom, String mail, String adresse, String num, String npaLoc, String date, int numJList) {
-        for(int i = 0; i<week.length; i++){
-            if(week[i] != null){
+    public void ModifChaine(String nom, String prenom, String num, String mail, String adresse , String npaLoc, String date, int numJList) {
+        for(int i = 0; i<chaine.length; i++){
+            if(chaine[i] != null){
                 if(i == numJList){
-                    week[i] = nom + " - " + prenom + " - " + num + " - " + mail + " - " + adresse + " - " + npaLoc +" - " + date;
+                    chaine[i] = nom + " - " + prenom + " - " + num + " - " + mail + " - " + adresse + " - " + npaLoc +" - " + date;
                 }
             }
         }
@@ -764,10 +753,10 @@ public class Contact extends JPanel {
             try {
                 PrintWriter pw = new PrintWriter(pathFiletxt);
                 // Check s'il n'y a pas de valeurs nulles ou #deleted avant l'écriture
-                for (int i = 0; i<week.length; i++){
-                    if(week[i]!= null){
-                        if(!week[i].contains("#delete")){
-                            pw.println(week[i]);
+                for (int i = 0; i<chaine.length; i++){
+                    if(chaine[i]!= null){
+                        if(!chaine[i].contains("#delete")){
+                            pw.println(chaine[i]);
                         }
                     }
                 }
