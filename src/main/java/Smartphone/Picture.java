@@ -39,9 +39,9 @@ public class Picture extends JPanel {
 
        try {
             ImageResizer.resize("src\\main\\java\\pictures\\gallery\\" + path, "src\\main\\java\\pictures\\big\\" + path, 470, 470);
-           // System.out.println("J'essai de resize en big l'image "+path+" avec le path "+)
+
         } catch (IOException e) {
-           // e.printStackTrace();
+            e.printStackTrace();
         }
 
         imageLabel picture = new imageLabel(path,2);

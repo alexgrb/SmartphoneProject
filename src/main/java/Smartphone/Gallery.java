@@ -3,7 +3,6 @@ package Smartphone;
 import net.miginfocom.swing.MigLayout;
 import tools.imageLabel;
 import tools.textResizer;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -40,7 +39,6 @@ public class Gallery extends JPanel {
 
     public void setNbPhoto(int n) {
         this.nbPhoto.setText(n +" photos");
-        System.out.println("Je suis à "+nbPhoto.getText()+ " à présent");
     }
 
     public void addImage(File path) {
@@ -53,7 +51,6 @@ public class Gallery extends JPanel {
             e.printStackTrace();
         }
         reloadNbPhotos();
-        System.out.println("addImage a mis à jour à "+nbPhotos+" photos");
     }
 
     private static void copyFileUsingStream(String source, String dest) throws IOException {
@@ -91,7 +88,6 @@ public class Gallery extends JPanel {
             label[j].addMouseListener(new mouseListener(path));
         }
 
-        System.out.println("Au moment du set il y a "+nbPhotos);
         setNbPhoto(nbPhotos);
 
         nbPhoto.setBounds(20,0,100,40);
@@ -149,7 +145,6 @@ public class Gallery extends JPanel {
             if (returnValue == JFileChooser.APPROVE_OPTION) {
                 File selectedFile = chooser.getSelectedFile();
                 addImage(selectedFile);
-                System.out.println("Dossier sélectionné "+selectedFile);
             }
             revalidate();
             reloadNbPhotos();

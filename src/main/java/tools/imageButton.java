@@ -6,7 +6,6 @@ import java.awt.*;
 public class imageButton extends JButton {
     private Image mshi;
 
-    //String rootPath = "src\\pictures\\";
     public imageButton(String text, String path) {
         loadImage(path);
         setSurfaceSize(text);

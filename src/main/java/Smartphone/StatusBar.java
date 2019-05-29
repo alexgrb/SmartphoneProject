@@ -13,10 +13,6 @@ import java.util.Calendar;
 
 public class StatusBar extends JPanel {
 
-
-
-
-
     public StatusBar() throws InterruptedException {
         setLayout(null);
 
