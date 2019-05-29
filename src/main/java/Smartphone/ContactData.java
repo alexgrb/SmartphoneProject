@@ -83,18 +83,5 @@ public class ContactData implements Serializable {
         this.dateNaissance = dateNaissance;
     }
 
-    @Override
-    public  String toString() {
-        return "ContactData{" +
-                "nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
-                ", numTel='" + numTel + '\'' +
-                ", email='" + email + '\'' +
-                ", adresse='" + adresse + '\'' +
-                ", NPAloc='" + NPAloc + '\'' +
-                ", dateNaissance='" + dateNaissance + '\'' +
-                '}';
-    }
-
 
 }
