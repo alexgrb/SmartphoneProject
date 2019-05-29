@@ -15,7 +15,7 @@ public class imageLabel extends JLabel {
     public imageLabel(String path, int i) { //i Nous permet de faire une autre méthode quasi identique
         if(i==1) {
             String imageToResize = "src\\main\\java\\pictures\\gallery\\" + path + ".png";
-            String resizedImagePath = "src\\main\\java\\pictures\\gallery\\min_" + path + ".png";
+            String resizedImagePath = "src\\main\\java\\pictures\\min\\" + path + ".png";
             try {
                 ImageResizer.resize(imageToResize, resizedImagePath, 100, 100);
             } catch (IOException e) {
@@ -24,7 +24,7 @@ public class imageLabel extends JLabel {
             loadImageGallery(resizedImagePath);
         }
         else {
-        loadImage("gallery\\" + path);
+        loadImage("big\\" + path);
         }
         setSurfaceSize();
 
