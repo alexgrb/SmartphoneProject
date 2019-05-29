@@ -38,7 +38,7 @@ public class Picture extends JPanel {
         add(deleteBTN);
 
        try {
-            ImageResizer.resize("src\\main\\java\\pictures\\gallery\\" + path+ ".png", "src\\main\\java\\pictures\\big\\" + path+".png", 470, 470);
+            ImageResizer.resize("src\\main\\java\\pictures\\gallery\\" + path, "src\\main\\java\\pictures\\big\\" + path, 470, 470);
            // System.out.println("J'essai de resize en big l'image "+path+" avec le path "+)
         } catch (IOException e) {
            // e.printStackTrace();
@@ -55,6 +55,7 @@ public class Picture extends JPanel {
         public void actionPerformed(ActionEvent e) {
             removeAll();
             add(Gallery.finalPanel);
+            add(Gallery.nbPhoto);
             add(Gallery.jbAdd);
             revalidate();
             repaint();

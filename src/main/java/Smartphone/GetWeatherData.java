@@ -50,7 +50,6 @@ public class GetWeatherData extends JPanel {
                 JsonNode node = objectMapper.readTree(result.toString());
                 for (JsonNode item : node.get("weather")) {
                     icon = item.get("icon").textValue();
-                    //icon = "src\\pictures\\" + item.get("icon").textValue() + ".png";
                     description = item.get("description").textValue();
                 }
             } catch (IOException e) {
