@@ -14,13 +14,18 @@ import java.io.*;
 public class Gallery extends JPanel {
 
     static JPanel imgzoomPanel = new Picture("");
+    static JScrollPane finalPanel;
     public static JPanel imgPanel = new JPanel();
 
     private static int nbPhotos = (new File("src\\main\\java\\pictures\\gallery\\").list().length)/2; //Divided by two because there is always 2 version
     JScrollPane scroll = new JScrollPane();
-    private static JButton jbRetour = new JButton ("Ajouter");
+    public static JButton jbAdd = new JButton ("");
 
     public Gallery (){
+        jbAdd.setIcon(new ImageIcon("src\\main\\java\\pictures\\iconAdd.png"));
+        jbAdd.setOpaque(false);
+        jbAdd.setBackground(new Color(0,true));
+        jbAdd.setBorder(null);
         loadImages();
     }
 
@@ -72,12 +77,12 @@ public class Gallery extends JPanel {
         }
     }
 
-     public  void loadImages(){
+     public void loadImages(){
 
          removeAll();
          imgPanel.removeAll();
          JLabel label[] = new JLabel[nbPhotos+1];
-         setLayout(new BorderLayout());
+         setLayout(null);
 
          imgPanel.setLayout(new MigLayout("wrap 4"));
          for (int j = 1; j<(nbPhotos+1); j++){
@@ -85,12 +90,15 @@ public class Gallery extends JPanel {
             label[j] = new imageLabel(path,1);
             imgPanel.add(label[j]);
             label[j].addMouseListener(new mouseListener(path));
-
         }
-         jbRetour.addActionListener(new addButton());
-         add(jbRetour, BorderLayout.SOUTH);
+         jbAdd.addActionListener(new addButton());
+         jbAdd.setBounds(430,0,40,40);
+         add(jbAdd);
          scroll.setViewportView(imgPanel);
-         add(new JScrollPane(imgPanel), BorderLayout.CENTER);
+         finalPanel = new JScrollPane(imgPanel);
+         finalPanel.setBounds(0,40,480,700);
+         add(finalPanel);
+
     }
 
     class mouseListener extends MouseAdapter {
@@ -101,17 +109,21 @@ public class Gallery extends JPanel {
         }
         @Override
         public void mousePressed(MouseEvent me) {
-            if(imgzoomPanel.isVisible()) {
+            /*if(imgzoomPanel.isVisible()) {
                 imgzoomPanel.setVisible(false);
             }
             else {
-                imgzoomPanel = new Picture(path);
-                System.out.println("Jessai d'ouvrir l'img : "+path);
-                add(imgzoomPanel);
-                imgzoomPanel.setVisible(true);
+
+             */
+            removeAll();
+            setLayout(null);
+            imgzoomPanel = new Picture(path);
+            imgzoomPanel.setBounds(0,40,480,700);
+            add(imgzoomPanel);
+            revalidate();
+            repaint();
             }
         }
-    }
 
     public static void reloadNbPhotos() {
         Gallery.nbPhotos = (new File("src\\main\\java\\pictures\\gallery\\").list().length);
