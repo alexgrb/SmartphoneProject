@@ -12,10 +12,16 @@ import java.awt.*;
 public class imageButton extends JButton {
     private Image mshi;
 
-    //String rootPath = "src\\pictures\\";
-    public imageButton(String text, String path) {
+    public imageButton() {
+        setOpaque(false);
+        setBackground(new Color(0, true));
+        setBorder(null);
+    }
+    public imageButton(String path) {
         loadImage(path);
-        setSurfaceSize(text);
+        setOpaque(false);
+        setBackground(new Color(0, true));
+        setBorder(null);
     }
 
     public imageButton(String text, int text2) {
@@ -31,7 +37,7 @@ public class imageButton extends JButton {
     }
 
     private void loadImage(String path) {
-        mshi =  new ImageIcon("src\\pictures\\" + path+ ".png").getImage();
+        mshi =  new ImageIcon("src\\main\\java\\pictures\\" + path+ ".png").getImage();
     }
 
     private void setSurfaceSize(String text) {

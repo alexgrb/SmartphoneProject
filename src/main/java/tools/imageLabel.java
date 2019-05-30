@@ -7,7 +7,6 @@ import java.io.IOException;
 public class imageLabel extends JLabel {
     private Image mshi;
 
-    //String rootPath = "src\\pictures\\";
     public imageLabel(String path) {
         loadImage(path);
         setSurfaceSize();
@@ -19,7 +18,7 @@ public class imageLabel extends JLabel {
             try {
                 ImageResizer.resize(imageToResize, resizedImagePath, 100, 100);
             } catch (IOException e) {
-                // e.printStackTrace();
+                 e.printStackTrace();
             }
             loadImageGallery(resizedImagePath);
         }

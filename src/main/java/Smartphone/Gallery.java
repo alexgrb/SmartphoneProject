@@ -1,9 +1,9 @@
 package Smartphone;
 
 import net.miginfocom.swing.MigLayout;
+import tools.imageButton;
 import tools.imageLabel;
 import tools.textResizer;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,9 +18,10 @@ public class Gallery extends JPanel {
     static JScrollPane finalPanel;
     public static JPanel imgPanel = new JPanel();
     private Gallery gallery;
-    static final File dir = new File("src\\main\\java\\pictures\\gallery\\");
+    static String galleryDirectory = "src\\main\\java\\pictures\\gallery\\";
+    static final File dir = new File(galleryDirectory);
 
-    private static int nbPhotos = (new File("src\\main\\java\\pictures\\gallery\\").list().length);
+    private static int nbPhotos = (new File(galleryDirectory).list().length);
     JScrollPane scroll = new JScrollPane();
     public static JButton jbAdd = new JButton("");
     public static JLabel nbPhoto = new JLabel("");
@@ -31,29 +32,24 @@ public class Gallery extends JPanel {
         this.gallery = this;
 
         setBackground(new Color(255,255,255));
-        jbAdd.setIcon(new ImageIcon("src\\main\\java\\pictures\\iconAdd.png"));
-        jbAdd.setOpaque(false);
-        jbAdd.setBackground(new Color(0, true));
-        jbAdd.setBorder(null);
+        jbAdd = new imageButton("iconAdd");
         loadImages();
     }
 
     public void setNbPhoto(int n) {
         this.nbPhoto.setText(n +" photos");
-        System.out.println("Je suis à "+nbPhoto.getText()+ " à présent");
     }
 
     public void addImage(File path) {
         String finalPath = path.getPath().substring(74);
         System.out.println(finalPath);
-        File dest = new File("src\\main\\java\\pictures\\gallery\\"+finalPath) ;
+        File dest = new File(galleryDirectory+finalPath) ;
         try {
             copyFileUsingStream(path.getPath(), dest.getPath());
         } catch (IOException e) {
             e.printStackTrace();
         }
         reloadNbPhotos();
-        System.out.println("addImage a mis à jour à "+nbPhotos+" photos");
     }
 
     private static void copyFileUsingStream(String source, String dest) throws IOException {
@@ -91,7 +87,6 @@ public class Gallery extends JPanel {
             label[j].addMouseListener(new mouseListener(path));
         }
 
-        System.out.println("Au moment du set il y a "+nbPhotos);
         setNbPhoto(nbPhotos);
 
         nbPhoto.setBounds(20,0,100,40);
@@ -109,7 +104,7 @@ public class Gallery extends JPanel {
     }
     public void deletePhoto (String path) {
 
-        String source = "src\\main\\java\\pictures\\gallery\\" + path;
+        String source = galleryDirectory + path;
         String dest = "src\\main\\java\\bin\\" + path;
 
            try {
@@ -133,7 +128,7 @@ public class Gallery extends JPanel {
         repaint();
     }
     public static void reloadNbPhotos() {
-        Gallery.nbPhotos = (new File("src\\main\\java\\pictures\\gallery\\").list().length);
+        Gallery.nbPhotos = (new File(galleryDirectory).list().length);
         System.out.println("Actuellement " + nbPhotos + " photos dans le dossier");
     }
     class addButton implements ActionListener {
@@ -149,7 +144,6 @@ public class Gallery extends JPanel {
             if (returnValue == JFileChooser.APPROVE_OPTION) {
                 File selectedFile = chooser.getSelectedFile();
                 addImage(selectedFile);
-                System.out.println("Dossier sélectionné "+selectedFile);
             }
             revalidate();
             reloadNbPhotos();
