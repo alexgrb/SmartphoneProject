@@ -22,6 +22,8 @@ public class Gallery extends JPanel {
     private Gallery gallery;
     static String galleryDirectory = picDirectory+"gallery\\";
     static final File dir = new File(galleryDirectory);
+    private int i;
+    private Contact contact;
 
     private static int nbPhotos = (new File(galleryDirectory).list().length);
     JScrollPane scroll = new JScrollPane();
@@ -36,6 +38,15 @@ public class Gallery extends JPanel {
         setBackground(new Color(255,255,255));
         jbAdd = new imageButton("iconAdd");
         loadImages();
+    }
+    public Gallery(int i, Contact contact) {
+        this.gallery = this;
+        this.i=i;
+        this.contact=contact;
+
+        setBackground(new Color(255,255,255));
+        jbAdd = new imageButton("iconAdd");
+        chooseImage();
     }
 
     public void setNbPhoto(int n) {
@@ -70,6 +81,37 @@ public class Gallery extends JPanel {
             is.close();
             os.close();
         }
+    }
+    public void chooseImage() {
+        removeAll();
+        imgPanel.removeAll();
+        JLabel[] label = new JLabel[nbPhotos + 1];
+        setLayout(null);
+        imgPanel.setLayout(new MigLayout("wrap 4"));
+        imgPanel.setBackground(new Color(255,255,255));
+        File[] images = dir.listFiles();
+        for (int j = 0; j < (images.length); j++) {
+            String path = String.valueOf(images[j]).substring(31);
+
+            label[j] = new imageLabel(path, 1);
+            imgPanel.add(label[j]);
+            label[j].addMouseListener(new chooseListener(path,i));
+        }
+
+        setNbPhoto(nbPhotos);
+
+        nbPhoto.setBounds(20,0,100,40);
+        new textResizer(nbPhoto);
+        add(nbPhoto);
+        jbAdd.addActionListener(new addButton());
+        jbAdd.setBounds(430, 0, 40, 40);
+        add(jbAdd);
+        scroll.setViewportView(imgPanel);
+        finalPanel = new JScrollPane(imgPanel);
+        finalPanel.setBounds(0, 40, 480, 700);
+        add(finalPanel);
+        revalidate();
+        repaint();
     }
 
     public void loadImages() {
@@ -163,6 +205,38 @@ public class Gallery extends JPanel {
             imgzoomPanel = new Picture(path, gallery);
             imgzoomPanel.setBounds(0, 40, 480, 700);
             add(imgzoomPanel);
+            revalidate();
+            repaint();
+        }
+    }
+    class chooseListener extends MouseAdapter {
+        String path;
+        public chooseListener(String path,int i) {
+            this.path = path;
+        }
+
+        @Override
+        public void mousePressed(MouseEvent me) {
+
+            gallery.removeAll();
+            imgzoomPanel.removeAll();
+            imgPanel.removeAll();
+            add(contact.mainButtonsPanel);
+
+            add(contact.listPanel);
+            Contact.LectureContact();
+            add(contact.formPanel);
+            add(contact.subButtonsPanel);
+            contact.formPanel.setVisible(true);
+            contact.listPanel.setVisible(false);
+            contact.formPanel.setVisible(true);
+            contact.setEditable(false);
+            if(contact.valModifSupp == false){
+                //jbAdd.setVisible(false);
+                contact.jbRetour.setVisible(true);
+                contact.jbEdit.setVisible(true);
+                contact.jbDelete.setVisible(true);
+            }
             revalidate();
             repaint();
         }

@@ -18,6 +18,7 @@ public class Picture extends JPanel {
     private String path;
     private Gallery gallery;
 
+
     public Picture(String path, Gallery gallery){
         this.gallery=gallery;
         this.path=path;

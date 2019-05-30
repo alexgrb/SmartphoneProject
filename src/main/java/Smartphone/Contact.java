@@ -19,7 +19,8 @@ import java.io.*;
 import static Smartphone.display.picDirectory;
 
 public class Contact extends JPanel {
-
+    static JPanel contactImg = new Gallery();
+    private Contact contact;
     ContactRegex regex = new ContactRegex();
 
     protected String path = "";
@@ -64,7 +65,7 @@ public class Contact extends JPanel {
     private static JButton jbValiderAdd = new JButton ("Valider ajout");
     protected static JButton jbEdit = new JButton ("Modifier");
     protected static JButton jbDelete = new JButton ("Supprimer");
-    private static JButton jbRetour = new JButton ("");
+    protected static JButton jbRetour = new JButton ("");
 
 
     //Liste des contacts
@@ -73,13 +74,13 @@ public class Contact extends JPanel {
     private static JList jlistContact = new JList();
 
 
-    private JPanel listPanel = new JPanel();
-    private JPanel subButtonsPanel = new JPanel();
-    private JPanel mainButtonsPanel = new JPanel();
-    private static JPanel formPanel = new JPanel();
+    protected JPanel listPanel = new JPanel();
+    protected JPanel subButtonsPanel = new JPanel();
+    protected JPanel mainButtonsPanel = new JPanel();
+    protected static JPanel formPanel = new JPanel();
 
 
-    private static boolean valModifSupp = false;
+    protected static boolean valModifSupp = false;
 
     public static String pathFiletxt = ".\\contact.txt";
 
@@ -88,6 +89,8 @@ public class Contact extends JPanel {
 
 
     public Contact() {
+
+        this.contact = this;
 
 
         //---------- Boutons ---------//
@@ -469,6 +472,14 @@ public class Contact extends JPanel {
         @Override
         public void mousePressed(MouseEvent me) {
             System.out.println("Je clique sur l'image numéro " + path);
+
+            removeAll();
+            setLayout(null);
+            contactImg = new Gallery(jlistContact.getSelectedIndex(), contact);
+            contactImg.setBounds(0, 40, 480, 700);
+            add(contactImg);
+            revalidate();
+            repaint();
 
         }
     }
