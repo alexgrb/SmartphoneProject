@@ -6,6 +6,7 @@ package Smartphone;
  * Main frame for the smartphone
  */
 
+import net.miginfocom.swing.MigLayout;
 import tools.imageButton;
 
 import javax.swing.*;
@@ -33,6 +34,7 @@ public class Contact extends JPanel {
 
 
     protected Dimension dim = new Dimension(200, 30);
+    protected Dimension dimSmall = new Dimension(100, 30);
     protected Dimension dimJlist = new Dimension(400, 100);
 
 
@@ -45,6 +47,9 @@ public class Contact extends JPanel {
     private JLabel lbNpa = new JLabel("NPA");
     private JLabel lbDateNaissance = new JLabel("Date de naissance");
     private JCheckBox checkFav = new JCheckBox("Favori");
+    private JLabel lbimg = new JLabel();
+    private JLabel lbempty = new JLabel(" ");
+
 
     //TextFields
     private JTextField jtNom = new JTextField();
@@ -61,7 +66,7 @@ public class Contact extends JPanel {
     private static JButton jbValiderAdd = new JButton ("Valider ajout");
     protected static JButton jbEdit = new JButton ("Modifier");
     protected static JButton jbDelete = new JButton ("Supprimer");
-    private static JButton jbRetour = new JButton ("Retour");
+    private static JButton jbRetour = new JButton ("");
 
 
     //Liste des contacts
@@ -70,9 +75,10 @@ public class Contact extends JPanel {
     private static JList jlistContact = new JList();
 
 
-    private JPanel topPanel = new JPanel();
-    private JPanel centerPanel = new JPanel();
-    private static JPanel bottomPanel = new JPanel();
+    private JPanel listPanel = new JPanel();
+    private JPanel subButtonsPanel = new JPanel();
+    private JPanel mainButtonsPanel = new JPanel();
+    private static JPanel formPanel = new JPanel();
 
 
     private static boolean valModifSupp = false;
@@ -90,16 +96,8 @@ public class Contact extends JPanel {
         jbAdd = new imageButton();
         jbAdd.setIcon(new ImageIcon(picDirectory+"iconAdd.png"));
 
-        jbRetour.setBorderPainted(false);
-        jbRetour.setFocusPainted(false);
-        jbRetour.setContentAreaFilled(false);
-
-        jbValiderEdit.setBorder(new RoundedBorder(10)); //10 is the radius
-        jbValiderEdit.setForeground(Color.BLUE);
-
-        //Nouvelle police
-        Font police = new Font("Arial", Font.BOLD, 16);
-        jtNpa.setFont(police);
+        jbRetour = new imageButton();
+        jbRetour.setIcon(new ImageIcon(picDirectory+"iconBack.png"));
 
         jbEdit = new imageButton("edit", 2);
         jbValiderEdit = new imageButton("Valider les modifs", 2);
@@ -121,19 +119,19 @@ public class Contact extends JPanel {
         jbAdd.setFont(fontBouton);
         jbRetour.setFont(fontBouton);
 
-        centerPanel.add(jbAdd);
-        centerPanel.add(jbValiderEdit);
-        centerPanel.add(jbValiderAdd);
-        centerPanel.add(jbEdit);
-        centerPanel.add(jbDelete);
-        centerPanel.add(jbRetour);
+
+        subButtonsPanel.add(jbValiderEdit);
+        subButtonsPanel.add(jbValiderAdd);
+        subButtonsPanel.add(jbEdit);
+        subButtonsPanel.add(jbDelete);
+
 
 
         //---------------------------//
 
 
         JScrollPane scrollPane = new JScrollPane(jlistContact);
-        topPanel.add(scrollPane);
+        listPanel.add(scrollPane);
 
         // -------------- END   -----------//
 
@@ -159,7 +157,10 @@ public class Contact extends JPanel {
         lbNpa.setFont(fontlabels);
         lbDateNaissance.setFont(fontlabels);
 
+        ImageIcon pira = new ImageIcon(picDirectory+"min\\10.png");
+        lbimg.setIcon(pira);
 
+        /*
         lbNom.setPreferredSize(dim);
         lbPrenom.setPreferredSize(dim);
         lbNumTel.setPreferredSize(dim);
@@ -167,7 +168,7 @@ public class Contact extends JPanel {
         lbAdresse.setPreferredSize(dim);
         lbNpa.setPreferredSize(dim);
         lbDateNaissance.setPreferredSize(dim);
-
+*/
         //Fonts et dim des JtextField
 
         jtNom.setFont (fontJtextfields);
@@ -179,46 +180,55 @@ public class Contact extends JPanel {
         jtNpa.setFont (fontJtextfields);
         jtDateNaissance.setFont (fontJtextfields);
 
-        jtNom.setPreferredSize(dim);
-        jtNom.setPreferredSize(dim);
-        jtPrenom.setPreferredSize(dim);
+        jtNom.setPreferredSize(dimSmall);
+        jtPrenom.setPreferredSize(dimSmall);
         jtNumTel.setPreferredSize(dim);
         jtEmail.setPreferredSize(dim);
         jtAdresse.setPreferredSize(dim);
-        jtNpa.setPreferredSize(dim);
-        jtDateNaissance.setPreferredSize(dim);
+        jtNpa.setPreferredSize(dimSmall);
+        jtDateNaissance.setPreferredSize(dimSmall);
+
+        mainButtonsPanel.setLayout(new MigLayout());
+
+        mainButtonsPanel.add(jbRetour, "align left");
+        mainButtonsPanel.add(jbAdd, "wrap");
 
 
+        formPanel.setLayout(new MigLayout());
 
-
-        bottomPanel.add(lbNom);
-        bottomPanel.add(jtNom);
-        bottomPanel.add(lbPrenom);
-        bottomPanel.add(jtPrenom);
-        bottomPanel.add(lbNumTel);
-        bottomPanel.add(jtNumTel);
-        bottomPanel.add(lbEmail);
-        bottomPanel.add(jtEmail);
-        bottomPanel.add(lbAdresse);
-        bottomPanel.add(jtAdresse);
-        bottomPanel.add(lbNpa);
-        bottomPanel.add(jtNpa);
-        bottomPanel.add(lbDateNaissance);
-        bottomPanel.add(jtDateNaissance);
-        bottomPanel.add(checkFav);
-        bottomPanel.setLayout(new GridLayout(14, 1));
+        formPanel.add(lbempty, "align left");
+        formPanel.add(lbimg, "wrap");
+        formPanel.add(lbNom, "wrap");
+        formPanel.add(jtNom, "wrap");
+        formPanel.add(lbPrenom, "wrap");
+        formPanel.add(jtPrenom, "wrap");
+        formPanel.add(lbNumTel, "wrap");
+        formPanel.add(jtNumTel, "wrap");
+        formPanel.add(lbEmail, "wrap");
+        formPanel.add(jtEmail, "wrap");
+        formPanel.add(lbAdresse, "wrap");
+        formPanel.add(jtAdresse, "wrap");
+        formPanel.add(lbNpa, "align left");
+        formPanel.add(lbDateNaissance, "wrap");
+        formPanel.add(jtNpa, "align left");
+        formPanel.add(jtDateNaissance, "wrap");
+        //formPanel.add(checkFav);
+        //formPanel.setLayout(new GridLayout(14, 1, 2, 2));
 
 
         //Bottom
 
-        centerPanel.setBorder(BorderFactory.createEmptyBorder(30, 10, 30, 10));
+        mainButtonsPanel.setBorder(BorderFactory.createEmptyBorder(0, 50, 0, 50));
+        subButtonsPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 
-        //Layouts
-        add(topPanel);
-        add(centerPanel);
-        add(bottomPanel);
 
-        bottomPanel.setVisible(false);
+        add(listPanel);
+        add(mainButtonsPanel);
+        add(formPanel);
+        add(subButtonsPanel);
+
+
+        formPanel.setVisible(false);
 
 
     }
@@ -235,8 +245,8 @@ public class Contact extends JPanel {
         public void valueChanged(ListSelectionEvent evt){
             int i = jlistContact.getSelectedIndex();
 
-            topPanel.setVisible(false);
-            bottomPanel.setVisible(true);
+            listPanel.setVisible(false);
+            formPanel.setVisible(true);
             setEditable(false);
             if(valModifSupp == false){
                 //jbAdd.setVisible(false);
@@ -307,9 +317,9 @@ public class Contact extends JPanel {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
-            topPanel.setVisible(false);
+            listPanel.setVisible(false);
             resetChamp();
-            bottomPanel.setVisible(true);
+            formPanel.setVisible(true);
             jbAdd.setVisible(false);
             jbEdit.setVisible(false);
             jbDelete.setVisible(false);
@@ -375,7 +385,7 @@ public class Contact extends JPanel {
             jbValiderEdit.setVisible(true);
             jbRetour.setVisible(true);
             setEditable(true);
-            bottomPanel.setVisible(true);
+            formPanel.setVisible(true);
         }
     }
 
@@ -404,8 +414,8 @@ public class Contact extends JPanel {
             try {
                 resetChamp();
                 jlistContact.clearSelection();
-                bottomPanel.setVisible(false);
-                topPanel.setVisible(true);
+                formPanel.setVisible(false);
+                listPanel.setVisible(true);
                 statutBtnInitial();
 
             } catch (Exception f){
@@ -551,7 +561,7 @@ public class Contact extends JPanel {
 
             jlistContact.setListData(listAffichageJList);
             statutBtnInitial();
-            bottomPanel.setVisible(false);
+            formPanel.setVisible(false);
         }catch (Exception e){
             System.out.println("Erreur à la mise a jour des informations");
             System.out.println(e.toString());
