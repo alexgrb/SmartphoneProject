@@ -1,6 +1,7 @@
 package Smartphone;
 
 import net.miginfocom.swing.MigLayout;
+import tools.imageButton;
 import tools.imageLabel;
 import tools.textResizer;
 import javax.swing.*;
@@ -17,9 +18,10 @@ public class Gallery extends JPanel {
     static JScrollPane finalPanel;
     public static JPanel imgPanel = new JPanel();
     private Gallery gallery;
-    static final File dir = new File("src\\main\\java\\pictures\\gallery\\");
+    static String galleryDirectory = "src\\main\\java\\pictures\\gallery\\";
+    static final File dir = new File(galleryDirectory);
 
-    private static int nbPhotos = (new File("src\\main\\java\\pictures\\gallery\\").list().length);
+    private static int nbPhotos = (new File(galleryDirectory).list().length);
     JScrollPane scroll = new JScrollPane();
     public static JButton jbAdd = new JButton("");
     public static JLabel nbPhoto = new JLabel("");
@@ -30,10 +32,7 @@ public class Gallery extends JPanel {
         this.gallery = this;
 
         setBackground(new Color(255,255,255));
-        jbAdd.setIcon(new ImageIcon("src\\main\\java\\pictures\\iconAdd.png"));
-        jbAdd.setOpaque(false);
-        jbAdd.setBackground(new Color(0, true));
-        jbAdd.setBorder(null);
+        jbAdd = new imageButton("iconAdd");
         loadImages();
     }
 
@@ -44,7 +43,7 @@ public class Gallery extends JPanel {
     public void addImage(File path) {
         String finalPath = path.getPath().substring(74);
         System.out.println(finalPath);
-        File dest = new File("src\\main\\java\\pictures\\gallery\\"+finalPath) ;
+        File dest = new File(galleryDirectory+finalPath) ;
         try {
             copyFileUsingStream(path.getPath(), dest.getPath());
         } catch (IOException e) {
@@ -105,7 +104,7 @@ public class Gallery extends JPanel {
     }
     public void deletePhoto (String path) {
 
-        String source = "src\\main\\java\\pictures\\gallery\\" + path;
+        String source = galleryDirectory + path;
         String dest = "src\\main\\java\\bin\\" + path;
 
            try {
@@ -129,7 +128,7 @@ public class Gallery extends JPanel {
         repaint();
     }
     public static void reloadNbPhotos() {
-        Gallery.nbPhotos = (new File("src\\main\\java\\pictures\\gallery\\").list().length);
+        Gallery.nbPhotos = (new File(galleryDirectory).list().length);
         System.out.println("Actuellement " + nbPhotos + " photos dans le dossier");
     }
     class addButton implements ActionListener {

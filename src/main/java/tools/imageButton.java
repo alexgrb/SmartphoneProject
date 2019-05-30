@@ -6,13 +6,20 @@ import java.awt.*;
 public class imageButton extends JButton {
     private Image mshi;
 
-    public imageButton(String text, String path) {
+    public imageButton() {
+        setOpaque(false);
+        setBackground(new Color(0, true));
+        setBorder(null);
+    }
+    public imageButton(String path) {
         loadImage(path);
-        setSurfaceSize(text);
+        setOpaque(false);
+        setBackground(new Color(0, true));
+        setBorder(null);
     }
 
     private void loadImage(String path) {
-        mshi =  new ImageIcon("src\\pictures\\" + path+ ".png").getImage();
+        mshi =  new ImageIcon("src\\main\\java\\pictures\\" + path+ ".png").getImage();
     }
 
     private void setSurfaceSize(String text) {

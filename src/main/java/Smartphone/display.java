@@ -6,6 +6,7 @@ package Smartphone;
  * Main frame for the smartphone
  */
 
+import tools.imageButton;
 import tools.imageLabel;
 
 import javax.swing.*;
@@ -17,14 +18,15 @@ public class display extends JFrame {
 
     //Main setting wich allows us to switch between panels
     protected static CardLayout cardLayout = new CardLayout();
-    protected int maxApp = 5;
+    protected static int maxApp = 5;
     //Panels
     protected static JPanel content = new JPanel();
-    protected JPanel bottom = new JPanel();
+    protected static JPanel bottom = new JPanel();
 
     //Array to other apps
     protected static String[] access = {"Weather", "Contacts", "Home", "Calcul", "Gallery", "Image"};
-    private JButton[] appButton= new JButton[maxApp];
+
+    private static JButton[] appButton= new JButton[maxApp];
 
     public display() {
 
@@ -36,10 +38,8 @@ public class display extends JFrame {
         ///BOUTONS///
         for (int i=0 ; i<appButton.length;i++){
             appButton[i] = new JButton();
-            appButton[i].addActionListener(new homeListener(i));
-            appButton[i].setOpaque(false);
-            appButton[i].setBackground(new Color(0,true));
-            appButton[i].setBorder(null);
+            appButton[i] = new imageButton(); //Cela va rendre le fond transparent
+            appButton[i].addActionListener(new homeListener(i)); //Ajoute l'action listener afin de pouvoir naviguer entre les appli
         }
         appButton[0].setIcon(new ImageIcon("src\\main\\java\\pictures\\iconWeather.png"));
         appButton[1].setIcon(new ImageIcon("src\\main\\java\\pictures\\iconContact.png"));
@@ -47,26 +47,13 @@ public class display extends JFrame {
         appButton[3].setIcon(new ImageIcon("src\\main\\java\\pictures\\iconCalculette.png"));
         appButton[4].setIcon(new ImageIcon("src\\main\\java\\pictures\\iconGallery.png"));
 
-        int x=10; //Position X
-        int y=700; //Position Y
-        int width=90;
-        int height=35;
-        int cpt=0; //Compteur pour changer de ligne qu'on arrive à 4
-        for(int z = 0; z< maxApp; z++){
-            appButton[z].setBounds(x,y,width,height);
-            bottom.add(appButton[z]);
-            x+=95; //On se déplace sur la droite de 105 pixel
-            cpt++;
-            if(cpt==4) { //Si on a déjà 4 app sur la ligne
-                y += 50; //On décale vers le bas
-                x = 10; //On revient tout à gauche
-            }
-        }
-        JLabel j = new imageLabel("homeBackground"); //Background Image
+       bottom.setLayout(new FlowLayout());
+
+         //Background Image
 
         //Panel
-        JPanel homePanel = new JPanel(); //Homescreen
-        homePanel.add(j);
+        JPanel homePanel = new Home(); //Homescreen
+
         JPanel calculPanel = new Calculatrice();
         JPanel contactlPanel = new Contact();
         try {
@@ -83,6 +70,12 @@ public class display extends JFrame {
         bottom.setBackground(new Color(0,true));
         bottom.setBorder(null);
 
+
+bottom.add(appButton[2]);
+        for(int z = 0; z< maxApp; z++){
+            bottom.add(appButton[z]);
+        }
+
         ///CONFIGURATION DES LAYOUT///
         content.setLayout(cardLayout);
         content.add(homePanel, access[2]);
@@ -92,10 +85,12 @@ public class display extends JFrame {
         content.add(galleryPanel, access[4]);
 
         setLayout(null);
-        content.setBounds(0,35,480,705);
+        content.setBounds(0,35,480,765);
         add(content);
         bottom.setBounds(0,740,480,60);
         add(bottom);
+        bottom.setVisible(false);
+
         getRootPane().setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.gray));
 
     }
@@ -107,11 +102,13 @@ public class display extends JFrame {
         }
         public void actionPerformed(ActionEvent e) {
             //Via cette instruction, on passe au conteneur correspondant au nom fourni en paramètre
-            if(i>10) {
-                cardLayout.show(content, access[4]);
+            if(i==2) {
+                cardLayout.show(content, access[2]);
+                bottom.setVisible(false);
             }
             else {
                 cardLayout.show(content, access[i]);
+                bottom.setVisible(true);
             }
         }
     }
