@@ -1,5 +1,6 @@
 package Smartphone;
 
+import tools.imageButton;
 import tools.textResizer;
 
 import javax.swing.*;
@@ -9,6 +10,8 @@ import java.awt.event.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import static Smartphone.display.picDirectory;
 
 
 public class StatusBar extends JPanel {
@@ -29,9 +32,9 @@ public class StatusBar extends JPanel {
         new textResizer(currentTime,18,1); //Le 1 nous permet de déclencher le texte en gras
         add(currentTime);
 
-        JLabel closeButton = new JLabel("X");
-        closeButton.setBounds(450,0,30,30);
-        new textResizer(closeButton);
+        JButton closeButton = new imageButton();
+        closeButton.setIcon(new ImageIcon(picDirectory+"iconOff.png"));
+        closeButton.setBounds(440,2,30,30);
 
         closeButton.setForeground(Color.red);
         closeButton.addMouseListener(new MouseEvent());

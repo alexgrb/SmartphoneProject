@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -26,6 +27,7 @@ public class GetWeatherData extends JPanel {
 
     public GetWeatherData(String city) {
 
+        setLayout(null);
 
         weatherDisplay.setLayout(new MigLayout("wrap 3"));
 
@@ -73,29 +75,33 @@ public class GetWeatherData extends JPanel {
             ImageResizer.resize(picDirectory + icon+ ".png", picDirectory + icon+ "2.png", scaledWidth, scaledHeight);
             JLabel image = new imageLabel(icon+"2");
 
-            ImageResizer.resize(picDirectory+"iconHumidity.png", picDirectory+"iconHumidity.png", 70, 70);
+            ImageResizer.resize(picDirectory+"iconHumidity.png", picDirectory+"iconHumidity.png", 50, 50);
             JLabel imageHumidity = new imageLabel("iconHumidity");
 
             weatherDisplay.setOpaque(false);
 
+            new textResizer(currentTemp,80);
+            weatherDisplay.add(currentTemp);
 
-            new textResizer(currentTemp,35);
-            weatherDisplay.add(currentTemp, "skip");
+            String backPath = "";
+            weatherDisplay.add(image, "wrap");
+
+            ImageResizer.resize(picDirectory + "iconWindSpeed.png", picDirectory + "iconWindSpeed.png", 50, 50);
+            JLabel windSpeedIcon= new imageLabel("iconWindSpeed");
+
+            weatherDisplay.add(windSpeedIcon,"split2");
 
             new textResizer(windSpeed,35);
-            weatherDisplay.add(windSpeed );
+            weatherDisplay.add(windSpeed, "wrap");
 
-            weatherDisplay.add(imageHumidity);
+
+            weatherDisplay.add(imageHumidity,"split2");
 
             new textResizer(currentHumidity, 35);
             weatherDisplay.add(currentHumidity);
 
-            new textResizer(descriptionLabel);
-            weatherDisplay.add(descriptionLabel, "skip");
 
-            String backPath = "";
-            weatherDisplay.add(image);
-
+            weatherDisplay.setBounds(0,0,480,600);
             add(weatherDisplay);
 
             switch (icon){
@@ -117,7 +123,7 @@ public class GetWeatherData extends JPanel {
             }
             ImageIcon imgBack = new ImageIcon(picDirectory+backPath+".gif");
             JLabel back = new JLabel(imgBack);
-
+            back.setBounds(0,450,480,200);
             add(back);
 
         } catch (IOException e) {

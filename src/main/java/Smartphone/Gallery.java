@@ -81,7 +81,6 @@ public class Gallery extends JPanel {
         imgPanel.setBackground(new Color(255,255,255));
         File[] images = dir.listFiles();
         for (int j = 0; j < (images.length); j++) {
-            System.out.println(String.valueOf(images[j]).substring(31));
             String path = String.valueOf(images[j]).substring(31);
 
             label[j] = new imageLabel(path, 1);
@@ -119,7 +118,6 @@ public class Gallery extends JPanel {
         File fileBis = new File(picDirectory+"big\\" + path);
         File fileMin = new File(picDirectory+"min\\" + path);
 
-        System.out.println(fileMin);
         file.delete();
         fileBis.delete();
         fileMin.delete();
@@ -131,7 +129,6 @@ public class Gallery extends JPanel {
     }
     public static void reloadNbPhotos() {
         Gallery.nbPhotos = (new File(galleryDirectory).list().length);
-        System.out.println("Actuellement " + nbPhotos + " photos dans le dossier");
     }
     class addButton implements ActionListener {
 

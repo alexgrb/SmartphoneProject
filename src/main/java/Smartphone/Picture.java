@@ -40,7 +40,7 @@ public class Picture extends JPanel {
         add(deleteBTN);
 
        try {
-            ImageResizer.resize(picDirectory+"gallery\\" + path, "src\\main\\java\\pictures\\big\\" + path, 470, 470);
+            ImageResizer.resize(picDirectory+"gallery\\" + path, picDirectory+"big\\" + path, 470, 470);
 
         } catch (IOException e) {
             e.printStackTrace();
