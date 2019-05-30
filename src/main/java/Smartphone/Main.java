@@ -1,6 +1,5 @@
 package Smartphone;
 
-import tools.Clock;
 import tools.imageLabel;
 
 import javax.swing.*;

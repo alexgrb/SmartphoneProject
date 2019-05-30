@@ -1,7 +1,7 @@
 package Smartphone;
 
 import net.miginfocom.swing.MigLayout;
-import tools.Clock;
+
 import tools.imageButton;
 import tools.imageLabel;
 import tools.textResizer;

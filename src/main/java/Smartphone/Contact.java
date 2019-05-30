@@ -6,7 +6,6 @@ package Smartphone;
  * Main frame for the smartphone
  */
 
-
 import tools.imageButton;
 
 import javax.swing.*;
@@ -16,30 +15,21 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
-import java.util.List;
+
+import static Smartphone.display.picDirectory;
 
 public class Contact extends JPanel {
 
-
-
     ContactRegex regex = new ContactRegex();
-
-    // private imageLabel photoDuContact = new imageLabel("10");
-    // Fonts
-
 
     public static Font fontBouton = new Font("Arial",Font.PLAIN ,14);
     protected Font fontlabels = new Font("Arial",Font.BOLD ,14);
     protected Font fontJtextfields = new Font("Arial",Font.PLAIN ,14);
     protected Font fontJList = new Font("Arial",Font.PLAIN ,20);
-
-
-
 
 
     protected Dimension dim = new Dimension(200, 30);
@@ -56,8 +46,6 @@ public class Contact extends JPanel {
     private JLabel lbDateNaissance = new JLabel("Date de naissance");
     private JCheckBox checkFav = new JCheckBox("Favori");
 
-
-
     //TextFields
     private JTextField jtNom = new JTextField();
     private JTextField jtPrenom = new JTextField();
@@ -66,7 +54,6 @@ public class Contact extends JPanel {
     private JTextField jtAdresse = new JTextField();
     private JTextField jtNpa = new JTextField();
     private JTextField jtDateNaissance = new JTextField();
-
 
     //Bouton
     protected static JButton jbAdd = new JButton ("");
@@ -100,57 +87,26 @@ public class Contact extends JPanel {
 
 
         //---------- Boutons ---------//
-
-        jbAdd.setIcon(new ImageIcon("src\\pictures\\addresized.png"));
-        jbAdd.setOpaque(false);
-        jbAdd.setBackground(new Color(0,true));
-        jbAdd.setBorder(null);
-
+        jbAdd = new imageButton();
+        jbAdd.setIcon(new ImageIcon(picDirectory+"iconAdd.png"));
 
         jbRetour.setBorderPainted(false);
         jbRetour.setFocusPainted(false);
         jbRetour.setContentAreaFilled(false);
 
-
         jbValiderEdit.setBorder(new RoundedBorder(10)); //10 is the radius
         jbValiderEdit.setForeground(Color.BLUE);
-
 
         //Nouvelle police
         Font police = new Font("Arial", Font.BOLD, 16);
         jtNpa.setFont(police);
 
-
-
-        Border line = new LineBorder(Color.BLACK);
-        Border margin = new EmptyBorder(5, 15, 5, 15);
-        Border compound = new CompoundBorder(line, margin);
-      /*  jbEdit.setForeground(Color.BLACK);
-        jbEdit.setBackground(Color.WHITE);
-        jbEdit.setBorder(compound);
-        jbEdit.setBorder(new RoundedBorder(5)); //10 is the radius
-
-       */
-
         jbEdit = new imageButton("edit", 2);
-
-
-        /*public class layoutBtn (JButton jbutton){
-            jbEdit.setForeground(Color.BLACK);
-            jbEdit.setBackground(Color.WHITE);
-            Border ligne = new LineBorder(Color.BLACK);
-            Border marge = new EmptyBorder(5, 15, 5, 15);
-            Border autour = new CompoundBorder(ligne, marge);
-            jbEdit.setBorder(autour);
-            jbEdit.setBorder(new RoundedBorder(5)); //10 c'est le rayon
-        }
-
-         */
-
-
+        jbValiderEdit = new imageButton("Valider les modifs", 2);
+        jbValiderAdd = new imageButton("Valider ", 2);
+        jbDelete = new imageButton("Supprimer", 2);
 
         //---------- END ---------//
-
 
         //----------- Les boutons -----//
 
@@ -162,12 +118,7 @@ public class Contact extends JPanel {
         jbRetour.addActionListener(new ActionRetour());
         jlistContact.addListSelectionListener(new EcouteurList());
 
-
         jbAdd.setFont(fontBouton);
-        jbValiderEdit.setFont(fontBouton);
-        jbValiderAdd.setFont(fontBouton);
-        //jbEdit.setFont(fontBouton);
-        jbDelete.setFont(fontBouton);
         jbRetour.setFont(fontBouton);
 
         centerPanel.add(jbAdd);
@@ -183,19 +134,6 @@ public class Contact extends JPanel {
 
         JScrollPane scrollPane = new JScrollPane(jlistContact);
         topPanel.add(scrollPane);
-
-
-        /*
-        JScrollPane scrollPane = new JScrollPane();
-        jlistContact.add(scrollPane);
-        topPanel.add(scrollPane);
-        */
-
-        /*
-        Border emptyBorder = BorderFactory.createEmptyBorder();
-        scrollPane.setBorder(emptyBorder);
-        jlistContact.setBorder(emptyBorder);
-        */
 
         // -------------- END   -----------//
 
@@ -273,8 +211,6 @@ public class Contact extends JPanel {
 
         //Bottom
 
-
-
         centerPanel.setBorder(BorderFactory.createEmptyBorder(30, 10, 30, 10));
 
         //Layouts
@@ -342,7 +278,6 @@ public class Contact extends JPanel {
                         if(validNPA(jtNpa.getText())) {
                             jtNpa.setForeground(Color.BLACK);
                             // On recupère tous les champs, et on réecrit la ligne avec les nouvelles données
-                            //checkFav.isSelected()
                             ModifChaine(jtNom.getText(), jtPrenom.getText(), jtNumTel.getText(), jtEmail.getText(), jtAdresse.getText(), jtNpa.getText(), jtDateNaissance.getText(), numJList);
                         } else {
                             jtNpa.setForeground(Color.RED);
@@ -514,21 +449,9 @@ public class Contact extends JPanel {
         return response;
     }
 
-
-
-
-
-
-
-
-
-
     //------------------------------- METHODES -----------------------------//
 
-
-
     private static String[] listAffichageJList;
-
 
     /**
      * Méthode qui va ajouter une ligne au tableau de chaine.
@@ -551,76 +474,6 @@ public class Contact extends JPanel {
         chaine = temp;
         writeContact();
         updateList();
-
-    }
-
-
-
-    /**
-     *
-     * Méthode qui permet de sérialiser et inscrire le conetnu d'un objet ContactData préparé à l'avance, dans le fichier .txt
-     *
-     */
-
-    public static void Serialisation(ContactData contactData) throws FileNotFoundException {
-
-        try {
-            FileOutputStream fos = new FileOutputStream(pathFiletxt);
-            ObjectOutputStream os = new ObjectOutputStream(fos);
-            os.writeObject(contactData);
-            System.out.println("Objet sérialisé");
-            os.close();
-            System.out.println("Fermeture");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-    }
-
-    /**
-     Méthode qui permet de lire le fichier .txt (illisible pour nous) et le traduire en charactères lisibles dans la console
-     */
-    public void Deserialisation() throws FileNotFoundException {
-
-        try {
-
-
-            FileInputStream fis = new FileInputStream(pathFiletxt);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            ContactData cd = (ContactData) ois.readObject();
-            System.out.println("Mon objet " + cd);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    /**
-     *     Méthode qui permet de parcourir notre String [] et de l'afficher en toute lettres dans notre fichier .txt
-     */
-
-
-    public void WriteData() {
-
-        try {
-            PrintWriter fichierSortie = new PrintWriter(new BufferedWriter(new FileWriter(pathFiletxt, false)));
-            for (int i = 0; i<chaine.length; i++){
-                if(chaine[i]!= null){
-                    if(!chaine[i].contains("#delete")){
-                        fichierSortie.println(chaine[i]);
-                        System.out.println("Il se passe un truc!!");
-
-                    }
-                }
-            }
-            //fermeture fichier
-            fichierSortie.close();
-        } catch (IOException e) {
-            System.out.println("erreur inscription dans fichier");
-            e.printStackTrace();
-        }
-
     }
 
     /**
@@ -722,7 +575,6 @@ public class Contact extends JPanel {
         updateList();
         writeContact();
         jlistContact.setEnabled(true);
-        //statutBtnInitial();
     }
 
     /**
@@ -815,7 +667,6 @@ public class Contact extends JPanel {
             System.out.println(e.toString());
         }
     }
-
 
 
     public static class RoundedBorder implements Border {
