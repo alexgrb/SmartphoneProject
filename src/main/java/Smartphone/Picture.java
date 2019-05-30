@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 
+import static Smartphone.display.picDirectory;
+
 public class Picture extends JPanel {
 
     private JButton backBTN = new JButton("");
@@ -19,7 +21,7 @@ public class Picture extends JPanel {
     public Picture(String path, Gallery gallery){
         this.gallery=gallery;
         this.path=path;
-        backBTN.setIcon(new ImageIcon("src\\main\\java\\pictures\\iconBack.png"));
+        backBTN.setIcon(new ImageIcon(picDirectory+"iconBack.png"));
         backBTN.setOpaque(false);
         backBTN.setBackground(new Color(0,true));
         backBTN.setBorder(null);
@@ -28,7 +30,7 @@ public class Picture extends JPanel {
         backBTN.setBounds(10,10,40,40);
         add(backBTN);
 
-        deleteBTN.setIcon(new ImageIcon("src\\main\\java\\pictures\\iconDelete.png"));
+        deleteBTN.setIcon(new ImageIcon(picDirectory+"iconDelete.png"));
         deleteBTN.setOpaque(false);
         deleteBTN.setBackground(new Color(0,true));
         deleteBTN.setBorder(null);
@@ -38,7 +40,7 @@ public class Picture extends JPanel {
         add(deleteBTN);
 
        try {
-            ImageResizer.resize("src\\main\\java\\pictures\\gallery\\" + path, "src\\main\\java\\pictures\\big\\" + path, 470, 470);
+            ImageResizer.resize(picDirectory+"gallery\\" + path, "src\\main\\java\\pictures\\big\\" + path, 470, 470);
 
         } catch (IOException e) {
             e.printStackTrace();

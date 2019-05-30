@@ -6,7 +6,7 @@ package Smartphone;
  * Main frame for the smartphone
  */
 
-import tools.RoundedBorder;
+//import tools.RoundedBorder;
 import tools.imageButton;
 
 import javax.swing.*;

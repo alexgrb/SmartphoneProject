@@ -41,7 +41,7 @@ public class StatusBar extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Calendar now = Calendar.getInstance();
-               currentTime.setText(dateFormat.format(now.getTime()));
+                currentTime.setText(dateFormat.format(now.getTime()));
             }
         }).start();
 

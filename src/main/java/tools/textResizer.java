@@ -38,9 +38,7 @@ public class textResizer {
     }
     public textResizer(JLabel givenLabel, int fontSizeToUse, int i) {
         text = givenLabel;
-
         Font labelFont = text.getFont();
-
         text.setFont(new Font(labelFont.getName(), Font.BOLD, fontSizeToUse));
     }
 
