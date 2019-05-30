@@ -12,9 +12,10 @@ public class ContactData implements Serializable {
     private String adresse;
     private String NPAloc;
     private String dateNaissance;
+    private String pathImg;
 
 
-    public ContactData(String nom, String prenom, String numTel, String email, String adresse, String NPAloc, String dateNaissance) {
+    public ContactData(String nom, String prenom, String numTel, String email, String adresse, String NPAloc, String dateNaissance, String pathImg) {
         this.nom = nom;
         this.prenom = prenom;
         this.numTel = numTel;
@@ -22,6 +23,7 @@ public class ContactData implements Serializable {
         this.adresse = adresse;
         this.NPAloc = NPAloc;
         this.dateNaissance = dateNaissance;
+        this.pathImg = pathImg;
     }
 
     //Getters
@@ -51,6 +53,10 @@ public class ContactData implements Serializable {
 
     public String getDateNaissance() {
         return dateNaissance;
+    }
+
+    public String getPathImg() {
+        return pathImg;
     }
 
 

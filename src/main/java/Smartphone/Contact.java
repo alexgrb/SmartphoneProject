@@ -8,17 +8,12 @@ package Smartphone;
 
 import net.miginfocom.swing.MigLayout;
 import tools.imageButton;
-
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.*;
 
 import static Smartphone.display.picDirectory;
@@ -26,6 +21,8 @@ import static Smartphone.display.picDirectory;
 public class Contact extends JPanel {
 
     ContactRegex regex = new ContactRegex();
+
+    protected String path = "";
 
     public static Font fontBouton = new Font("Dialog",Font.BOLD ,15);
     protected Font fontlabels = new Font("Arial",Font.BOLD ,14);
@@ -59,6 +56,7 @@ public class Contact extends JPanel {
     private JTextField jtAdresse = new JTextField();
     private JTextField jtNpa = new JTextField();
     private JTextField jtDateNaissance = new JTextField();
+    private JTextField jtpathImg = new JTextField();
 
     //Bouton
     protected static JButton jbAdd = new JButton ("");
@@ -120,6 +118,9 @@ public class Contact extends JPanel {
         jbDelete.addActionListener(new ActionDelete());
         jbRetour.addActionListener(new ActionRetour());
         jlistContact.addListSelectionListener(new EcouteurList());
+        lbimg.addMouseListener(new mouseListener());
+
+
 
         jbAdd.setFont(fontBouton);
         jbRetour.setFont(fontBouton);
@@ -159,8 +160,11 @@ public class Contact extends JPanel {
         lbNpa.setFont(fontlabels);
         lbDateNaissance.setFont(fontlabels);
 
+        /*
         ImageIcon pira = new ImageIcon(picDirectory+"min\\10.png");
         lbimg.setIcon(pira);
+
+         */
 
         /*
         lbNom.setPreferredSize(dim);
@@ -181,6 +185,7 @@ public class Contact extends JPanel {
         jtAdresse.setFont (fontJtextfields);
         jtNpa.setFont (fontJtextfields);
         jtDateNaissance.setFont (fontJtextfields);
+        jtpathImg.setFont (fontJtextfields);
 
         jtNom.setPreferredSize(dimSmall);
         jtPrenom.setPreferredSize(dimSmall);
@@ -189,6 +194,7 @@ public class Contact extends JPanel {
         jtAdresse.setPreferredSize(dim);
         jtNpa.setPreferredSize(dimSmall);
         jtDateNaissance.setPreferredSize(dimSmall);
+        jtpathImg.setPreferredSize(dimSmall);
 
 
 
@@ -224,6 +230,7 @@ public class Contact extends JPanel {
         formPanel.add(lbDateNaissance, "wrap");
         formPanel.add(jtNpa, "align left");
         formPanel.add(jtDateNaissance, "wrap");
+        formPanel.add(jtpathImg, "wrap");
         //formPanel.add(checkFav);
         //formPanel.setLayout(new GridLayout(14, 1, 2, 2));
 
@@ -279,6 +286,15 @@ public class Contact extends JPanel {
                 jtAdresse.setText(tabContactData[i].getAdresse());
                 jtNpa.setText(tabContactData[i].getNPAloc());
                 jtDateNaissance.setText(tabContactData[i].getDateNaissance());
+                jtpathImg.setText(tabContactData[i].getPathImg());
+
+                path = tabContactData[i].getPathImg();
+
+                ImageIcon pira = new ImageIcon(picDirectory+"min\\" + path);
+                lbimg.setIcon(pira);
+
+
+
             }
         }
     }
@@ -303,7 +319,11 @@ public class Contact extends JPanel {
                         if(validNPA(jtNpa.getText())) {
                             jtNpa.setForeground(Color.BLACK);
                             // On recupère tous les champs, et on réecrit la ligne avec les nouvelles données
-                            ModifChaine(jtNom.getText(), jtPrenom.getText(), jtNumTel.getText(), jtEmail.getText(), jtAdresse.getText(), jtNpa.getText(), jtDateNaissance.getText(), numJList);
+                            ModifChaine(jtNom.getText(), jtPrenom.getText(), jtNumTel.getText(), jtEmail.getText(), jtAdresse.getText(), jtNpa.getText(), jtDateNaissance.getText(), jtpathImg.getText(), numJList);
+                            formPanel.setVisible(false);
+                            listPanel.setVisible(true);
+                            statutBtnInitial();
+
                         } else {
                             jtNpa.setForeground(Color.RED);
                         }
@@ -442,6 +462,17 @@ public class Contact extends JPanel {
 
 
 
+
+    class mouseListener extends MouseAdapter {
+
+
+        @Override
+        public void mousePressed(MouseEvent me) {
+            System.out.println("Je clique sur l'image numéro " + path);
+
+        }
+    }
+
     //---------------------------- Validators ------------------------//
 
 
@@ -494,7 +525,7 @@ public class Contact extends JPanel {
 
         }
         // Creation du tableau temporaire avec les valeur à inscrire
-        temp[chaine.length] = jtNom.getText() + " - " + jtPrenom.getText() + " - " + jtNumTel.getText() + " - "+ jtEmail.getText() + " - " + jtAdresse.getText() + " - " + jtNpa.getText() + " - " +  jtDateNaissance.getText();
+        temp[chaine.length] = jtNom.getText() + " - " + jtPrenom.getText() + " - " + jtNumTel.getText() + " - "+ jtEmail.getText() + " - " + jtAdresse.getText() + " - " + jtNpa.getText() + " - " +  jtDateNaissance.getText() + " - " +  jtpathImg.getText();
         chaine = new String [temp.length];
         chaine = temp;
         writeContact();
@@ -563,9 +594,9 @@ public class Contact extends JPanel {
             for (int i = 0; i<chaine.length; i++){
                 if(chaine[i]!= null){
                     // On découpe chaque ligne du fichier en 6 partie distinctement séparées
-                    tempo = chaine[i].split(" - ", 7);
+                    tempo = chaine[i].split(" - ", 8);
                     // On crée un tableau de contact qui contiendra un objet contact avec les infos
-                    tabContactData[i] = new ContactData(tempo[0], tempo[1], tempo[2], tempo[3], tempo[4], tempo[5], tempo[6]);
+                    tabContactData[i] = new ContactData(tempo[0], tempo[1], tempo[2], tempo[3], tempo[4], tempo[5], tempo[6], tempo[7]);
                     // On crée le text d'affichage de la JList
                     listAffichageJList[i] = tempo[0] + " " + tempo[1];
                     if(chaine[i].contains("#deleted")){
@@ -589,11 +620,11 @@ public class Contact extends JPanel {
      * va ecraser la valeur à la position séléctionnée par un nouveau String définit
      */
 
-    public void ModifChaine(String nom, String prenom, String num, String mail, String adresse , String npaLoc, String date, int numJList) {
+    public void ModifChaine(String nom, String prenom, String num, String mail, String adresse , String npaLoc, String date, String pathImg, int numJList) {
         for(int i = 0; i<chaine.length; i++){
             if(chaine[i] != null){
                 if(i == numJList){
-                    chaine[i] = nom + " - " + prenom + " - " + num + " - " + mail + " - " + adresse + " - " + npaLoc +" - " + date;
+                    chaine[i] = nom + " - " + prenom + " - " + num + " - " + mail + " - " + adresse + " - " + npaLoc +" - " + date + " - " + pathImg;
                 }
             }
         }
@@ -643,6 +674,7 @@ public class Contact extends JPanel {
         jtAdresse.setEditable(val);
         jtNpa.setEditable(val);
         jtDateNaissance.setEditable(val);
+        jtpathImg.setEditable(val);
     }
 
     /**
@@ -659,7 +691,7 @@ public class Contact extends JPanel {
         if (reponse == JOptionPane.YES_OPTION) {
             int numJList = jlistContact.getSelectedIndex();
             // va remplacer toutes la ligne que on désire supprimer par des #deleted
-            ModifChaine("#deleted", "#deleted", "#deleted", "#deleted", "#deleted", "#deleted", "#deleted", numJList);
+            ModifChaine("#deleted", "#deleted", "#deleted", "#deleted", "#deleted", "#deleted", "#deleted","#deleted", numJList);
         }
 
     }
