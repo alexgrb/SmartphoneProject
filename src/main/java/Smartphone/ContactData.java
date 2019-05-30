@@ -89,5 +89,7 @@ public class ContactData implements Serializable {
         this.dateNaissance = dateNaissance;
     }
 
-
+    public void setPathImg(String pathImg) {
+        this.pathImg = pathImg;
+    }
 }

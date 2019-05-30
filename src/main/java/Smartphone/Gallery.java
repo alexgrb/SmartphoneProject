@@ -237,6 +237,9 @@ public class Gallery extends JPanel {
                 contact.jbEdit.setVisible(true);
                 contact.jbDelete.setVisible(true);
             }
+            contact.jtpathImg.setText(path);
+            contact.imageUpdate();
+
             revalidate();
             repaint();
         }

@@ -44,7 +44,6 @@ public class Contact extends JPanel {
     private JLabel lbAdresse = new JLabel("Adresse");
     private JLabel lbNpa = new JLabel("NPA");
     private JLabel lbDateNaissance = new JLabel("Date de naissance");
-    private JCheckBox checkFav = new JCheckBox("Favori");
     private JLabel lbimg = new JLabel();
     private JLabel lbempty = new JLabel(" ");
 
@@ -57,7 +56,7 @@ public class Contact extends JPanel {
     private JTextField jtAdresse = new JTextField();
     private JTextField jtNpa = new JTextField();
     private JTextField jtDateNaissance = new JTextField();
-    private JTextField jtpathImg = new JTextField();
+    protected JTextField jtpathImg = new JTextField();
 
     //Bouton
     protected static JButton jbAdd = new JButton ("");
@@ -89,6 +88,8 @@ public class Contact extends JPanel {
 
 
     public Contact() {
+
+        setBackground(new Color(255,255,255));
 
         this.contact = this;
 
@@ -163,21 +164,6 @@ public class Contact extends JPanel {
         lbNpa.setFont(fontlabels);
         lbDateNaissance.setFont(fontlabels);
 
-        /*
-        ImageIcon pira = new ImageIcon(picDirectory+"min\\10.png");
-        lbimg.setIcon(pira);
-
-         */
-
-        /*
-        lbNom.setPreferredSize(dim);
-        lbPrenom.setPreferredSize(dim);
-        lbNumTel.setPreferredSize(dim);
-        lbEmail.setPreferredSize(dim);
-        lbAdresse.setPreferredSize(dim);
-        lbNpa.setPreferredSize(dim);
-        lbDateNaissance.setPreferredSize(dim);
-*/
         //Fonts et dim des JtextField
 
         jtNom.setFont (fontJtextfields);
@@ -208,9 +194,7 @@ public class Contact extends JPanel {
         mainButtonsPanel.add(jbRetour);
         mainButtonsPanel.add(jbAdd);
 
-        //subButtonsPanel.setLayout(new MigLayout("wrap 2","[] 30 []"));
         subButtonsPanel.add(jbValiderEdit);
-        //subButtonsPanel.add(Box.createHorizontalStrut(10));
         subButtonsPanel.add(jbValiderAdd);
         subButtonsPanel.add(jbEdit);
         subButtonsPanel.add(jbDelete);
@@ -234,8 +218,6 @@ public class Contact extends JPanel {
         formPanel.add(jtNpa, "align left");
         formPanel.add(jtDateNaissance, "wrap");
         formPanel.add(jtpathImg, "wrap");
-        //formPanel.add(checkFav);
-        //formPanel.setLayout(new GridLayout(14, 1, 2, 2));
 
         //-------------------- END LAYOUTS ----------------//
 
@@ -261,6 +243,36 @@ public class Contact extends JPanel {
     // ------------------ LIST + ACTION LISTENER ---------------------- //
 
 
+    public void imageUpdate(){
+        try {
+            int numJList = jlistContact.getSelectedIndex();
+            // Test les champs
+            if(validPhone(jtNumTel.getText())) {
+                jtNumTel.setForeground(Color.BLACK);
+                if (validEmail(jtEmail.getText())){
+                    jtEmail.setForeground(Color.BLACK);
+                    if(validNPA(jtNpa.getText())) {
+                        jtNpa.setForeground(Color.BLACK);
+                        // On recupère tous les champs, et on réecrit la ligne avec les nouvelles données
+                        ModifChaine(jtNom.getText(), jtPrenom.getText(), jtNumTel.getText(), jtEmail.getText(), jtAdresse.getText(), jtNpa.getText(), jtDateNaissance.getText(), jtpathImg.getText(), numJList);
+                        formPanel.setVisible(false);
+                        listPanel.setVisible(true);
+                        statutBtnInitial();
+
+                    } else {
+                        jtNpa.setForeground(Color.RED);
+                    }
+                } else {
+                    jtEmail.setForeground(Color.RED);
+                }
+            } else {
+                jtNumTel.setForeground(Color.RED);
+            }
+        } catch (Exception f) {
+            System.out.println("Erreur à la modification des contacts");
+            System.out.println(f.toString());
+        }
+    }
 
     class EcouteurList implements ListSelectionListener {
         /**
@@ -274,7 +286,6 @@ public class Contact extends JPanel {
             formPanel.setVisible(true);
             setEditable(false);
             if(valModifSupp == false){
-                //jbAdd.setVisible(false);
                 jbRetour.setVisible(true);
                 jbEdit.setVisible(true);
                 jbDelete.setVisible(true);
@@ -312,7 +323,7 @@ public class Contact extends JPanel {
          *
          */
         public void actionPerformed(ActionEvent e){
-            try {
+           /* try {
                 int numJList = jlistContact.getSelectedIndex();
                 // Test les champs
                 if(validPhone(jtNumTel.getText())) {
@@ -340,6 +351,9 @@ public class Contact extends JPanel {
                 System.out.println("Erreur à la modification des contacts");
                 System.out.println(f.toString());
             }
+
+            */
+            imageUpdate();
         }
     }
 
