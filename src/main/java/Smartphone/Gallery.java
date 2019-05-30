@@ -221,8 +221,13 @@ public class Gallery extends JPanel {
             gallery.removeAll();
             imgzoomPanel.removeAll();
             imgPanel.removeAll();
+
+            contact.jtpathImg.setText(path);
+            System.out.println(contact.jtpathImg.getText());
+            contact.imageUpdate();
             add(contact.mainButtonsPanel);
 
+            contact.setContactPanel(i);
             add(contact.listPanel);
             Contact.LectureContact();
             add(contact.formPanel);
@@ -237,13 +242,12 @@ public class Gallery extends JPanel {
                 contact.jbEdit.setVisible(true);
                 contact.jbDelete.setVisible(true);
             }
-            contact.jtpathImg.setText(path);
-            contact.imageUpdate();
 
             revalidate();
             repaint();
         }
     }
+
 }
 
 

@@ -243,6 +243,35 @@ public class Contact extends JPanel {
     // ------------------ LIST + ACTION LISTENER ---------------------- //
 
 
+    public void setContactPanel(int i){
+
+        listPanel.setVisible(false);
+        formPanel.setVisible(true);
+        setEditable(false);
+        if(valModifSupp == false){
+            jbRetour.setVisible(true);
+            jbEdit.setVisible(true);
+            jbDelete.setVisible(true);
+        }
+
+
+        if(i != -1){
+            jtNom.setText(tabContactData[i].getNom());
+            jtPrenom.setText(tabContactData[i].getPrenom());
+            jtNumTel.setText(tabContactData[i].getNumTel());
+            jtEmail.setText(tabContactData[i].getEmail());
+            jtAdresse.setText(tabContactData[i].getAdresse());
+            jtNpa.setText(tabContactData[i].getNPAloc());
+            jtDateNaissance.setText(tabContactData[i].getDateNaissance());
+            jtpathImg.setText(tabContactData[i].getPathImg());
+
+            path = tabContactData[i].getPathImg();
+
+            ImageIcon pira = new ImageIcon(picDirectory+"min\\" + path);
+            lbimg.setIcon(pira);
+
+        }
+    }
     public void imageUpdate(){
         try {
             int numJList = jlistContact.getSelectedIndex();
@@ -258,6 +287,7 @@ public class Contact extends JPanel {
                         formPanel.setVisible(false);
                         listPanel.setVisible(true);
                         statutBtnInitial();
+                        System.out.println("La nouvelle image est : "+jtpathImg.getText() + " pour le contact "+jtNom.getText());
 
                     } else {
                         jtNpa.setForeground(Color.RED);
@@ -281,35 +311,7 @@ public class Contact extends JPanel {
          */
         public void valueChanged(ListSelectionEvent evt){
             int i = jlistContact.getSelectedIndex();
-
-            listPanel.setVisible(false);
-            formPanel.setVisible(true);
-            setEditable(false);
-            if(valModifSupp == false){
-                jbRetour.setVisible(true);
-                jbEdit.setVisible(true);
-                jbDelete.setVisible(true);
-            }
-
-
-            if(i != -1){
-                jtNom.setText(tabContactData[i].getNom());
-                jtPrenom.setText(tabContactData[i].getPrenom());
-                jtNumTel.setText(tabContactData[i].getNumTel());
-                jtEmail.setText(tabContactData[i].getEmail());
-                jtAdresse.setText(tabContactData[i].getAdresse());
-                jtNpa.setText(tabContactData[i].getNPAloc());
-                jtDateNaissance.setText(tabContactData[i].getDateNaissance());
-                jtpathImg.setText(tabContactData[i].getPathImg());
-
-                path = tabContactData[i].getPathImg();
-
-                ImageIcon pira = new ImageIcon(picDirectory+"min\\" + path);
-                lbimg.setIcon(pira);
-
-
-
-            }
+            setContactPanel(i);
         }
     }
 
@@ -323,41 +325,9 @@ public class Contact extends JPanel {
          *
          */
         public void actionPerformed(ActionEvent e){
-           /* try {
-                int numJList = jlistContact.getSelectedIndex();
-                // Test les champs
-                if(validPhone(jtNumTel.getText())) {
-                    jtNumTel.setForeground(Color.BLACK);
-                    if (validEmail(jtEmail.getText())){
-                        jtEmail.setForeground(Color.BLACK);
-                        if(validNPA(jtNpa.getText())) {
-                            jtNpa.setForeground(Color.BLACK);
-                            // On recupère tous les champs, et on réecrit la ligne avec les nouvelles données
-                            ModifChaine(jtNom.getText(), jtPrenom.getText(), jtNumTel.getText(), jtEmail.getText(), jtAdresse.getText(), jtNpa.getText(), jtDateNaissance.getText(), jtpathImg.getText(), numJList);
-                            formPanel.setVisible(false);
-                            listPanel.setVisible(true);
-                            statutBtnInitial();
-
-                        } else {
-                            jtNpa.setForeground(Color.RED);
-                        }
-                    } else {
-                        jtEmail.setForeground(Color.RED);
-                    }
-                } else {
-                    jtNumTel.setForeground(Color.RED);
-                }
-            } catch (Exception f) {
-                System.out.println("Erreur à la modification des contacts");
-                System.out.println(f.toString());
-            }
-
-            */
             imageUpdate();
         }
     }
-
-
 
 
     class ActionAdd implements ActionListener{
@@ -769,8 +739,6 @@ public class Contact extends JPanel {
         public boolean isBorderOpaque() {
             return true;
         }
-
-
         public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
             g.drawRoundRect(x, y, width-1, height-1, radius, radius);
         }
