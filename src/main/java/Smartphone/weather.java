@@ -1,6 +1,8 @@
 package Smartphone;
 
 
+import tools.imageLabel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,13 +18,18 @@ public class weather extends JPanel {
             Object[] cities = new Object[]{"Lausanne,CH", "Sion,CH", "Zurich,CH", "Montreux,CH", "Sierre,CH", "Dubai, AE"};
             cityList = new JComboBox(cities);
             cityList.addActionListener(new comboListener());
-
             setLayout(null);
+            JLabel backGround = new imageLabel("weatherBack");
+            backGround.setBounds(0,0,480,800);
+
+
             cityList.setBounds(160,10,150,50);
             add(cityList);
 
             contentWeather.setBounds(0,55,480,745);
+            contentWeather.setOpaque(false);
             add(contentWeather);
+            add(backGround);
         }
 
     class comboListener implements ActionListener {
@@ -31,6 +38,8 @@ public class weather extends JPanel {
                 contentWeather.removeAll();
                 JPanel weatherPanel = new GetWeatherData(cityList.getSelectedItem().toString()); //photo
                 contentWeather.setLayout(null);
+                weatherPanel.setOpaque(false);
+               // weatherPanel.setBackground(new Color(230));
                 weatherPanel.setBounds(0,0,480,745);
                 contentWeather.add(weatherPanel);
                 contentWeather.validate();

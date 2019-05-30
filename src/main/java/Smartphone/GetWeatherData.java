@@ -1,4 +1,5 @@
 package Smartphone;
+import net.miginfocom.swing.MigLayout;
 import tools.*;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -21,10 +22,12 @@ public class GetWeatherData extends JPanel {
 
     String icon = "01d";
     String description = "";
+    private JPanel weatherDisplay = new JPanel();
 
     public GetWeatherData(String city) {
 
-        setLayout(null);
+
+        weatherDisplay.setLayout(new MigLayout("wrap 3"));
 
         String API_KEY = "bca5b91d81e883aa7988a8ff953ea56e"; //API gratuite obtenu sur OpenWeather
         String urlString = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + API_KEY + "&units=metric";
@@ -67,37 +70,33 @@ public class GetWeatherData extends JPanel {
 
             int scaledWidth = 150;
             int scaledHeight = 150;
-            ImageResizer.resize("src\\main\\java\\pictures\\" + icon+ ".png", "src\\main\\java\\pictures\\" + icon+ "2.png", scaledWidth, scaledHeight);
+            ImageResizer.resize(picDirectory + icon+ ".png", picDirectory + icon+ "2.png", scaledWidth, scaledHeight);
             JLabel image = new imageLabel(icon+"2");
 
-            ImageResizer.resize("src\\main\\java\\pictures\\iconHumidity.png", "src\\main\\java\\pictures\\iconHumidity.png", 70, 70);
+            ImageResizer.resize(picDirectory+"iconHumidity.png", picDirectory+"iconHumidity.png", 70, 70);
             JLabel imageHumidity = new imageLabel("iconHumidity");
 
-            descriptionLabel.setBounds(40,330,150,50);
-            new textResizer(descriptionLabel);
-            add(descriptionLabel);
+            weatherDisplay.setOpaque(false);
 
-            currentTemp.setBounds(360,350,150,200);
+
             new textResizer(currentTemp,35);
-            add(currentTemp);
+            weatherDisplay.add(currentTemp, "skip");
 
-            windSpeed.setBounds(45, 360, 150,200);
             new textResizer(windSpeed,35);
-            add(windSpeed);
+            weatherDisplay.add(windSpeed );
 
-            imageHumidity.setBounds(265,485,70,70);
-            add(imageHumidity);
+            weatherDisplay.add(imageHumidity);
 
-            currentHumidity.setBounds(355, 500, 70,50);
             new textResizer(currentHumidity, 35);
-            add(currentHumidity);
+            weatherDisplay.add(currentHumidity);
+
+            new textResizer(descriptionLabel);
+            weatherDisplay.add(descriptionLabel, "skip");
 
             String backPath = "";
-            image.setBounds(330,290,scaledWidth,scaledHeight);
-            add(image);
-            JLabel backGround = new imageLabel("weatherBack");
-            backGround.setBounds(0,275,480,500);
-            add(backGround);
+            weatherDisplay.add(image);
+
+            add(weatherDisplay);
 
             switch (icon){
                 case "01d" :
@@ -119,7 +118,6 @@ public class GetWeatherData extends JPanel {
             ImageIcon imgBack = new ImageIcon(picDirectory+backPath+".gif");
             JLabel back = new JLabel(imgBack);
 
-            back.setBounds(0,10,480,275);
             add(back);
 
         } catch (IOException e) {

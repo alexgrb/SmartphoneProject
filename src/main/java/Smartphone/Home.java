@@ -37,7 +37,7 @@ public class Home extends JPanel {
         closeButton.setBounds(404,10,64,64);
 
         setLayout(null);
-        homeDisplay.setLayout(new MigLayout("wrap 4"));
+        homeDisplay.setLayout(new MigLayout("wrap 2"));
 
         homeDisplay.setOpaque(true);
 
@@ -46,10 +46,10 @@ public class Home extends JPanel {
             appButton[i] = new imageButton(); //Cela va rendre le fond transparent
             appButton[i].addActionListener(new display.homeListener((i+1))); //Ajoute l'action listener afin de pouvoir naviguer entre les appli
         }
-        appButton[0].setIcon(new ImageIcon(picDirectory+"iconWeather.png"));
-        appButton[1].setIcon(new ImageIcon(picDirectory+"iconContact.png"));
-        appButton[2].setIcon(new ImageIcon(picDirectory+"iconCalculette.png"));
-        appButton[3].setIcon(new ImageIcon(picDirectory+"iconGallery.png"));
+        appButton[0].setIcon(new ImageIcon(picDirectory+"iconWeatherBis.png"));
+        appButton[1].setIcon(new ImageIcon(picDirectory+"iconContactBis.png"));
+        appButton[2].setIcon(new ImageIcon(picDirectory+"iconCalculetteBis.png"));
+        appButton[3].setIcon(new ImageIcon(picDirectory+"iconGalleryBis.png"));
 
        /* for(int z = 0; z< maxApp-1; z++){
             homeDisplay.add(appButton[z]);
@@ -70,10 +70,10 @@ public class Home extends JPanel {
 
 
 
-
+        homeDisplay.add(currentTime, "span 2 2, gapleft 30" ); // Wrap to next row
         homeDisplay.add(appButton[0]);
         homeDisplay.add(appButton[1]); // The component will span 2x2 cells.
-        homeDisplay.add(currentTime, "span 2 2, gapleft 30" ); // Wrap to next row
+
         homeDisplay.add(appButton[2]);
         homeDisplay.add(appButton[3]); // Note that it "jumps over" the occupied cells.
 
