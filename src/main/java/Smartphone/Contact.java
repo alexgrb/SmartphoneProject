@@ -6,11 +6,14 @@ package Smartphone;
  * Main frame for the smartphone
  */
 
-import tools.imageLabel;
+import tools.RoundedBorder;
+import tools.imageButton;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -22,16 +25,19 @@ import java.util.List;
 
 public class Contact extends JPanel {
 
+
+
     ContactRegex regex = new ContactRegex();
 
     // private imageLabel photoDuContact = new imageLabel("10");
     // Fonts
 
 
-    protected Font fontBouton = new Font("Arial",Font.PLAIN ,14);
+    public static Font fontBouton = new Font("Arial",Font.PLAIN ,14);
     protected Font fontlabels = new Font("Arial",Font.BOLD ,14);
     protected Font fontJtextfields = new Font("Arial",Font.PLAIN ,14);
     protected Font fontJList = new Font("Arial",Font.PLAIN ,20);
+
 
 
 
@@ -63,12 +69,12 @@ public class Contact extends JPanel {
 
 
     //Bouton
-    protected static JButton jbAdd = new JButton ();
+    protected static JButton jbAdd = new JButton ("");
     private static JButton jbValiderEdit = new JButton ("Valider modification(s)");
     private static JButton jbValiderAdd = new JButton ("Valider ajout");
     protected static JButton jbEdit = new JButton ("Modifier");
     protected static JButton jbDelete = new JButton ("Supprimer");
-    private static JButton jbAnnuler = new JButton ("Annuler");
+    private static JButton jbRetour = new JButton ("Retour");
 
 
     //Liste des contacts
@@ -93,20 +99,56 @@ public class Contact extends JPanel {
     public Contact() {
 
 
+        //---------- Boutons ---------//
+
         jbAdd.setIcon(new ImageIcon("src\\pictures\\addresized.png"));
         jbAdd.setOpaque(false);
         jbAdd.setBackground(new Color(0,true));
         jbAdd.setBorder(null);
+
+
+        jbRetour.setBorderPainted(false);
+        jbRetour.setFocusPainted(false);
+        jbRetour.setContentAreaFilled(false);
+
+
+        jbValiderEdit.setBorder(new RoundedBorder(10)); //10 is the radius
+        jbValiderEdit.setForeground(Color.BLUE);
+
 
         //Nouvelle police
         Font police = new Font("Arial", Font.BOLD, 16);
         jtNpa.setFont(police);
 
 
-        // Setting up the scroll pane
+
+        Border line = new LineBorder(Color.BLACK);
+        Border margin = new EmptyBorder(5, 15, 5, 15);
+        Border compound = new CompoundBorder(line, margin);
+      /*  jbEdit.setForeground(Color.BLACK);
+        jbEdit.setBackground(Color.WHITE);
+        jbEdit.setBorder(compound);
+        jbEdit.setBorder(new RoundedBorder(5)); //10 is the radius
+
+       */
+        jbEdit = new imageButton("edit", 2);
+
+
+        /*public class layoutBtn (JButton jbutton){
+            jbEdit.setForeground(Color.BLACK);
+            jbEdit.setBackground(Color.WHITE);
+            Border ligne = new LineBorder(Color.BLACK);
+            Border marge = new EmptyBorder(5, 15, 5, 15);
+            Border autour = new CompoundBorder(ligne, marge);
+            jbEdit.setBorder(autour);
+            jbEdit.setBorder(new RoundedBorder(5)); //10 c'est le rayon
+        }
+
+         */
 
 
 
+        //---------- END ---------//
 
 
         //----------- Les boutons -----//
@@ -116,23 +158,23 @@ public class Contact extends JPanel {
         jbAdd.addActionListener(new ActionAdd());
         jbEdit.addActionListener(new ActionEdit());
         jbDelete.addActionListener(new ActionDelete());
-        jbAnnuler.addActionListener(new ActionCancel());
+        jbRetour.addActionListener(new ActionRetour());
         jlistContact.addListSelectionListener(new EcouteurList());
 
 
         jbAdd.setFont(fontBouton);
         jbValiderEdit.setFont(fontBouton);
         jbValiderAdd.setFont(fontBouton);
-        jbEdit.setFont(fontBouton);
+        //jbEdit.setFont(fontBouton);
         jbDelete.setFont(fontBouton);
-        jbAnnuler.setFont(fontBouton);
+        jbRetour.setFont(fontBouton);
 
         centerPanel.add(jbAdd);
         centerPanel.add(jbValiderEdit);
         centerPanel.add(jbValiderAdd);
         centerPanel.add(jbEdit);
         centerPanel.add(jbDelete);
-        centerPanel.add(jbAnnuler);
+        centerPanel.add(jbRetour);
 
 
         //---------------------------//
@@ -256,11 +298,12 @@ public class Contact extends JPanel {
         public void valueChanged(ListSelectionEvent evt){
             int i = jlistContact.getSelectedIndex();
 
+            topPanel.setVisible(false);
             bottomPanel.setVisible(true);
             setEditable(false);
             if(valModifSupp == false){
                 //jbAdd.setVisible(false);
-                //jbAnnuler.setVisible(true);
+                jbRetour.setVisible(true);
                 jbEdit.setVisible(true);
                 jbDelete.setVisible(true);
             }
@@ -328,7 +371,7 @@ public class Contact extends JPanel {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
-            jlistContact.setEnabled(false);
+            topPanel.setVisible(false);
             resetChamp();
             bottomPanel.setVisible(true);
             jbAdd.setVisible(false);
@@ -336,7 +379,7 @@ public class Contact extends JPanel {
             jbDelete.setVisible(false);
             jbValiderEdit.setVisible(false);
             jbValiderAdd.setVisible(true);
-            jbAnnuler.setVisible(true);
+            jbRetour.setVisible(true);
             setEditable(true);
         }
 
@@ -394,7 +437,7 @@ public class Contact extends JPanel {
             jbDelete.setVisible(false);
             jbValiderAdd.setVisible(false);
             jbValiderEdit.setVisible(true);
-            jbAnnuler.setVisible(true);
+            jbRetour.setVisible(true);
             setEditable(true);
             bottomPanel.setVisible(true);
         }
@@ -411,7 +454,7 @@ public class Contact extends JPanel {
         }
     }
 
-    class ActionCancel implements ActionListener{
+    class ActionRetour implements ActionListener{
 
         /**
          * Va appeler la méthode "resetChamp()" qui va réinitialiser la valeur des JTextFields (tous vides)
@@ -424,9 +467,11 @@ public class Contact extends JPanel {
         public void actionPerformed(ActionEvent e) {
             try {
                 resetChamp();
-                statutBtnInitial();
                 jlistContact.clearSelection();
                 bottomPanel.setVisible(false);
+                topPanel.setVisible(true);
+                statutBtnInitial();
+
             } catch (Exception f){
                 System.out.println("Erreur a l'annulation");
                 System.out.println(f.toString());
@@ -703,7 +748,7 @@ public class Contact extends JPanel {
         jbDelete.setVisible(false);
         jbValiderEdit.setVisible(false);
         jbValiderAdd.setVisible(false);
-        jbAnnuler.setVisible(false);
+        jbRetour.setVisible(false);
         jlistContact.setEnabled(true);
 
     }
@@ -770,4 +815,30 @@ public class Contact extends JPanel {
         }
     }
 
+
+
+    public static class RoundedBorder implements Border {
+
+        private int radius;
+
+
+        public RoundedBorder(int radius) {
+            this.radius = radius;
+        }
+
+
+        public Insets getBorderInsets(Component c) {
+            return new Insets(this.radius+1, this.radius+1, this.radius+2, this.radius);
+        }
+
+
+        public boolean isBorderOpaque() {
+            return true;
+        }
+
+
+        public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+            g.drawRoundRect(x, y, width-1, height-1, radius, radius);
+        }
+    }
 }

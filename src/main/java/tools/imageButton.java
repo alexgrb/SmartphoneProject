@@ -1,6 +1,12 @@
 package tools;
 
+import Smartphone.Contact;
+
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class imageButton extends JButton {
@@ -10,6 +16,18 @@ public class imageButton extends JButton {
     public imageButton(String text, String path) {
         loadImage(path);
         setSurfaceSize(text);
+    }
+
+    public imageButton(String text, int text2) {
+        setText(text);
+        setForeground(Color.BLACK);
+        setBackground(Color.WHITE);
+        Border ligne = new LineBorder(Color.BLACK);
+        Border marge = new EmptyBorder(5, 15, 5, 15);
+        Border autour = new CompoundBorder(ligne, marge);
+        setBorder(autour);
+        setBorder(new Contact.RoundedBorder(5)); //10 c'est le rayon
+        setFont(Contact.fontBouton);
     }
 
     private void loadImage(String path) {
