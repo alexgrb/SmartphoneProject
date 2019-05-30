@@ -31,10 +31,10 @@ public class imageButton extends JButton {
         setForeground(Color.BLACK);
         setBackground(Color.WHITE);
         Border ligne = new LineBorder(Color.BLACK);
-        Border marge = new EmptyBorder(5, 15, 5, 15);
+        Border marge = new EmptyBorder(10, 15, 10, 15);
         Border autour = new CompoundBorder(ligne, marge);
         setBorder(autour);
-        setBorder(new Contact.RoundedBorder(5)); //10 c'est le rayon
+        setBorder(new Contact.RoundedBorder(10));
         setFont(Contact.fontBouton);
     }
 

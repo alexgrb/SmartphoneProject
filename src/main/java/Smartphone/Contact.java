@@ -27,7 +27,7 @@ public class Contact extends JPanel {
 
     ContactRegex regex = new ContactRegex();
 
-    public static Font fontBouton = new Font("Arial",Font.PLAIN ,14);
+    public static Font fontBouton = new Font("Dialog",Font.BOLD ,15);
     protected Font fontlabels = new Font("Arial",Font.BOLD ,14);
     protected Font fontJtextfields = new Font("Arial",Font.PLAIN ,14);
     protected Font fontJList = new Font("Arial",Font.PLAIN ,20);
@@ -35,7 +35,7 @@ public class Contact extends JPanel {
 
     protected Dimension dim = new Dimension(200, 30);
     protected Dimension dimSmall = new Dimension(100, 30);
-    protected Dimension dimJlist = new Dimension(400, 100);
+    protected Dimension dimJlist = new Dimension(450, 700);
 
 
     // Les labels
@@ -99,10 +99,15 @@ public class Contact extends JPanel {
         jbRetour = new imageButton();
         jbRetour.setIcon(new ImageIcon(picDirectory+"iconBack.png"));
 
-        jbEdit = new imageButton("edit", 2);
-        jbValiderEdit = new imageButton("Valider les modifs", 2);
+        jbEdit = new imageButton("Editer", 2);
+        jbEdit.setBackground(Color.LIGHT_GRAY);
+        jbValiderEdit = new imageButton("Valider modification(s)", 2);
+        jbValiderEdit.setBackground(Color.LIGHT_GRAY);
         jbValiderAdd = new imageButton("Valider ", 2);
+        jbValiderAdd.setBackground(Color.LIGHT_GRAY);
         jbDelete = new imageButton("Supprimer", 2);
+        jbDelete.setBackground(Color.LIGHT_GRAY);
+
 
         //---------- END ---------//
 
@@ -120,10 +125,7 @@ public class Contact extends JPanel {
         jbRetour.setFont(fontBouton);
 
 
-        subButtonsPanel.add(jbValiderEdit);
-        subButtonsPanel.add(jbValiderAdd);
-        subButtonsPanel.add(jbEdit);
-        subButtonsPanel.add(jbDelete);
+
 
 
 
@@ -141,7 +143,7 @@ public class Contact extends JPanel {
         jlistContact.setBackground(Color.LIGHT_GRAY);
         jlistContact.setFont(fontJList);
         jlistContact.setPreferredSize(dimJlist);
-        jlistContact.setBorder(new EmptyBorder(15,10, 15, 10));
+        //jlistContact.setBorder(new EmptyBorder(15,10, 15, 10));
 
 
         //-------------- END   -----------//
@@ -188,14 +190,24 @@ public class Contact extends JPanel {
         jtNpa.setPreferredSize(dimSmall);
         jtDateNaissance.setPreferredSize(dimSmall);
 
-        mainButtonsPanel.setLayout(new MigLayout());
 
-        mainButtonsPanel.add(jbRetour, "align left");
-        mainButtonsPanel.add(jbAdd, "wrap");
+
+
+        //-------------------- LAYOUTS ----------------//
+
+        mainButtonsPanel.setLayout(new MigLayout("wrap 2","[] 300 []"));
+        mainButtonsPanel.add(jbRetour);
+        mainButtonsPanel.add(jbAdd);
+
+        //subButtonsPanel.setLayout(new MigLayout("wrap 2","[] 30 []"));
+        subButtonsPanel.add(jbValiderEdit);
+        //subButtonsPanel.add(Box.createHorizontalStrut(10));
+        subButtonsPanel.add(jbValiderAdd);
+        subButtonsPanel.add(jbEdit);
+        subButtonsPanel.add(jbDelete);
 
 
         formPanel.setLayout(new MigLayout());
-
         formPanel.add(lbempty, "align left");
         formPanel.add(lbimg, "wrap");
         formPanel.add(lbNom, "wrap");
@@ -215,20 +227,23 @@ public class Contact extends JPanel {
         //formPanel.add(checkFav);
         //formPanel.setLayout(new GridLayout(14, 1, 2, 2));
 
+        //-------------------- END LAYOUTS ----------------//
 
         //Bottom
 
         mainButtonsPanel.setBorder(BorderFactory.createEmptyBorder(0, 50, 0, 50));
         subButtonsPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 
-
-        add(listPanel);
         add(mainButtonsPanel);
+        add(listPanel);
         add(formPanel);
         add(subButtonsPanel);
 
 
         formPanel.setVisible(false);
+
+
+
 
 
     }
