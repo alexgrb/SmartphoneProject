@@ -131,6 +131,7 @@ public class Contact extends JPanel {
         jbEdit.setBorder(new RoundedBorder(5)); //10 is the radius
 
        */
+
         jbEdit = new imageButton("edit", 2);
 
 
