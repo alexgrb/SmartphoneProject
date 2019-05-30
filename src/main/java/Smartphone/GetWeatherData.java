@@ -15,6 +15,8 @@ import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
+import static Smartphone.display.picDirectory;
+
 public class GetWeatherData extends JPanel {
 
     String icon = "01d";
@@ -114,7 +116,7 @@ public class GetWeatherData extends JPanel {
                     backPath = "rain";
                     break;
             }
-            ImageIcon imgBack = new ImageIcon("src\\main\\java\\pictures\\"+backPath+".gif");
+            ImageIcon imgBack = new ImageIcon(picDirectory+backPath+".gif");
             JLabel back = new JLabel(imgBack);
 
             back.setBounds(0,10,480,275);

@@ -12,13 +12,15 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.*;
 
+import static Smartphone.display.picDirectory;
+
 public class Gallery extends JPanel {
 
     static JPanel imgzoomPanel = new Picture("",null);
     static JScrollPane finalPanel;
     public static JPanel imgPanel = new JPanel();
     private Gallery gallery;
-    static String galleryDirectory = "src\\main\\java\\pictures\\gallery\\";
+    static String galleryDirectory = picDirectory+"gallery\\";
     static final File dir = new File(galleryDirectory);
 
     private static int nbPhotos = (new File(galleryDirectory).list().length);
@@ -114,8 +116,8 @@ public class Gallery extends JPanel {
             }
 
         File file = new File(source);
-        File fileBis = new File("src\\main\\java\\pictures\\big\\" + path);
-        File fileMin = new File("src\\main\\java\\pictures\\min\\" + path);
+        File fileBis = new File(picDirectory+"big\\" + path);
+        File fileMin = new File(picDirectory+"min\\" + path);
 
         System.out.println(fileMin);
         file.delete();

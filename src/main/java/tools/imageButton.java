@@ -1,6 +1,7 @@
 package tools;
 
 import Smartphone.Contact;
+import Smartphone.display;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -11,6 +12,7 @@ import java.awt.*;
 
 public class imageButton extends JButton {
     private Image mshi;
+    private String picDirectory = display.getPicDirectory();
 
     public imageButton() {
         setOpaque(false);
@@ -37,7 +39,7 @@ public class imageButton extends JButton {
     }
 
     private void loadImage(String path) {
-        mshi =  new ImageIcon("src\\main\\java\\pictures\\" + path+ ".png").getImage();
+        mshi =  new ImageIcon(picDirectory+ path+ ".png").getImage();
     }
 
     private void setSurfaceSize(String text) {

@@ -1,5 +1,7 @@
 package tools;
 
+import Smartphone.display;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -7,14 +9,16 @@ import java.io.IOException;
 public class imageLabel extends JLabel {
     private Image mshi;
 
+    private String picDirectory = display.getPicDirectory();
+
     public imageLabel(String path) {
         loadImage(path);
         setSurfaceSize();
     }
     public imageLabel(String path, int i) { //i Nous permet de faire une autre méthode quasi identique
         if(i==1) {
-            String imageToResize = "src\\main\\java\\pictures\\gallery\\" + path;
-            String resizedImagePath = "src\\main\\java\\pictures\\min\\" + path;
+            String imageToResize = picDirectory+"gallery\\" + path;
+            String resizedImagePath = picDirectory+"min\\" + path;
             try {
                 ImageResizer.resize(imageToResize, resizedImagePath, 100, 100);
             } catch (IOException e) {
@@ -30,10 +34,10 @@ public class imageLabel extends JLabel {
     }
 
     public void loadImage(String path) {
-        mshi =  new ImageIcon("src\\main\\java\\pictures\\" + path+".png").getImage();
+        mshi =  new ImageIcon(picDirectory + path+".png").getImage();
     }
     public void loadImageBig(String path) {
-        mshi =  new ImageIcon("src\\main\\java\\pictures\\" + path).getImage();
+        mshi =  new ImageIcon(picDirectory+ path).getImage();
     }
     public void loadImageGallery(String path) {
         mshi =  new ImageIcon(path).getImage();
