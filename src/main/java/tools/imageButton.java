@@ -51,5 +51,6 @@ public class imageButton extends JButton {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         doDrawing(g);
+
     }
 }
