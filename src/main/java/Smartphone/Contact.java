@@ -15,6 +15,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.util.Arrays;
 
 import static Smartphone.display.picDirectory;
 
@@ -59,12 +60,12 @@ public class Contact extends JPanel {
     protected JTextField jtpathImg = new JTextField();
 
     //Bouton
-    protected static JButton jbAdd = new JButton ("");
-    private static JButton jbValiderEdit = new JButton ("Valider modification(s)");
-    private static JButton jbValiderAdd = new JButton ("Valider ajout");
-    protected static JButton jbEdit = new JButton ("Modifier");
-    protected static JButton jbDelete = new JButton ("Supprimer");
-    protected static JButton jbRetour = new JButton ("");
+    protected static JButton jbAdd = new JButton ();
+    private static JButton jbValiderEdit = new JButton ();
+    private static JButton jbValiderAdd = new JButton ();
+    protected static JButton jbEdit = new JButton ();
+    protected static JButton jbDelete = new JButton ();
+    protected static JButton jbRetour = new JButton ();
 
 
     //Liste des contacts
@@ -130,7 +131,7 @@ public class Contact extends JPanel {
         jbRetour.setFont(fontBouton);
 
 
-
+        //Arrays.sort (data);
 
 
 
@@ -139,6 +140,8 @@ public class Contact extends JPanel {
 
         JScrollPane scrollPane = new JScrollPane(jlistContact);
         listPanel.add(scrollPane);
+        //jlistContact.setAutoCreateRowSorter(true);
+        //jlistContact.toggleSortOrder();
 
         // -------------- END   -----------//
 
@@ -190,6 +193,8 @@ public class Contact extends JPanel {
 
         //-------------------- LAYOUTS ----------------//
 
+
+
         mainButtonsPanel.setLayout(new MigLayout("wrap 2","[] 300 []"));
         mainButtonsPanel.add(jbRetour);
         mainButtonsPanel.add(jbAdd);
@@ -217,7 +222,12 @@ public class Contact extends JPanel {
         formPanel.add(lbDateNaissance, "wrap");
         formPanel.add(jtNpa, "align left");
         formPanel.add(jtDateNaissance, "wrap");
-        formPanel.add(jtpathImg, "wrap");
+        //formPanel.add(jtpathImg, "wrap");
+
+        mainButtonsPanel.setBackground(new Color(255,255,255));
+        listPanel.setBackground(new Color(255,255,255));
+        formPanel.setBackground(new Color(255,255,255));
+        subButtonsPanel.setBackground(new Color(255,255,255));
 
         //-------------------- END LAYOUTS ----------------//
 
@@ -455,13 +465,18 @@ public class Contact extends JPanel {
         public void mousePressed(MouseEvent me) {
             System.out.println("Je clique sur l'image numéro " + path);
 
+            if (jbValiderEdit.isVisible()){
             removeAll();
             setLayout(null);
             contactImg = new Gallery(jlistContact.getSelectedIndex(), contact);
             contactImg.setBounds(0, 40, 480, 700);
             add(contactImg);
             revalidate();
-            repaint();
+            repaint();}
+
+            else {
+                System.out.println("Il faut être en mode edit pour changer l'image");
+            }
 
         }
     }
@@ -560,7 +575,10 @@ public class Contact extends JPanel {
             }
             br.close();
             updateList();
+            sortList(jlistContact);
+            updateList();
             jlistContact.setEnabled(true);
+
         }
         catch (Exception e){
             System.out.println("Problème lecture fichier");
@@ -668,6 +686,8 @@ public class Contact extends JPanel {
         jtNpa.setEditable(val);
         jtDateNaissance.setEditable(val);
         jtpathImg.setEditable(val);
+        //lbimg.setEnabled(val);
+
     }
 
     /**
@@ -718,6 +738,22 @@ public class Contact extends JPanel {
         }
     }
 
+
+    public static void sortList(JList jlist) {
+
+        ListModel model = jlist.getModel();
+
+        int n = chaine.length;
+
+        String[]data = new String[n];
+
+        for (int i=0; i<n; i++){
+            data[i] = (String) model.getElementAt(i);
+        }
+
+        Arrays.sort(data);
+        jlist.setListData(data);
+    }
 
     public static class RoundedBorder implements Border {
 
