@@ -72,6 +72,7 @@ public class Contact extends JPanel {
 
     private static String chaine[];
     private static JList jlistContact = new JList();
+    private static JList jlistSortedContact = new JList();
 
 
     protected JPanel listPanel = new JPanel();
@@ -179,6 +180,7 @@ public class Contact extends JPanel {
         jtDateNaissance.setFont (fontJtextfields);
         jtpathImg.setFont (fontJtextfields);
 
+
         jtNom.setPreferredSize(dimSmall);
         jtPrenom.setPreferredSize(dimSmall);
         jtNumTel.setPreferredSize(dim);
@@ -187,6 +189,8 @@ public class Contact extends JPanel {
         jtNpa.setPreferredSize(dimSmall);
         jtDateNaissance.setPreferredSize(dimSmall);
         jtpathImg.setPreferredSize(dimSmall);
+
+
 
 
 
@@ -222,6 +226,8 @@ public class Contact extends JPanel {
         formPanel.add(lbDateNaissance, "wrap");
         formPanel.add(jtNpa, "align left");
         formPanel.add(jtDateNaissance, "wrap");
+
+
         //formPanel.add(jtpathImg, "wrap");
 
         mainButtonsPanel.setBackground(new Color(255,255,255));
@@ -262,6 +268,7 @@ public class Contact extends JPanel {
             jbRetour.setVisible(true);
             jbEdit.setVisible(true);
             jbDelete.setVisible(true);
+            jbAdd.setVisible(false);
         }
 
 
@@ -321,7 +328,15 @@ public class Contact extends JPanel {
          */
         public void valueChanged(ListSelectionEvent evt){
             int i = jlistContact.getSelectedIndex();
-            setContactPanel(i);
+           setContactPanel(i);
+           /*
+            JPanel viewContact = new ViewContact(tabContactData[i]);
+            jlistContact.removeAll();
+            contact.removeAll();
+            jlistContact.setVisible(false);
+            viewContact.setBounds(0,0,480,800);
+            add(viewContact);
+            -*/
         }
     }
 
@@ -381,7 +396,8 @@ public class Contact extends JPanel {
                     if(validNPA(jtNpa.getText())) {
                         jtNpa.setForeground(Color.BLACK);
                         addInChaine(valJList);
-                        resetChamp();
+                        formPanel.setVisible(false);
+                        listPanel.setVisible(true);
                         statutBtnInitial();
                     } else {
                         jtNpa.setForeground(Color.RED);
@@ -516,7 +532,7 @@ public class Contact extends JPanel {
     //------------------------------- METHODES -----------------------------//
 
     private static String[] listAffichageJList;
-
+    private static String[] listSortedAffichageJList;
     /**
      * Méthode qui va ajouter une ligne au tableau de chaine.
      * Elle va créer un tableau temporaire de la longueur du tableau de chaine + 1 pour la nouvelle ligne et y affecter les valeur du tableau de chaine
@@ -575,8 +591,6 @@ public class Contact extends JPanel {
             }
             br.close();
             updateList();
-            sortList(jlistContact);
-            updateList();
             jlistContact.setEnabled(true);
 
         }
@@ -597,26 +611,40 @@ public class Contact extends JPanel {
 
 
     public static void updateList(){
+
+        //sortList(jlistContact);
         listAffichageJList = new String[chaine.length];
+        listSortedAffichageJList = new String[chaine.length];
         tabContactData = new ContactData[chaine.length];
+
 
         String[] tempo = new String[6];
         try {
             for (int i = 0; i<chaine.length; i++){
+
                 if(chaine[i]!= null){
                     // On découpe chaque ligne du fichier en 6 partie distinctement séparées
                     tempo = chaine[i].split(" - ", 8);
                     // On crée un tableau de contact qui contiendra un objet contact avec les infos
                     tabContactData[i] = new ContactData(tempo[0], tempo[1], tempo[2], tempo[3], tempo[4], tempo[5], tempo[6], tempo[7]);
                     // On crée le text d'affichage de la JList
+
                     listAffichageJList[i] = tempo[0] + " " + tempo[1];
+
                     if(chaine[i].contains("#deleted")){
                         listAffichageJList[i] = null;
                     }
                 }
             }
 
+
+            jlistSortedContact.setListData(listAffichageJList);
+            sortList(jlistSortedContact);
+
+
+
             jlistContact.setListData(listAffichageJList);
+           // sortList(jlistContact);
             statutBtnInitial();
             formPanel.setVisible(false);
         }catch (Exception e){
@@ -707,6 +735,9 @@ public class Contact extends JPanel {
             ModifChaine("#deleted", "#deleted", "#deleted", "#deleted", "#deleted", "#deleted", "#deleted","#deleted", numJList);
         }
 
+
+
+        listPanel.setVisible(true);
     }
 
     /**
@@ -740,6 +771,28 @@ public class Contact extends JPanel {
 
 
     public static void sortList(JList jlist) {
+
+        ListModel model = jlist.getModel();
+
+        int n = chaine.length;
+
+        String[]data = new String[n];
+
+        for (int i=0; i<n; i++){
+            data[i] = (String) model.getElementAt(i);
+        }
+
+        Arrays.sort(data);
+        jlist.setListData(data);
+    }
+
+    public static void sortList(String[] string) {
+
+        JList jlist = new JList();
+
+        for (int i =0; i<string.length ; i++){
+
+        }
 
         ListModel model = jlist.getModel();
 
