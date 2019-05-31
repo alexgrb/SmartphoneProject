@@ -190,11 +190,6 @@ public class Contact extends JPanel {
         jtDateNaissance.setPreferredSize(dimSmall);
         jtpathImg.setPreferredSize(dimSmall);
 
-
-
-
-
-
         //-------------------- LAYOUTS ----------------//
 
 
@@ -257,9 +252,55 @@ public class Contact extends JPanel {
     }
 
     // ------------------ LIST + ACTION LISTENER ---------------------- //
+    public static int find(ContactData[] a, String target)
+    {
+        String s = "";
 
+        for (int i = 0; i < a.length; i++) {
+
+            s = a[i].getNom().substring(0, 5);
+
+            if (target.equals(s))
+                return i;
+        }
+        return -1;
+    }
 
     public void setContactPanel(int i){
+        listPanel.setVisible(false);
+        formPanel.setVisible(true);
+        setEditable(false);
+        if(valModifSupp == false){
+            jbRetour.setVisible(true);
+            jbEdit.setVisible(true);
+            jbDelete.setVisible(true);
+            jbAdd.setVisible(false);
+        }
+
+
+        if(i != -1){
+            jtNom.setText(tabContactData[i].getNom());
+            jtPrenom.setText(tabContactData[i].getPrenom());
+            jtNumTel.setText(tabContactData[i].getNumTel());
+            jtEmail.setText(tabContactData[i].getEmail());
+            jtAdresse.setText(tabContactData[i].getAdresse());
+            jtNpa.setText(tabContactData[i].getNPAloc());
+            jtDateNaissance.setText(tabContactData[i].getDateNaissance());
+            jtpathImg.setText(tabContactData[i].getPathImg());
+
+            path = tabContactData[i].getPathImg();
+
+            ImageIcon pira = new ImageIcon(picDirectory+"min\\" + path);
+            lbimg.setIcon(pira);
+
+        }
+    }
+
+
+    public void setContactPanel(String search){
+
+        int i = find(tabContactData,search);
+        System.out.println("J'ai trouvé l'index : "+i);
 
         listPanel.setVisible(false);
         formPanel.setVisible(true);
@@ -327,8 +368,11 @@ public class Contact extends JPanel {
          * Va rechercher dans le tableau de contact, le contact séléctionné et l'affecter dans les champs JTextField
          */
         public void valueChanged(ListSelectionEvent evt){
-            int i = jlistContact.getSelectedIndex();
-           setContactPanel(i);
+           // int i = jlistContact.getSelectedIndex();
+            String i = (String) jlistContact.getSelectedValue();
+            String search = i.substring(0,5);
+            System.out.println(i);
+           setContactPanel(search);
            /*
             JPanel viewContact = new ViewContact(tabContactData[i]);
             jlistContact.removeAll();
@@ -638,13 +682,12 @@ public class Contact extends JPanel {
             }
 
 
-            jlistSortedContact.setListData(listAffichageJList);
-            sortList(jlistSortedContact);
-
+          //  jlistContact.setListData(listAffichageJList);
 
 
             jlistContact.setListData(listAffichageJList);
-           // sortList(jlistContact);
+            sortList(jlistContact);
+            // sortList(jlistContact);
             statutBtnInitial();
             formPanel.setVisible(false);
         }catch (Exception e){

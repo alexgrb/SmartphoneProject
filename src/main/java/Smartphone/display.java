@@ -6,7 +6,6 @@ package Smartphone;
  * Main frame for the smartphone
  */
 
-import com.sun.xml.internal.messaging.saaj.soap.JpegDataContentHandler;
 import tools.imageButton;
 
 import javax.swing.*;

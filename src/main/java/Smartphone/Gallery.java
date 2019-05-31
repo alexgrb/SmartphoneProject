@@ -29,8 +29,11 @@ public class Gallery extends JPanel {
     JScrollPane scroll = new JScrollPane();
     public static JButton jbAdd = new JButton("");
     public static JLabel nbPhoto = new JLabel("");
+    File[] images = dir.listFiles();
 
-
+    public void setImages() {
+        this.images = dir.listFiles();;
+    }
 
     public Gallery() {
         this.gallery = this;
@@ -52,6 +55,9 @@ public class Gallery extends JPanel {
 
     public void setNbPhoto(int n) {
         this.nbPhoto.setText(n +" photos");
+        nbPhoto.setBounds(20,0,100,40);
+        new textResizer(nbPhoto);
+        nbPhoto.setOpaque(false);
     }
 
     public void addImage(File path) {
@@ -90,7 +96,7 @@ public class Gallery extends JPanel {
         setLayout(null);
         imgPanel.setLayout(new MigLayout("wrap 4"));
         imgPanel.setBackground(new Color(255,255,255));
-        File[] images = dir.listFiles();
+        setImages();
         for (int j = 0; j < (images.length); j++) {
             String path = String.valueOf(images[j]).substring(31);
 
@@ -101,9 +107,11 @@ public class Gallery extends JPanel {
 
         setNbPhoto(nbPhotos);
 
-        nbPhoto.setBounds(20,0,100,40);
+       /* nbPhoto.setBounds(20,0,100,40);
         new textResizer(nbPhoto);
         nbPhoto.setOpaque(false);
+
+        */
         add(nbPhoto);
         jbAdd.addActionListener(new addButton());
         jbAdd.setBounds(430, 0, 40, 40);
@@ -123,10 +131,9 @@ public class Gallery extends JPanel {
         setLayout(null);
         imgPanel.setLayout(new MigLayout("wrap 4"));
         imgPanel.setBackground(new Color(255,255,255));
-        File[] images = dir.listFiles();
+        setImages();
         for (int j = 0; j < (images.length); j++) {
             String path = String.valueOf(images[j]).substring(31);
-
             label[j] = new imageLabel(path, 1);
             imgPanel.add(label[j]);
             label[j].addMouseListener(new mouseListener(path));
@@ -134,9 +141,6 @@ public class Gallery extends JPanel {
 
         setNbPhoto(nbPhotos);
 
-        nbPhoto.setBounds(20,0,100,40);
-        new textResizer(nbPhoto);
-        nbPhoto.setOpaque(false);
         add(nbPhoto);
         jbAdd.addActionListener(new addButton());
         jbAdd.setBounds(430, 0, 40, 40);
