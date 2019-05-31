@@ -103,6 +103,7 @@ public class Gallery extends JPanel {
 
         nbPhoto.setBounds(20,0,100,40);
         new textResizer(nbPhoto);
+        nbPhoto.setOpaque(false);
         add(nbPhoto);
         jbAdd.addActionListener(new addButton());
         jbAdd.setBounds(430, 0, 40, 40);
@@ -135,6 +136,7 @@ public class Gallery extends JPanel {
 
         nbPhoto.setBounds(20,0,100,40);
         new textResizer(nbPhoto);
+        nbPhoto.setOpaque(false);
         add(nbPhoto);
         jbAdd.addActionListener(new addButton());
         jbAdd.setBounds(430, 0, 40, 40);

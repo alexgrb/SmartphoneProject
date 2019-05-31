@@ -75,10 +75,10 @@ public class display extends JFrame {
         }
         JPanel weatherPanel = new weather();
 
-        bottom.setOpaque(false);
-        bottom.setBackground(new Color(0,true));
+      //  bottom.setOpaque(false);
+        bottom.setBackground(new Color(255,255,255));
 
-        bottom.setBorder(null);
+        bottom.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.BLACK));
 
 
         bottom.add(appButton[0]);
@@ -117,9 +117,9 @@ public class display extends JFrame {
                 cardLayout.show(content, access[0]);
                 bottom.setVisible(false);
                 statusPanel.setVisible(false);
-
+                System.out.println("J'ai cliqué sur : "+i);
             }
-            if(i==4){
+            else if(i==4){
                 galleryPanel = new Gallery();
                 content.add(galleryPanel,access[4]);
                 content.setBounds(0,35,480,705);
@@ -128,12 +128,14 @@ public class display extends JFrame {
                 statusPanel.setVisible(true);
                 content.revalidate();
                 content.revalidate();
+                System.out.println("J'ai cliqué sur : "+i);
             }
             else {
                 content.setBounds(0,35,480,705);
                 cardLayout.show(content, access[i]);
                 bottom.setVisible(true);
                 statusPanel.setVisible(true);
+                System.out.println("J'ai cliqué sur : "+i);
             }
         }
     }

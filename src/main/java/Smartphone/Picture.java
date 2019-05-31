@@ -39,6 +39,7 @@ public class Picture extends JPanel {
         setLayout(null);
         deleteBTN.setBounds(420,10,40,40);
         add(deleteBTN);
+        setOpaque(false);
 
        try {
             ImageResizer.resize(picDirectory+"gallery\\" + path, picDirectory+"big\\" + path, 470, 470);
