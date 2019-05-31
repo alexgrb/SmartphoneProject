@@ -6,6 +6,7 @@ package Smartphone;
  * Main frame for the smartphone
  */
 
+import com.sun.xml.internal.messaging.saaj.soap.JpegDataContentHandler;
 import tools.imageButton;
 
 import javax.swing.*;
@@ -22,6 +23,7 @@ public class display extends JFrame {
     protected static JPanel content = new JPanel();
     protected static JPanel bottom = new JPanel();
     protected static JPanel statusPanel;
+    protected static JPanel galleryPanel;
 
     //Array to other apps
     protected static String[] access = {"Home","Weather", "Contacts", "Calcul", "Gallery", "Image"};
@@ -54,9 +56,9 @@ public class display extends JFrame {
         appButton[3].setIcon(new ImageIcon(picDirectory+"iconCalculette.png"));
         appButton[4].setIcon(new ImageIcon(picDirectory+"iconGallery.png"));
 
-       bottom.setLayout(new FlowLayout());
+        bottom.setLayout(new FlowLayout());
 
-         //Background Image
+        //Background Image
 
         //Panel
         JPanel homePanel = new Home(); //Homescreen
@@ -65,14 +67,13 @@ public class display extends JFrame {
         JPanel contactlPanel = new Contact();
         try {
             statusPanel = new StatusBar();
-        statusPanel.setBounds(0,0,480,40);
+            statusPanel.setBounds(0,0,480,40);
             add(statusPanel);
             statusPanel.setVisible(false);
-             } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         JPanel weatherPanel = new weather();
-        JPanel galleryPanel = new Gallery();
 
         bottom.setOpaque(false);
         bottom.setBackground(new Color(0,true));
@@ -91,7 +92,6 @@ public class display extends JFrame {
         content.add(weatherPanel, access[1]);
         content.add(contactlPanel, access[2]);
         content.add(calculPanel, access[3]);
-        content.add(galleryPanel, access[4]);
 
         setLayout(null);
         content.setBounds(0,0,480,800);
@@ -105,7 +105,7 @@ public class display extends JFrame {
 
     }
 
-     static class homeListener implements ActionListener{
+    static class homeListener implements ActionListener{
         int i = 0; // Variable to represent the choosen menu item id
         public homeListener(int appId){
             i = appId;
@@ -119,6 +119,16 @@ public class display extends JFrame {
                 statusPanel.setVisible(false);
 
             }
+            if(i==4){
+                galleryPanel = new Gallery();
+                content.add(galleryPanel,access[4]);
+                content.setBounds(0,35,480,705);
+                cardLayout.show(content, access[4]);
+                bottom.setVisible(true);
+                statusPanel.setVisible(true);
+                content.revalidate();
+                content.revalidate();
+            }
             else {
                 content.setBounds(0,35,480,705);
                 cardLayout.show(content, access[i]);
@@ -128,4 +138,3 @@ public class display extends JFrame {
         }
     }
 }
-

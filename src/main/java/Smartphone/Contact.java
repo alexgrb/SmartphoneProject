@@ -451,8 +451,6 @@ public class Contact extends JPanel {
 
 
     class mouseListener extends MouseAdapter {
-
-
         @Override
         public void mousePressed(MouseEvent me) {
             System.out.println("Je clique sur l'image numéro " + path);

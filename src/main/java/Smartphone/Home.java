@@ -28,7 +28,7 @@ public class Home extends JPanel {
 
     public Home() {
 
-       // setOpaque(false);
+        // setOpaque(false);
         JLabel j = new imageLabel("homeBackground");
         j.setBounds(0,0,480,800);
 
@@ -42,7 +42,7 @@ public class Home extends JPanel {
         homeDisplay.setOpaque(true);
 
         for (int i=0 ; i<appButton.length;i++){
-          //  appButton[i] = new JButton();
+            //  appButton[i] = new JButton();
             appButton[i] = new imageButton(); //Cela va rendre le fond transparent
             appButton[i].addActionListener(new display.homeListener((i+1))); //Ajoute l'action listener afin de pouvoir naviguer entre les appli
         }
@@ -51,10 +51,6 @@ public class Home extends JPanel {
         appButton[2].setIcon(new ImageIcon(picDirectory+"iconCalculetteBis.png"));
         appButton[3].setIcon(new ImageIcon(picDirectory+"iconGalleryBis.png"));
 
-       /* for(int z = 0; z< maxApp-1; z++){
-            homeDisplay.add(appButton[z]);
-        }
-        */
 
         setBorder(new BevelBorder(BevelBorder.RAISED));
         setPreferredSize(new Dimension(this.getWidth(), 30));
@@ -85,7 +81,7 @@ public class Home extends JPanel {
 
 
         closeButton.addMouseListener(new MouseEvent());
-       // homeDisplay.add(closeButton);
+        // homeDisplay.add(closeButton);
 
         new Timer(interval, new ActionListener() {
             @Override

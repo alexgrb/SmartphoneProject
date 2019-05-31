@@ -49,6 +49,7 @@ public class Gallery extends JPanel {
         chooseImage();
     }
 
+
     public void setNbPhoto(int n) {
         this.nbPhoto.setText(n +" photos");
     }
@@ -150,11 +151,11 @@ public class Gallery extends JPanel {
         String source = galleryDirectory + path;
         String dest = "src\\main\\java\\bin\\" + path;
 
-           try {
-                copyFileUsingStream(source, dest);
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
+        try {
+            copyFileUsingStream(source, dest);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
 
         File file = new File(source);
         File fileBis = new File(picDirectory+"big\\" + path);
@@ -219,6 +220,7 @@ public class Gallery extends JPanel {
         public void mousePressed(MouseEvent me) {
 
             gallery.removeAll();
+            finalPanel.removeAll();
             imgzoomPanel.removeAll();
             imgPanel.removeAll();
 
@@ -237,7 +239,6 @@ public class Gallery extends JPanel {
             contact.formPanel.setVisible(true);
             contact.setEditable(false);
             if(contact.valModifSupp == false){
-                //jbAdd.setVisible(false);
                 contact.jbRetour.setVisible(true);
                 contact.jbEdit.setVisible(true);
                 contact.jbDelete.setVisible(true);
@@ -249,9 +250,3 @@ public class Gallery extends JPanel {
     }
 
 }
-
-
-
-
-
-
