@@ -298,7 +298,7 @@ public class Contact extends JPanel {
             if (jbValiderEdit.isVisible()){
             removeAll();
             setLayout(null);
-            contactImg = new Gallery(jlistContact.getSelectedIndex(), contact);
+            //contactImg = new Gallery(jlistContact.getSelectedIndex(), contact);
             contactImg.setBounds(0, 40, 480, 700);
             add(contactImg);
             revalidate();

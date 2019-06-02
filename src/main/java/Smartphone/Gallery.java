@@ -5,6 +5,7 @@ import tools.imageButton;
 import tools.imageLabel;
 import tools.textResizer;
 import javax.swing.*;
+import javax.swing.text.View;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,7 +28,7 @@ public class Gallery extends JPanel {
     static String galleryDirectory = picDirectory+"gallery\\";
     static final File dir = new File(galleryDirectory);
     private int i;
-    private Contact contact;
+    private ViewContactList contact;
 
     private static int nbPhotos = (new File(galleryDirectory).list().length);
     JScrollPane scroll = new JScrollPane();
@@ -64,11 +65,13 @@ public class Gallery extends JPanel {
      *          Ainsi on peut revenir dessus après.
      *
      */
-    public Gallery(int i, Contact contact) {
+    public Gallery(int i, ViewContactList contact) {
         this.gallery = this;
         this.i=i;
         this.contact=contact;
 
+        setLayout(new MigLayout("wrap 4"));
+        System.out.println("Je suis dans la gallerie");
         setBackground(new Color(255,255,255));
         jbAdd = new imageButton("iconAdd");
         chooseImage();
@@ -112,11 +115,12 @@ public class Gallery extends JPanel {
         }
     }
     public void chooseImage() {
+        System.out.println("Jai réussi a lacné la méth");
         removeAll();
         imgPanel.removeAll();
         JLabel[] label = new JLabel[nbPhotos + 1];
-        setLayout(null);
-        imgPanel.setLayout(new MigLayout("wrap 4"));
+
+        imgPanel.setLayout(new MigLayout("wrap 3"));
         imgPanel.setBackground(new Color(255,255,255));
         setImages();
         for (int j = 0; j < (images.length); j++) {
@@ -129,11 +133,7 @@ public class Gallery extends JPanel {
 
         setNbPhoto(nbPhotos);
 
-       /* nbPhoto.setBounds(20,0,100,40);
-        new textResizer(nbPhoto);
-        nbPhoto.setOpaque(false);
-        */
-        add(nbPhoto);
+        add(nbPhoto, "span");
         jbAdd.addActionListener(new addButton());
         jbAdd.setBounds(430, 0, 40, 40);
         add(jbAdd);
@@ -257,29 +257,17 @@ public class Gallery extends JPanel {
             imgzoomPanel.removeAll();
             imgPanel.removeAll();
 
-            contact.jtpathImg.setText(path);
-            System.out.println(contact.jtpathImg.getText());
+            /*contact.picture.setText(path);
             //contact.imageUpdate();
-            add(contact.mainButtonsPanel);
+            contact.setContactPanelJT();
+            contact.setLabelsSizeJT();
+            contact.addToPanelJT();
+            */
+            contact.show.add(contact.scrollPane);
+            contact.show.add(contact.jbAdd, "top");
+            contact.show.repaint();
+            contact.show.revalidate();
 
-            contact.setContactPanel(i);
-            add(contact.listPanel);
-            //Contact.LectureContact();
-            add(contact.formPanel);
-            add(contact.subButtonsPanel);
-            contact.formPanel.setVisible(true);
-            contact.listPanel.setVisible(false);
-            contact.formPanel.setVisible(true);
-            contact.setEditable(false);
-            if(contact.valModifSupp == false){
-                contact.jbRetour.setVisible(true);
-                contact.jbEdit.setVisible(true);
-                contact.jbDelete.setVisible(true);
-            }
-
-
-            revalidate();
-            repaint();
         }
     }
 

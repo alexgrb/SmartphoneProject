@@ -2,12 +2,16 @@ package Smartphone;
 
 import net.miginfocom.swing.MigLayout;
 import tools.imageButton;
+import tools.imageLabel;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import static Smartphone.Contact.regex;
 import static Smartphone.ViewContactList.tabContactData;
@@ -17,6 +21,7 @@ import static Smartphone.display.picDirectory;
 public class ViewContact extends JPanel {
 
     private ContactData contact;
+    static JPanel contactImg = new Gallery();
     private ViewContact viewContact;
     private JLabel name = new JLabel("Nom");
     private JLabel firstName = new JLabel("Prénom");
@@ -25,6 +30,7 @@ public class ViewContact extends JPanel {
     private JLabel address = new JLabel("Adresse");
     private JLabel NPA = new JLabel("NPA");
     private JLabel dateOfBirth = new JLabel("Date de naissance");
+    protected JLabel picture = new imageLabel("iconAdd");
 
     private static JTextField nameJT = new JTextField();
     private static JTextField firstNameJT = new JTextField();
@@ -123,6 +129,7 @@ public class ViewContact extends JPanel {
 
     public void addToPanelJT(){
         add(backButton);
+        add(picture, "right");
         add(name);
         add(nameJT);
         add(firstName);
@@ -138,6 +145,8 @@ public class ViewContact extends JPanel {
         add(dateOfBirth);
         add(dateOfBirthJT);
         add(jbValiderAdd);
+
+        picture.addMouseListener(new mouseListener());
 
     }
     /**
@@ -336,6 +345,28 @@ public class ViewContact extends JPanel {
         public void actionPerformed(ActionEvent e){
              imageUpdate();
              System.out.println("Contact modifié");
+        }
+    }
+
+    class mouseListener extends MouseAdapter {
+        @Override
+        public void mousePressed(MouseEvent me) {
+            String i = nameJT.getText();
+            String search = i.substring(0,5);
+            int  z = find(tabContactData,search);
+
+            if (jbValiderEdit.isVisible()){
+                removeAll();
+                setLayout(new BorderLayout());
+                contactImg = new Gallery(z, viewContactList);
+                add(contactImg, BorderLayout.CENTER);
+                revalidate();
+                repaint();}
+
+            else {
+                System.out.println("Il faut être en mode edit pour changer l'image");
+            }
+
         }
     }
 
