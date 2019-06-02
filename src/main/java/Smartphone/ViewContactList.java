@@ -21,7 +21,7 @@ public class ViewContactList extends JPanel {
     protected static JList jlistContact = new JList();
     private static String[] listAffichageJList;
     private static String[] listSortedAffichageJList;
-    private static ContactData[] tabContactData;
+    protected static ContactData[] tabContactData;
     public static String pathFiletxt = ".\\contact.txt";
     protected static String[] chaine;
     private ViewContactList viewContactList;

@@ -5,12 +5,14 @@ import tools.imageButton;
 import tools.imageLabel;
 
 import javax.swing.*;
+import javax.swing.text.View;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import static Smartphone.Contact.regex;
+import static Smartphone.ViewContactList.tabContactData;
 import static Smartphone.ViewContactList.updateList;
 import static Smartphone.display.picDirectory;
 
@@ -43,6 +45,8 @@ public class ViewContact extends JPanel {
 
     private JButton backButton = new JButton();
     private static JButton jbValiderAdd = new JButton ();
+    private static JButton editButton = new JButton ("Editer");
+    private static JButton jbValiderEdit = new JButton ();
 
 
 
@@ -55,9 +59,19 @@ public class ViewContact extends JPanel {
         setBackground(Color.RED);
         backButton.setIcon(new ImageIcon(picDirectory+"iconBack.png"));
         backButton.addActionListener(new backListener());
-        setContactPanel();
-        setLabelsSize();
-        addToPanel();
+
+        editButton.addActionListener(new ActionEdit());
+        setContactPanelJT();
+        setLabelsSizeJT();
+        addToPanelJT();
+        add(editButton);
+
+
+        jbValiderEdit.addActionListener(new ValiderEditAdd());
+        add(jbValiderEdit);
+        jbValiderEdit.setVisible(false);
+        //setEnabled(false);
+        setEditable(false);
     }
 
     public ViewContact(ViewContactList viewContactList) {
@@ -77,6 +91,21 @@ public class ViewContact extends JPanel {
         addToPanelJT();
     }
 
+    /* public ViewContact(ContactData contact, ViewContact viewContactBack, int i) {//int juste pour différencier les méthodes
+        setLayout(new MigLayout("wrap 2"));
+        this.contact = contact;
+        viewContact = this;
+
+        setBackground(Color.RED);
+        backButton.setIcon(new ImageIcon(picDirectory+"iconBack.png"));
+        backButton.addActionListener(new backListener());
+        setContactPanelJT();
+        setLabelsSizeJT();
+        addToPanelJT();
+    }
+
+     */
+
     public void setContactPanel() {
         name.setText(this.contact.getNom());
         firstName.setText(this.contact.getPrenom());
@@ -88,6 +117,16 @@ public class ViewContact extends JPanel {
         picture = new imageLabel(this.contact.getPathImg());
     }
 
+    public void setContactPanelJT() {
+        nameJT.setText(this.contact.getNom());
+        firstNameJT.setText(this.contact.getPrenom());
+        phoneNumberJT.setText(this.contact.getNumTel());
+        mailJT.setText(this.contact.getEmail());
+        addressJT.setText(this.contact.getAdresse());
+        NPAJT.setText(this.contact.getNPAloc());
+        dateOfBirthJT.setText(this.contact.getDateNaissance());
+       // pictureJT = new imageLabel(this.contact.getPathImg());
+    }
 
     public void setLabelsSize(){
         name.setPreferredSize(dimSmall);
@@ -110,6 +149,18 @@ public class ViewContact extends JPanel {
         pictureJT.setPreferredSize(dimSmall);
     }
 
+    public void setEditable(boolean val){
+        nameJT.setEditable(val);
+        firstNameJT.setEditable(val);
+        phoneNumberJT.setEditable(val);
+        mailJT.setEditable(val);
+        addressJT.setEditable(val);
+        NPAJT.setEditable(val);
+        dateOfBirthJT.setEditable(val);
+        pictureJT.setEditable(val);
+
+    }
+
         public void addToPanel(){
             add(name);
             add(firstName);
@@ -120,6 +171,7 @@ public class ViewContact extends JPanel {
             add(dateOfBirth);
             add(picture);
             add(backButton);
+            add (editButton);
             System.out.println(name.getText());
         }
 
@@ -135,6 +187,38 @@ public class ViewContact extends JPanel {
         add(jbValiderAdd);
         //add(pictureJT);
 
+    }
+
+    /**
+     * Méthode qui va modifier un tableau de chaine (liste de contact) selon les paramètres reçus à la ligne séléctionnée.
+     * va lire le tableau au complet jusqu'a une valeur null et se positionner à la ligne du contact que on désire modifier
+     * va ecraser la valeur à la position séléctionnée par un nouveau String définit
+     */
+
+    public void ModifChaine(String nom, String prenom, String num, String mail, String adresse , String npaLoc, String date, String pathImg, int numJList) {
+        for(int i = 0; i<ViewContactList.chaine.length; i++){
+            if(ViewContactList.chaine[i] != null){
+                if(i == numJList){
+                    ViewContactList.chaine[i] = nom + " - " + prenom + " - " + num + " - " + mail + " - " + adresse + " - " + npaLoc +" - " + date + " - " + pathImg;
+                }
+            }
+        }
+        updateList();
+        Contact.writeContact();
+        setEditable(false);
+    }
+    public static int find(ContactData[] a, String target) {
+        String s = "";
+
+
+        for (int i = 0; i < a.length; i++) {
+
+            s = a[i].getNom().substring(0, 5);
+
+            if (target.equals(s))
+                return i;
+        }
+        return -1;
     }
 
     class backListener implements ActionListener {
@@ -156,6 +240,20 @@ public class ViewContact extends JPanel {
                 //viewContactList.setVisible(true);
         }
     }
+
+    class ActionEdit implements ActionListener{
+        /**
+         *  Va récupérer la ligne séléctionnée dans la JList (si aucune séléctionnée, la méthode est quittée)
+         *  Va afficher les boutons correspondant à l'action d'edition
+         */
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            setEditable(true);
+            jbValiderEdit.setVisible(true);
+        }
+    }
+
+
     /**
      * Méthode qui va simplement reset les champs JTextField null afin de pouvoir inscrire des nouveaux contact
      */
@@ -253,5 +351,49 @@ public class ViewContact extends JPanel {
         Contact.writeContact();
         updateList();
     }
+
+    public void imageUpdate(){
+        String i = nameJT.getText();
+        String search = i.substring(0,5);
+        System.out.println(i);
+        System.out.println("ici la table "+tabContactData.toString());
+        int  numJList = find(tabContactData,search);
+        try {
+            // Test les champs
+            if(validPhone(phoneNumberJT.getText())) {
+                phoneNumberJT.setForeground(Color.BLACK);
+                if (validEmail(mailJT.getText())){
+                    mailJT.setForeground(Color.BLACK);
+                    if(validNPA(NPAJT.getText())) {
+                        NPAJT.setForeground(Color.BLACK);
+                        // On recupère tous les champs, et on réecrit la ligne avec les nouvelles données
+                        ModifChaine(nameJT.getText(), firstNameJT.getText(), phoneNumberJT.getText(), mailJT.getText(), addressJT.getText(), NPAJT.getText(), dateOfBirthJT.getText(), pictureJT.getText(), numJList);
+                     } else {
+                        NPAJT.setForeground(Color.RED);
+                    }
+                } else {
+                    mailJT.setForeground(Color.RED);
+                }
+            } else {
+                phoneNumberJT.setForeground(Color.RED);
+            }
+        } catch (Exception f) {
+            System.out.println("Erreur à la modification des contacts");
+            System.out.println(f.toString());
+        }
+    }
+    class ValiderEditAdd implements ActionListener{
+        /**
+         * Va appeler les methodes de validation (validEmain, validPhone, validBirthday) qui si elles retournent toutes une valeur vrai(true)
+         * va appeler la méthode ModifChaine afin d'effectuer la modification
+         * Si une des 3 méthodes de validation retournent false, va afficher le text faut en rouge afin d'effectuer les modifications nécessaires
+         *
+         */
+        public void actionPerformed(ActionEvent e){
+             imageUpdate();
+             System.out.println("Contact modifié");
+        }
+    }
+
 }
 

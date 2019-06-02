@@ -111,8 +111,8 @@ public class Contact extends JPanel {
         //---------- END ---------//
 
         //----------- Les boutons -----//
-
-        jbValiderEdit.addActionListener(new ValiderEditAdd());
+//
+        //jbValiderEdit.addActionListener(new ValiderEditAdd());
        // jbValiderAdd.addActionListener(new ValiderAdd());
       //  jbAdd.addActionListener(new ActionAdd());
         jbEdit.addActionListener(new ActionEdit());
@@ -248,52 +248,6 @@ public class Contact extends JPanel {
             ImageIcon pira = new ImageIcon(picDirectory+"min\\" + path);
             lbimg.setIcon(pira);
 
-        }
-    }
-/*
-    public void imageUpdate(){
-        try {
-            int numJList = jlistContact.getSelectedIndex();
-            // Test les champs
-            if(validPhone(jtNumTel.getText())) {
-                jtNumTel.setForeground(Color.BLACK);
-                if (validEmail(jtEmail.getText())){
-                    jtEmail.setForeground(Color.BLACK);
-                    if(validNPA(jtNpa.getText())) {
-                        jtNpa.setForeground(Color.BLACK);
-                        // On recupère tous les champs, et on réecrit la ligne avec les nouvelles données
-                        ModifChaine(jtNom.getText(), jtPrenom.getText(), jtNumTel.getText(), jtEmail.getText(), jtAdresse.getText(), jtNpa.getText(), jtDateNaissance.getText(), jtpathImg.getText(), numJList);
-                        formPanel.setVisible(false);
-                        listPanel.setVisible(true);
-                        statutBtnInitial();
-                        System.out.println("La nouvelle image est : "+jtpathImg.getText() + " pour le contact "+jtNom.getText());
-
-                    } else {
-                        jtNpa.setForeground(Color.RED);
-                    }
-                } else {
-                    jtEmail.setForeground(Color.RED);
-                }
-            } else {
-                jtNumTel.setForeground(Color.RED);
-            }
-        } catch (Exception f) {
-            System.out.println("Erreur à la modification des contacts");
-            System.out.println(f.toString());
-        }
-    }
-
- */
-
-    class ValiderEditAdd implements ActionListener{
-        /**
-         * Va appeler les methodes de validation (validEmain, validPhone, validBirthday) qui si elles retournent toutes une valeur vrai(true)
-         * va appeler la méthode ModifChaine afin d'effectuer la modification
-         * Si une des 3 méthodes de validation retournent false, va afficher le text faut en rouge afin d'effectuer les modifications nécessaires
-         *
-         */
-        public void actionPerformed(ActionEvent e){
-           // imageUpdate();
         }
     }
 
