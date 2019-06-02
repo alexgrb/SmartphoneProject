@@ -1,11 +1,14 @@
 package Smartphone;
 
 import net.miginfocom.swing.MigLayout;
+import tools.imageButton;
 import tools.imageLabel;
 
 import javax.swing.*;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import static Smartphone.display.picDirectory;
 
@@ -23,19 +26,24 @@ public class ViewContact extends JPanel {
     protected Dimension dim = new Dimension(200, 30);
     protected Dimension dimSmall = new Dimension(100, 30);
     protected Dimension dimJlist = new Dimension(450, 700);
+    private ViewContactList viewContactList;
+    private JButton backButton = new JButton();
 
-    public ViewContact(ContactData contact) {
+
+
+    public ViewContact(ContactData contact, ViewContactList viewContactList) {
         setLayout(new MigLayout("wrap 2"));
         this.contact = contact;
+        this.viewContactList = viewContactList;
+
+        backButton.setIcon(new ImageIcon(picDirectory+"iconBack.png"));
+        backButton.addActionListener(new backListener());
         setContactPanel();
         setLabelsSize();
         addToPanel();
-       // setBackground(Color.blue);
-
     }
 
     public void setContactPanel() {
-
         name.setText(this.contact.getNom());
         firstName.setText(this.contact.getPrenom());
         phoneNumber.setText(this.contact.getNumTel());
@@ -55,11 +63,9 @@ public class ViewContact extends JPanel {
         NPA.setPreferredSize(dimSmall);
         dateOfBirth.setPreferredSize(dimSmall);
         picture.setPreferredSize(dimSmall);
-
     }
 
         public void addToPanel(){
-
             add(name);
             add(firstName);
             add(phoneNumber);
@@ -68,7 +74,18 @@ public class ViewContact extends JPanel {
             add(NPA);
             add(dateOfBirth);
             add(picture);
+            add(backButton);
             System.out.println(name.getText());
         }
+
+    class backListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+                removeAll();
+                viewContactList.updateList();
+                add(viewContactList.scrollPane);
+                viewContactList.jlistContact.setVisible(true);
+        }
+    }
     }
 

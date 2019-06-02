@@ -14,6 +14,10 @@ import java.io.*;
 
 import static Smartphone.display.picDirectory;
 
+/**
+         * C'est un JPanel qui va afficher toutes les images contenu dans le dossier picture.
+         */
+
 public class Gallery extends JPanel {
 
     static JPanel imgzoomPanel = new Picture("",null);
@@ -31,10 +35,18 @@ public class Gallery extends JPanel {
     public static JLabel nbPhoto = new JLabel("");
     File[] images = dir.listFiles();
 
+    /**
+     *  Mets à jour le nombre de photos en se référant au dossier.
+     */
     public void setImages() {
         this.images = dir.listFiles();;
     }
 
+    /**
+     * Constructeur général qui charge toutes les images.
+     *
+   //  * @see loadImages
+     */
     public Gallery() {
         this.gallery = this;
 
@@ -42,6 +54,16 @@ public class Gallery extends JPanel {
         jbAdd = new imageButton("iconAdd");
         loadImages();
     }
+
+    /**
+     *
+     * @param i
+     *          Index du contact afin qu'on puisse l'identifier
+     * @param contact
+     *          Object contact utilisé pour appeler le constructeur.
+     *          Ainsi on peut revenir dessus après.
+     *
+     */
     public Gallery(int i, Contact contact) {
         this.gallery = this;
         this.i=i;
@@ -123,6 +145,12 @@ public class Gallery extends JPanel {
         revalidate();
         repaint();
     }
+
+    /**
+     * Méthode qui enlève tout sur le JPanel.
+     * Ensuite charge les photos du dossier pictures.
+     * Le MigLayout est utilisé.
+     */
 
     public void loadImages() {
         removeAll();
@@ -237,7 +265,7 @@ public class Gallery extends JPanel {
 
             contact.setContactPanel(i);
             add(contact.listPanel);
-            Contact.LectureContact();
+            //Contact.LectureContact();
             add(contact.formPanel);
             add(contact.subButtonsPanel);
             contact.formPanel.setVisible(true);

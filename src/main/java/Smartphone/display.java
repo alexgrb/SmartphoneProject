@@ -13,6 +13,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+         * C'est la seule et unique frame du programme.
+         * Toutes les applis sont des JPanels qui s'affichent dessus.
+         */
+
 public class display extends JFrame {
 
     //Main setting wich allows us to switch between panels
@@ -63,7 +68,7 @@ public class display extends JFrame {
         JPanel homePanel = new Home(); //Homescreen
 
         JPanel calculPanel = new Calculatrice();
-        JPanel contactlPanel = new Contact();
+        JPanel contactlPanel = new ViewContactList();
         try {
             statusPanel = new StatusBar();
             statusPanel.setBounds(0,0,480,40);

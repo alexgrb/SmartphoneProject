@@ -8,6 +8,7 @@ import java.awt.*;
 public class Main {
     public static void main(String[] args) {
 
+        ViewContactList.LectureContact();
         display wow = null;
         wow = new display();
 
@@ -16,7 +17,7 @@ public class Main {
                wow.setVisible(true); //Affiche la fenêtre
                Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
                wow.setLocation(dim.width/2-wow.getSize().width/2, dim.height/2-wow.getSize().height/2);
-        Contact.LectureContact();
+
 
 
 

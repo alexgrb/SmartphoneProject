@@ -70,9 +70,8 @@ public class Contact extends JPanel {
 
     //Liste des contacts
 
-    private static String chaine[];
+    protected static String[] chaine;
     private static JList jlistContact = new JList();
-    private static JList jlistSortedContact = new JList();
 
 
     protected JPanel listPanel = new JPanel();
@@ -92,17 +91,16 @@ public class Contact extends JPanel {
     public Contact() {
 
         setBackground(new Color(255,255,255));
-
         this.contact = this;
-
 
         //---------- Boutons ---------//
         jbAdd = new imageButton();
         jbAdd.setIcon(new ImageIcon(picDirectory+"iconAdd.png"));
 
+        /*
         jbRetour = new imageButton();
         jbRetour.setIcon(new ImageIcon(picDirectory+"iconBack.png"));
-
+*/
         jbEdit = new imageButton("Editer", 2);
         jbEdit.setBackground(Color.LIGHT_GRAY);
         jbValiderEdit = new imageButton("Valider modification(s)", 2);
@@ -111,7 +109,6 @@ public class Contact extends JPanel {
         jbValiderAdd.setBackground(Color.LIGHT_GRAY);
         jbDelete = new imageButton("Supprimer", 2);
         jbDelete.setBackground(Color.LIGHT_GRAY);
-
 
         //---------- END ---------//
 
@@ -122,40 +119,10 @@ public class Contact extends JPanel {
         jbAdd.addActionListener(new ActionAdd());
         jbEdit.addActionListener(new ActionEdit());
         jbDelete.addActionListener(new ActionDelete());
-        jbRetour.addActionListener(new ActionRetour());
-        jlistContact.addListSelectionListener(new EcouteurList());
         lbimg.addMouseListener(new mouseListener());
-
-
 
         jbAdd.setFont(fontBouton);
         jbRetour.setFont(fontBouton);
-
-
-        //Arrays.sort (data);
-
-
-
-        //---------------------------//
-
-
-        JScrollPane scrollPane = new JScrollPane(jlistContact);
-        listPanel.add(scrollPane);
-        //jlistContact.setAutoCreateRowSorter(true);
-        //jlistContact.toggleSortOrder();
-
-        // -------------- END   -----------//
-
-
-        //------------- JList --------------//
-
-        jlistContact.setBackground(Color.LIGHT_GRAY);
-        jlistContact.setFont(fontJList);
-        jlistContact.setPreferredSize(dimJlist);
-        //jlistContact.setBorder(new EmptyBorder(15,10, 15, 10));
-
-
-        //-------------- END   -----------//
 
 
         //Fonts et dim sur les labels
@@ -242,18 +209,12 @@ public class Contact extends JPanel {
         add(formPanel);
         add(subButtonsPanel);
 
-
         formPanel.setVisible(false);
-
-
-
-
 
     }
 
     // ------------------ LIST + ACTION LISTENER ---------------------- //
-    public static int find(ContactData[] a, String target)
-    {
+    public static int find(ContactData[] a, String target) {
         String s = "";
 
         for (int i = 0; i < a.length; i++) {
@@ -276,7 +237,6 @@ public class Contact extends JPanel {
             jbDelete.setVisible(true);
             jbAdd.setVisible(false);
         }
-
 
         if(i != -1){
             jtNom.setText(tabContactData[i].getNom());
@@ -362,27 +322,30 @@ public class Contact extends JPanel {
         }
     }
 
-    class EcouteurList implements ListSelectionListener {
+    /*class EcouteurList implements ListSelectionListener {
         /**
          *
          * Va rechercher dans le tableau de contact, le contact séléctionné et l'affecter dans les champs JTextField
          */
-        public void valueChanged(ListSelectionEvent evt){
-          //  int z = jlistContact.getSelectedIndex();
+    /*    public void valueChanged(ListSelectionEvent evt){
+            int z = jlistContact.getSelectedIndex();
             String i = (String) jlistContact.getSelectedValue();
-            String search = i.substring(0,5);
+           // String search = i.substring(0,5);
             System.out.println(i);
-            //  setContactPanel(search);
-/*
+           // setContactPanel(search);
+
             JPanel viewContact = new ViewContact(tabContactData[z]);
             jlistContact.removeAll();
             contact.removeAll();
             jlistContact.setVisible(false);
             viewContact.setBounds(0,0,480,800);
             add(viewContact);
-*/
+
         }
     }
+
+     */
+
 
 
 
@@ -492,7 +455,7 @@ public class Contact extends JPanel {
         }
     }
 
-    class ActionRetour implements ActionListener{
+    static class ActionRetour implements ActionListener{
 
         /**
          * Va appeler la méthode "resetChamp()" qui va réinitialiser la valeur des JTextFields (tous vides)
@@ -504,10 +467,10 @@ public class Contact extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                resetChamp();
+              //  resetChamp();
                 jlistContact.clearSelection();
                 formPanel.setVisible(false);
-                listPanel.setVisible(true);
+              //  listPanel.setVisible(true);
                 statutBtnInitial();
 
             } catch (Exception f){
@@ -597,7 +560,7 @@ public class Contact extends JPanel {
         chaine = new String [temp.length];
         chaine = temp;
         writeContact();
-        updateList();
+        //updateList();
     }
 
     /**
@@ -607,7 +570,7 @@ public class Contact extends JPanel {
      *
      */
 
-    public static void LectureContact() {
+   /* public static void LectureContact() {
         String ligne;
         try{
             BufferedReader br = new BufferedReader( new InputStreamReader( new FileInputStream(pathFiletxt)));
@@ -634,15 +597,16 @@ public class Contact extends JPanel {
                 cpt++;
             }
             br.close();
-            updateList();
+            ViewContactList.updateList();
             jlistContact.setEnabled(true);
-
         }
         catch (Exception e){
             System.out.println("Problème lecture fichier");
             System.out.println(e.toString());
         }
     }
+
+    */
 
     /**
      * Méthode de mise à jour de la liste des contacts dans la Jlist
@@ -654,13 +618,12 @@ public class Contact extends JPanel {
      */
 
 
-    public static void updateList(){
+    /*public static void updateList(){
 
         //sortList(jlistContact);
         listAffichageJList = new String[chaine.length];
         listSortedAffichageJList = new String[chaine.length];
         tabContactData = new ContactData[chaine.length];
-
 
         String[] tempo = new String[6];
         try {
@@ -681,10 +644,6 @@ public class Contact extends JPanel {
                 }
             }
 
-
-          //  jlistContact.setListData(listAffichageJList);
-
-
             jlistContact.setListData(listAffichageJList);
             sortList(jlistContact);
             // sortList(jlistContact);
@@ -695,6 +654,8 @@ public class Contact extends JPanel {
             System.out.println(e.toString());
         }
     }
+
+     */
 
     /**
      * Méthode qui va modifier un tableau de chaine (liste de contact) selon les paramètres reçus à la ligne séléctionnée.
@@ -710,7 +671,7 @@ public class Contact extends JPanel {
                 }
             }
         }
-        updateList();
+       // updateList();
         writeContact();
         jlistContact.setEnabled(true);
     }
@@ -813,7 +774,7 @@ public class Contact extends JPanel {
     }
 
 
-    public static void sortList(JList jlist) {
+    /*public static void sortList(JList jlist) {
 
         ListModel model = jlist.getModel();
 
@@ -851,6 +812,8 @@ public class Contact extends JPanel {
         jlist.setListData(data);
     }
 
+
+     */
     public static class RoundedBorder implements Border {
 
         private int radius;

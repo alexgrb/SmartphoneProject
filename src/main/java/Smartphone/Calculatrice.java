@@ -14,6 +14,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+        * Calculatrice reprise de openclassroom et mis en forme à nos gôuts.
+        */
+
 public class Calculatrice extends JPanel {
     //Tableau stockant les éléments à afficher dans la calculatrice
     String[] tab_string = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0", ".", "=", "C", "+", "-", "*", "/"};

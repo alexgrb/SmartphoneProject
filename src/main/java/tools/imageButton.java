@@ -20,10 +20,11 @@ public class imageButton extends JButton {
         setBorder(null);
     }
     public imageButton(String path) {
-        loadImage(path);
+
         setOpaque(false);
         setBackground(new Color(0, true));
         setBorder(null);
+        loadImage(path);
     }
 
     public imageButton(String text, int text2) {
