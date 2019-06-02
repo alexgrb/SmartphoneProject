@@ -5,7 +5,6 @@ import tools.imageButton;
 import tools.imageLabel;
 
 import javax.swing.*;
-import javax.swing.text.View;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -46,7 +45,7 @@ public class ViewContact extends JPanel {
     private JButton backButton = new JButton();
     private static JButton jbValiderAdd = new JButton ();
     private static JButton editButton = new JButton ("Editer");
-    private static JButton jbValiderEdit = new JButton ();
+    private static JButton jbValiderEdit = new JButton ("Valider les modifications");
 
 
 
@@ -87,7 +86,7 @@ public class ViewContact extends JPanel {
         jbValiderAdd.addActionListener(new ValiderAdd(this));
 
         setLabelsSizeJT();
-        //resetChamp();
+        resetChamp();
         addToPanelJT();
     }
 
@@ -259,13 +258,13 @@ public class ViewContact extends JPanel {
      */
 
     public void resetChamp(){
-        name.setText(null);
-        firstName.setText(null);
-        phoneNumber.setText(null);
-        mail.setText(null);
-        address.setText(null);
-        NPA.setText(null);
-        dateOfBirth.setText(null);
+        nameJT.setText(null);
+        firstNameJT.setText(null);
+        phoneNumberJT.setText(null);
+        mailJT.setText(null);
+        addressJT.setText(null);
+        NPAJT.setText(null);
+        dateOfBirthJT.setText(null);
     }
     class ValiderAdd implements ActionListener{
         ViewContact viewContact;
@@ -288,9 +287,6 @@ public class ViewContact extends JPanel {
                     if(validNPA(NPAJT.getText())) {
                         NPAJT.setForeground(Color.BLACK);
                           addInChaine();
-                        //  formPanel.setVisible(false);
-                        //listPanel.setVisible(true);
-                        //  statutBtnInitial();
                     } else {
                         NPAJT.setForeground(Color.RED);
                     }
@@ -301,6 +297,9 @@ public class ViewContact extends JPanel {
                 phoneNumberJT.setForeground(Color.RED);
             }
             resetChamp();
+            removeAll();
+            viewContactList.show.add(viewContactList.scrollPane);
+            viewContactList.show.add(viewContactList.jbAdd);
         }
 
     }
@@ -382,6 +381,7 @@ public class ViewContact extends JPanel {
             System.out.println(f.toString());
         }
     }
+
     class ValiderEditAdd implements ActionListener{
         /**
          * Va appeler les methodes de validation (validEmain, validPhone, validBirthday) qui si elles retournent toutes une valeur vrai(true)
