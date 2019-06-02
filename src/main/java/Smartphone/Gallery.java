@@ -132,7 +132,6 @@ public class Gallery extends JPanel {
        /* nbPhoto.setBounds(20,0,100,40);
         new textResizer(nbPhoto);
         nbPhoto.setOpaque(false);
-
         */
         add(nbPhoto);
         jbAdd.addActionListener(new addButton());
@@ -260,7 +259,7 @@ public class Gallery extends JPanel {
 
             contact.jtpathImg.setText(path);
             System.out.println(contact.jtpathImg.getText());
-            contact.imageUpdate();
+            //contact.imageUpdate();
             add(contact.mainButtonsPanel);
 
             contact.setContactPanel(i);
@@ -277,6 +276,7 @@ public class Gallery extends JPanel {
                 contact.jbEdit.setVisible(true);
                 contact.jbDelete.setVisible(true);
             }
+
 
             revalidate();
             repaint();

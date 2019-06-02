@@ -79,7 +79,7 @@ public class display extends JFrame {
         }
         JPanel weatherPanel = new weather();
 
-      //  bottom.setOpaque(false);
+        //  bottom.setOpaque(false);
         bottom.setBackground(new Color(255,255,255));
 
         bottom.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.BLACK));

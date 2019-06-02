@@ -10,6 +10,7 @@ import net.miginfocom.swing.MigLayout;
 import tools.imageButton;
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.text.View;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
@@ -19,7 +20,7 @@ import static Smartphone.display.picDirectory;
 public class Contact extends JPanel {
     static JPanel contactImg = new Gallery();
     private Contact contact;
-    ContactRegex regex = new ContactRegex();
+    static ContactRegex regex = new ContactRegex();
 
     protected String path = "";
 
@@ -47,14 +48,14 @@ public class Contact extends JPanel {
 
 
     //TextFields
-    private JTextField jtNom = new JTextField();
-    private JTextField jtPrenom = new JTextField();
-    private JTextField jtNumTel = new JTextField();
-    private JTextField jtEmail = new JTextField();
-    private JTextField jtAdresse = new JTextField();
-    private JTextField jtNpa = new JTextField();
-    private JTextField jtDateNaissance = new JTextField();
-    protected JTextField jtpathImg = new JTextField();
+    private static JTextField jtNom = new JTextField();
+    private static JTextField jtPrenom = new JTextField();
+    private static JTextField jtNumTel = new JTextField();
+    private static JTextField jtEmail = new JTextField();
+    private static JTextField jtAdresse = new JTextField();
+    private static JTextField jtNpa = new JTextField();
+    private static JTextField jtDateNaissance = new JTextField();
+    protected static JTextField jtpathImg = new JTextField();
 
     //Bouton
     protected static JButton jbAdd = new JButton ();
@@ -67,7 +68,7 @@ public class Contact extends JPanel {
 
     //Liste des contacts
 
-    protected static String[] chaine;
+   // protected static String[] chaine;
     private static JList jlistContact = new JList();
 
 
@@ -112,7 +113,7 @@ public class Contact extends JPanel {
         //----------- Les boutons -----//
 
         jbValiderEdit.addActionListener(new ValiderEditAdd());
-        jbValiderAdd.addActionListener(new ValiderAdd());
+       // jbValiderAdd.addActionListener(new ValiderAdd());
       //  jbAdd.addActionListener(new ActionAdd());
         jbEdit.addActionListener(new ActionEdit());
         jbDelete.addActionListener(new ActionDelete());
@@ -249,7 +250,7 @@ public class Contact extends JPanel {
 
         }
     }
-
+/*
     public void imageUpdate(){
         try {
             int numJList = jlistContact.getSelectedIndex();
@@ -282,6 +283,8 @@ public class Contact extends JPanel {
         }
     }
 
+ */
+
     class ValiderEditAdd implements ActionListener{
         /**
          * Va appeler les methodes de validation (validEmain, validPhone, validBirthday) qui si elles retournent toutes une valeur vrai(true)
@@ -290,44 +293,12 @@ public class Contact extends JPanel {
          *
          */
         public void actionPerformed(ActionEvent e){
-            imageUpdate();
+           // imageUpdate();
         }
     }
 
 
-    class ValiderAdd implements ActionListener{
 
-        /**
-         * Va appeler les methodes de validation (validEmain, validPhone, validBirthday) qui si elles retournent toutes une valeur vrai(true)
-         *      * Si une des 3 méthodes de validation retournent false, va afficher le text faut en rouge
-         * Si c'est tout bon : va appeler la méthode addInChaine qui va rajouter une ligne à la chaine de contact
-         *
-         * */
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            int valJList = jlistContact.getSelectedIndex();
-            if(validPhone(jtNumTel.getText())) {
-                jtNumTel.setForeground(Color.BLACK);
-                if (validEmail(jtEmail.getText())){
-                    jtEmail.setForeground(Color.BLACK);
-                    if(validNPA(jtNpa.getText())) {
-                        jtNpa.setForeground(Color.BLACK);
-                        addInChaine(valJList);
-                        formPanel.setVisible(false);
-                        listPanel.setVisible(true);
-                        statutBtnInitial();
-                    } else {
-                        jtNpa.setForeground(Color.RED);
-                    }
-                } else {
-                    jtEmail.setForeground(Color.RED);
-                }
-            } else {
-                jtNumTel.setForeground(Color.RED);
-            }
-        }
-
-    }
 
     class ActionEdit implements ActionListener{
         /**
@@ -388,53 +359,10 @@ public class Contact extends JPanel {
 
     //---------------------------- Validators ------------------------//
 
-    /**
-     * Méthodes qui vont être appelées afin de valider les champs spéciaux. Via les classes REGEX
-     */
 
-
-    public boolean validPhone(String tel){
-        boolean response;
-        response = regex.validerNumTel(tel);
-        return response;
-    }
-
-
-    public boolean validEmail(String mail){
-        boolean response;
-        response = regex.validerEmail(mail);
-        return response;
-    }
-
-    public boolean validNPA(String npa){
-        boolean response;
-        response = regex.validerNPA(npa);
-        return response;
-    }
 
     //------------------------------- METHODES -----------------------------//
-    /**
-     * Méthode qui va ajouter une ligne au tableau de chaine.
-     * Elle va créer un tableau temporaire de la longueur du tableau de chaine + 1 pour la nouvelle ligne et y affecter les valeur du tableau de chaine
-     * Puis va rechercher les valeur dans les JTextField et ajouter la valeur à la dernière ligne du tableau temporaire
-     * Finallement affectera le tableau temporaire à un nouveau tableau de chaine avec la nouvelle valeur
-     *
-     */
 
-    public void addInChaine(int numJList){
-        String temp [] = new String[chaine.length+1];
-
-        for(int i=0; i<chaine.length; i++){
-            temp[i] = chaine[i];
-
-        }
-        // Creation du tableau temporaire avec les valeur à inscrire
-        temp[chaine.length] = jtNom.getText() + " - " + jtPrenom.getText() + " - " + jtNumTel.getText() + " - "+ jtEmail.getText() + " - " + jtAdresse.getText() + " - " + jtNpa.getText() + " - " +  jtDateNaissance.getText() + " - " +  jtpathImg.getText();
-        chaine = new String [temp.length];
-        chaine = temp;
-        writeContact();
-        //updateList();
-    }
 
 
     /**
@@ -444,10 +372,10 @@ public class Contact extends JPanel {
      */
 
     public void ModifChaine(String nom, String prenom, String num, String mail, String adresse , String npaLoc, String date, String pathImg, int numJList) {
-        for(int i = 0; i<chaine.length; i++){
-            if(chaine[i] != null){
+        for(int i = 0; i<ViewContactList.chaine.length; i++){
+            if(ViewContactList.chaine[i] != null){
                 if(i == numJList){
-                    chaine[i] = nom + " - " + prenom + " - " + num + " - " + mail + " - " + adresse + " - " + npaLoc +" - " + date + " - " + pathImg;
+                    ViewContactList.chaine[i] = nom + " - " + prenom + " - " + num + " - " + mail + " - " + adresse + " - " + npaLoc +" - " + date + " - " + pathImg;
                 }
             }
         }
@@ -515,15 +443,15 @@ public class Contact extends JPanel {
      *
      */
 
-    public void writeContact(){
+    public static void writeContact(){
         try {
             try {
                 PrintWriter pw = new PrintWriter(pathFiletxt);
                 // Check s'il n'y a pas de valeurs nulles ou #deleted avant l'écriture
-                for (int i = 0; i<chaine.length; i++){
-                    if(chaine[i]!= null){
-                        if(!chaine[i].contains("#delete")){
-                            pw.println(chaine[i]);
+                for (int i = 0; i<ViewContactList.chaine.length; i++){
+                    if(ViewContactList.chaine[i]!= null){
+                        if(!ViewContactList.chaine[i].contains("#delete")){
+                            pw.println(ViewContactList.chaine[i]);
                         }
                     }
                 }
@@ -534,25 +462,6 @@ public class Contact extends JPanel {
         }catch (Exception e){
             System.out.println("Erreur lors de l'écriture dans le fichier contact");
             System.out.println(e.toString());
-        }
-    }
-
-    public static class RoundedBorder implements Border {
-
-        private int radius;
-        public RoundedBorder(int radius) {
-            this.radius = radius;
-        }
-
-        public Insets getBorderInsets(Component c) {
-            return new Insets(this.radius+1, this.radius+1, this.radius+2, this.radius);
-        }
-
-        public boolean isBorderOpaque() {
-            return true;
-        }
-        public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-            g.drawRoundRect(x, y, width-1, height-1, radius, radius);
         }
     }
 }

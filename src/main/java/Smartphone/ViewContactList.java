@@ -23,17 +23,19 @@ public class ViewContactList extends JPanel {
     private static String[] listSortedAffichageJList;
     private static ContactData[] tabContactData;
     public static String pathFiletxt = ".\\contact.txt";
-    private static String[] chaine;
+    protected static String[] chaine;
     private ViewContactList viewContactList;
     protected JScrollPane scrollPane;
     protected static JButton jbAdd = new JButton ();
+    protected JPanel show = new JPanel();
 
 
     public ViewContactList() {
         viewContactList = this;
 
-        setLayout(new MigLayout());
-
+        show.setBackground(Color.BLUE);
+        show.setLayout(new MigLayout());
+        show.setPreferredSize(new Dimension(480,700));
         jbAdd = new imageButton();
         jbAdd.setIcon(new ImageIcon(picDirectory+"iconAdd.png"));
         jbAdd.addActionListener(new ActionAdd());
@@ -43,8 +45,22 @@ public class ViewContactList extends JPanel {
         //jlistContact.setFont(fontJList);
        // jlistContact.setPreferredSize(dimJlist);
         scrollPane = new JScrollPane(jlistContact);
-        add(scrollPane);
-        add(jbAdd);
+        show.add(scrollPane);
+        show.add(jbAdd);
+        add(show);
+    }
+
+    public static int find(ContactData[] a, String target) {
+        String s = "";
+
+        for (int i = 0; i < a.length; i++) {
+
+            s = a[i].getNom().substring(0, 5);
+
+            if (target.equals(s))
+                return i;
+        }
+        return -1;
     }
 
     /**
@@ -81,6 +97,7 @@ public class ViewContactList extends JPanel {
                 }
             }
 
+            System.out.println("Je passe dans le try aussi");
             jlistContact.setListData(listAffichageJList);
             sortList(jlistContact);
          //   statutBtnInitial();
@@ -150,18 +167,19 @@ public class ViewContactList extends JPanel {
          * Va rechercher dans le tableau de contact, le contact séléctionné et l'affecter dans les champs JTextField
          */
         public void valueChanged(ListSelectionEvent evt){
-            int z = jlistContact.getSelectedIndex();
+
             String i = (String) jlistContact.getSelectedValue();
-            // String search = i.substring(0,5);
+            String search = i.substring(0,5);
             System.out.println(i);
-            // setContactPanel(search);
+           int  z = find(tabContactData,search);
 
             JPanel viewContact = new ViewContact(tabContactData[z], viewContactList);
-            jlistContact.removeAll();
-            removeAll();
-            jlistContact.setVisible(false);
+           // jlistContact.removeAll();
+            show.removeAll();
+            //jlistContact.setVisible(false);
+           // viewContactList.setVisible(false);
             viewContact.setBounds(0,0,480,800);
-            add(viewContact);
+            show.add(viewContact);
 
         }
     }
@@ -176,11 +194,14 @@ public class ViewContactList extends JPanel {
         public void actionPerformed(ActionEvent e) {
 
             JPanel viewContact = new ViewContact(viewContactList);
-            jlistContact.removeAll();
-            removeAll();
-            jlistContact.setVisible(false);
+            //jlistContact.removeAll();
+
+            show.removeAll();
+
             viewContact.setBounds(0,0,480,800);
-            add(viewContact);
+            show.add(viewContact);
+
+
         }
 
     }

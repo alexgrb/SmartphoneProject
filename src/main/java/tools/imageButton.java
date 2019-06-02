@@ -35,7 +35,7 @@ public class imageButton extends JButton {
         Border marge = new EmptyBorder(10, 15, 10, 15);
         Border autour = new CompoundBorder(ligne, marge);
         setBorder(autour);
-        setBorder(new Contact.RoundedBorder(10));
+        //setBorder(new Contact.RoundedBorder(10));
         setFont(Contact.fontBouton);
     }
 
