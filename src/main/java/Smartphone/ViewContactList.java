@@ -33,30 +33,30 @@ public class ViewContactList extends JPanel {
     public ViewContactList() {
         viewContactList = this;
 
-        show.setBackground(Color.BLUE);
+        show.setBackground(Color.white);
         show.setLayout(new MigLayout());
         show.setPreferredSize(new Dimension(480,700));
         jbAdd = new imageButton();
         jbAdd.setIcon(new ImageIcon(picDirectory+"iconAdd.png"));
         jbAdd.addActionListener(new ActionAdd());
 
-        jlistContact.setBackground(Color.LIGHT_GRAY);
+        jlistContact.setBackground(Color.white);
         jlistContact.addListSelectionListener(new EcouteurList());
-        //jlistContact.setFont(fontJList);
-       // jlistContact.setPreferredSize(dimJlist);
+        jlistContact.setFont(new Font("Helvetica", Font.BOLD, 25));
+
         scrollPane = new JScrollPane(jlistContact);
+        scrollPane.setPreferredSize(new Dimension(400,740));
+        scrollPane.setBorder(null);
+
         show.add(scrollPane);
-        show.add(jbAdd);
+        show.add(jbAdd, "top");
         add(show);
     }
 
     public static int find(ContactData[] a, String target) {
         String s = "";
-
         for (int i = 0; i < a.length; i++) {
-
             s = a[i].getNom().substring(0, 5);
-
             if (target.equals(s))
                 return i;
         }
@@ -96,12 +96,9 @@ public class ViewContactList extends JPanel {
                     }
                 }
             }
-
             System.out.println("Je passe dans le try aussi");
             jlistContact.setListData(listAffichageJList);
             sortList(jlistContact);
-         //   statutBtnInitial();
-        //    formPanel.setVisible(false);
         }catch (Exception e){
             System.out.println("Erreur à la mise a jour des informations");
             System.out.println(e.toString());
@@ -172,15 +169,13 @@ public class ViewContactList extends JPanel {
             String search = i.substring(0,5);
             System.out.println(i);
            int  z = find(tabContactData,search);
-
             JPanel viewContact = new ViewContact(tabContactData[z], viewContactList);
-           // jlistContact.removeAll();
+
             show.removeAll();
-            //jlistContact.setVisible(false);
-           // viewContactList.setVisible(false);
             viewContact.setBounds(0,0,480,800);
             show.add(viewContact);
-
+            show.repaint();
+            show.revalidate();
         }
     }
     class ActionAdd implements ActionListener {
@@ -194,13 +189,12 @@ public class ViewContactList extends JPanel {
         public void actionPerformed(ActionEvent e) {
 
             JPanel viewContact = new ViewContact(viewContactList);
-            //jlistContact.removeAll();
-
             show.removeAll();
 
             viewContact.setBounds(0,0,480,800);
             show.add(viewContact);
-
+            show.repaint();
+            show.revalidate();
 
         }
 

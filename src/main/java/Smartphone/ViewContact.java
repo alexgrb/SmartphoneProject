@@ -2,7 +2,6 @@ package Smartphone;
 
 import net.miginfocom.swing.MigLayout;
 import tools.imageButton;
-import tools.imageLabel;
 
 import javax.swing.*;
 
@@ -19,14 +18,13 @@ public class ViewContact extends JPanel {
 
     private ContactData contact;
     private ViewContact viewContact;
-    private JLabel name = new JLabel();
-    private JLabel firstName = new JLabel();
-    private JLabel phoneNumber = new JLabel();
-    private JLabel mail = new JLabel();
-    private JLabel address = new JLabel();
-    private JLabel NPA = new JLabel();
-    private JLabel dateOfBirth = new JLabel();
-    private JLabel picture = new JLabel();
+    private JLabel name = new JLabel("Nom");
+    private JLabel firstName = new JLabel("Prénom");
+    private JLabel phoneNumber = new JLabel("Numéro de téléphone");
+    private JLabel mail = new JLabel("Mail");
+    private JLabel address = new JLabel("Adresse");
+    private JLabel NPA = new JLabel("NPA");
+    private JLabel dateOfBirth = new JLabel("Date de naissance");
 
     private static JTextField nameJT = new JTextField();
     private static JTextField firstNameJT = new JTextField();
@@ -39,23 +37,22 @@ public class ViewContact extends JPanel {
 
     protected Dimension dim = new Dimension(200, 30);
     protected Dimension dimSmall = new Dimension(100, 30);
-    protected Dimension dimJlist = new Dimension(450, 700);
     private static ViewContactList viewContactList;
 
     private JButton backButton = new JButton();
-    private static JButton jbValiderAdd = new JButton ();
+    private static JButton jbValiderAdd = new JButton ("Valider l'ajout");
     private static JButton editButton = new JButton ("Editer");
     private static JButton jbValiderEdit = new JButton ("Valider les modifications");
 
 
 
     public ViewContact(ContactData contact, ViewContactList viewContactList) {
-        setLayout(new MigLayout("wrap 2"));
+        setLayout(new MigLayout("wrap"));
         this.contact = contact;
         this.viewContactList = viewContactList;
         viewContact = this;
 
-        setBackground(Color.RED);
+        setBackground(Color.white);
         backButton.setIcon(new ImageIcon(picDirectory+"iconBack.png"));
         backButton.addActionListener(new backListener());
 
@@ -69,51 +66,26 @@ public class ViewContact extends JPanel {
         jbValiderEdit.addActionListener(new ValiderEditAdd());
         add(jbValiderEdit);
         jbValiderEdit.setVisible(false);
-        //setEnabled(false);
+        jbValiderAdd.setVisible(false);
         setEditable(false);
     }
 
     public ViewContact(ViewContactList viewContactList) {
         this.viewContactList = viewContactList;
         viewContact = this;
-        setLayout(new MigLayout("wrap 2"));
-        setBackground(Color.GREEN);
+        setLayout(new MigLayout("wrap"));
+        setBackground(Color.white);
         viewContactList.jlistContact.getModel().getElementAt(0);
         backButton.setIcon(new ImageIcon(picDirectory+"iconBack.png"));
         backButton.addActionListener(new backListener());
         jbValiderAdd = new imageButton("Valider", 2);
-        jbValiderAdd.setBackground(Color.LIGHT_GRAY);
+        jbValiderAdd.setBackground(Color.white);
         jbValiderAdd.addActionListener(new ValiderAdd(this));
 
+        setEditable(true);
         setLabelsSizeJT();
         resetChamp();
         addToPanelJT();
-    }
-
-    /* public ViewContact(ContactData contact, ViewContact viewContactBack, int i) {//int juste pour différencier les méthodes
-        setLayout(new MigLayout("wrap 2"));
-        this.contact = contact;
-        viewContact = this;
-
-        setBackground(Color.RED);
-        backButton.setIcon(new ImageIcon(picDirectory+"iconBack.png"));
-        backButton.addActionListener(new backListener());
-        setContactPanelJT();
-        setLabelsSizeJT();
-        addToPanelJT();
-    }
-
-     */
-
-    public void setContactPanel() {
-        name.setText(this.contact.getNom());
-        firstName.setText(this.contact.getPrenom());
-        phoneNumber.setText(this.contact.getNumTel());
-        mail.setText(this.contact.getEmail());
-        address.setText(this.contact.getAdresse());
-        NPA.setText(this.contact.getNPAloc());
-        dateOfBirth.setText(this.contact.getDateNaissance());
-        picture = new imageLabel(this.contact.getPathImg());
     }
 
     public void setContactPanelJT() {
@@ -124,19 +96,8 @@ public class ViewContact extends JPanel {
         addressJT.setText(this.contact.getAdresse());
         NPAJT.setText(this.contact.getNPAloc());
         dateOfBirthJT.setText(this.contact.getDateNaissance());
-       // pictureJT = new imageLabel(this.contact.getPathImg());
     }
 
-    public void setLabelsSize(){
-        name.setPreferredSize(dimSmall);
-        firstName.setPreferredSize(dimSmall);
-        phoneNumber.setPreferredSize(dim);
-        mail.setPreferredSize(dim);
-        address.setPreferredSize(dim);
-        NPA.setPreferredSize(dimSmall);
-        dateOfBirth.setPreferredSize(dimSmall);
-        picture.setPreferredSize(dimSmall);
-    }
     public void setLabelsSizeJT(){
         nameJT.setPreferredSize(dimSmall);
         firstNameJT.setPreferredSize(dimSmall);
@@ -160,34 +121,25 @@ public class ViewContact extends JPanel {
 
     }
 
-        public void addToPanel(){
-            add(name);
-            add(firstName);
-            add(phoneNumber);
-            add(mail);
-            add(address);
-            add(NPA);
-            add(dateOfBirth);
-            add(picture);
-            add(backButton);
-            add (editButton);
-            System.out.println(name.getText());
-        }
-
     public void addToPanelJT(){
-        add(backButton, "wrap");
+        add(backButton);
+        add(name);
         add(nameJT);
+        add(firstName);
         add(firstNameJT);
+        add(phoneNumber);
         add(phoneNumberJT);
+        add(mail);
         add(mailJT);
+        add(address);
         add(addressJT);
+        add(NPA);
         add(NPAJT);
+        add(dateOfBirth);
         add(dateOfBirthJT);
         add(jbValiderAdd);
-        //add(pictureJT);
 
     }
-
     /**
      * Méthode qui va modifier un tableau de chaine (liste de contact) selon les paramètres reçus à la ligne séléctionnée.
      * va lire le tableau au complet jusqu'a une valeur null et se positionner à la ligne du contact que on désire modifier
@@ -209,11 +161,8 @@ public class ViewContact extends JPanel {
     public static int find(ContactData[] a, String target) {
         String s = "";
 
-
         for (int i = 0; i < a.length; i++) {
-
             s = a[i].getNom().substring(0, 5);
-
             if (target.equals(s))
                 return i;
         }
@@ -223,20 +172,13 @@ public class ViewContact extends JPanel {
     class backListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-
             removeAll();
-
-                        //add(viewContactList);
-
             viewContact.setVisible(false);
-               // viewContactList.updateList();
-                //viewContactList.sortList(viewContactList.jlistContact);
-                viewContactList.show.add(viewContactList.scrollPane);
-
-                viewContactList.show.add(viewContactList.jbAdd);
-
-                //viewContactList.jlistContact.setVisible(true);
-                //viewContactList.setVisible(true);
+            viewContactList.setPreferredSize(new Dimension(400,700));
+            viewContactList.show.add(viewContactList.scrollPane);
+            viewContactList.show.add(viewContactList.jbAdd, "top");
+            viewContactList.show.repaint();
+            viewContactList.show.revalidate();
         }
     }
 
@@ -299,7 +241,10 @@ public class ViewContact extends JPanel {
             resetChamp();
             removeAll();
             viewContactList.show.add(viewContactList.scrollPane);
-            viewContactList.show.add(viewContactList.jbAdd);
+            viewContactList.show.add(viewContactList.jbAdd, "top");
+            viewContactList.show.repaint();
+            viewContactList.show.revalidate();
+
         }
 
     }
@@ -341,7 +286,6 @@ public class ViewContact extends JPanel {
 
         for(int i=0; i<viewContactList.chaine.length; i++){
             temp[i] = viewContactList.chaine[i];
-
         }
         // Creation du tableau temporaire avec les valeur à inscrire
         temp[viewContactList.chaine.length] = nameJT.getText() + " - " + firstNameJT.getText() + " - " + phoneNumberJT.getText() + " - "+ mailJT.getText() + " - " + addressJT.getText() + " - " + NPAJT.getText() + " - " +  dateOfBirthJT.getText() + " - " +  pictureJT.getText();
