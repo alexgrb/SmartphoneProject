@@ -10,12 +10,9 @@ import net.miginfocom.swing.MigLayout;
 import tools.imageButton;
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
-import java.util.Arrays;
 
 import static Smartphone.display.picDirectory;
 
@@ -94,7 +91,7 @@ public class Contact extends JPanel {
         this.contact = this;
 
         //---------- Boutons ---------//
-        jbAdd = new imageButton();
+       /* jbAdd = new imageButton();
         jbAdd.setIcon(new ImageIcon(picDirectory+"iconAdd.png"));
 
         /*
@@ -116,14 +113,13 @@ public class Contact extends JPanel {
 
         jbValiderEdit.addActionListener(new ValiderEditAdd());
         jbValiderAdd.addActionListener(new ValiderAdd());
-        jbAdd.addActionListener(new ActionAdd());
+      //  jbAdd.addActionListener(new ActionAdd());
         jbEdit.addActionListener(new ActionEdit());
         jbDelete.addActionListener(new ActionDelete());
         lbimg.addMouseListener(new mouseListener());
 
         jbAdd.setFont(fontBouton);
         jbRetour.setFont(fontBouton);
-
 
         //Fonts et dim sur les labels
 
@@ -158,8 +154,6 @@ public class Contact extends JPanel {
         jtpathImg.setPreferredSize(dimSmall);
 
         //-------------------- LAYOUTS ----------------//
-
-
 
         mainButtonsPanel.setLayout(new MigLayout("wrap 2","[] 300 []"));
         mainButtonsPanel.add(jbRetour);
@@ -256,40 +250,6 @@ public class Contact extends JPanel {
         }
     }
 
-
-    public void setContactPanel(String search){
-
-        int i = find(tabContactData,search);
-        System.out.println("J'ai trouvé l'index : "+i);
-
-        listPanel.setVisible(false);
-        formPanel.setVisible(true);
-        setEditable(false);
-        if(valModifSupp == false){
-            jbRetour.setVisible(true);
-            jbEdit.setVisible(true);
-            jbDelete.setVisible(true);
-            jbAdd.setVisible(false);
-        }
-
-
-        if(i != -1){
-            jtNom.setText(tabContactData[i].getNom());
-            jtPrenom.setText(tabContactData[i].getPrenom());
-            jtNumTel.setText(tabContactData[i].getNumTel());
-            jtEmail.setText(tabContactData[i].getEmail());
-            jtAdresse.setText(tabContactData[i].getAdresse());
-            jtNpa.setText(tabContactData[i].getNPAloc());
-            jtDateNaissance.setText(tabContactData[i].getDateNaissance());
-            jtpathImg.setText(tabContactData[i].getPathImg());
-
-            path = tabContactData[i].getPathImg();
-
-            ImageIcon pira = new ImageIcon(picDirectory+"min\\" + path);
-            lbimg.setIcon(pira);
-
-        }
-    }
     public void imageUpdate(){
         try {
             int numJList = jlistContact.getSelectedIndex();
@@ -322,33 +282,6 @@ public class Contact extends JPanel {
         }
     }
 
-    /*class EcouteurList implements ListSelectionListener {
-        /**
-         *
-         * Va rechercher dans le tableau de contact, le contact séléctionné et l'affecter dans les champs JTextField
-         */
-    /*    public void valueChanged(ListSelectionEvent evt){
-            int z = jlistContact.getSelectedIndex();
-            String i = (String) jlistContact.getSelectedValue();
-           // String search = i.substring(0,5);
-            System.out.println(i);
-           // setContactPanel(search);
-
-            JPanel viewContact = new ViewContact(tabContactData[z]);
-            jlistContact.removeAll();
-            contact.removeAll();
-            jlistContact.setVisible(false);
-            viewContact.setBounds(0,0,480,800);
-            add(viewContact);
-
-        }
-    }
-
-     */
-
-
-
-
     class ValiderEditAdd implements ActionListener{
         /**
          * Va appeler les methodes de validation (validEmain, validPhone, validBirthday) qui si elles retournent toutes une valeur vrai(true)
@@ -361,29 +294,6 @@ public class Contact extends JPanel {
         }
     }
 
-
-    class ActionAdd implements ActionListener{
-
-        /**
-         * Appeler la méthode "resetChamp" et va mettre les champs JTextField vide et afficher les boutons correspondant
-         * Rendre les JTextField editable afin de pouvoir ajouter des données
-         *
-         */
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            listPanel.setVisible(false);
-            resetChamp();
-            formPanel.setVisible(true);
-            jbAdd.setVisible(false);
-            jbEdit.setVisible(false);
-            jbDelete.setVisible(false);
-            jbValiderEdit.setVisible(false);
-            jbValiderAdd.setVisible(true);
-            jbRetour.setVisible(true);
-            setEditable(true);
-        }
-
-    }
 
     class ValiderAdd implements ActionListener{
 
@@ -455,34 +365,6 @@ public class Contact extends JPanel {
         }
     }
 
-    static class ActionRetour implements ActionListener{
-
-        /**
-         * Va appeler la méthode "resetChamp()" qui va réinitialiser la valeur des JTextFields (tous vides)
-         * Remettre les boutons à leur état initial
-         * Enlever la selection de la JList
-
-         */
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            try {
-              //  resetChamp();
-                jlistContact.clearSelection();
-                formPanel.setVisible(false);
-              //  listPanel.setVisible(true);
-                statutBtnInitial();
-
-            } catch (Exception f){
-                System.out.println("Erreur a l'annulation");
-                System.out.println(f.toString());
-            }
-        }
-    }
-
-
-
-
     class mouseListener extends MouseAdapter {
         @Override
         public void mousePressed(MouseEvent me) {
@@ -506,10 +388,6 @@ public class Contact extends JPanel {
 
     //---------------------------- Validators ------------------------//
 
-
-
-
-
     /**
      * Méthodes qui vont être appelées afin de valider les champs spéciaux. Via les classes REGEX
      */
@@ -528,8 +406,6 @@ public class Contact extends JPanel {
         return response;
     }
 
-
-
     public boolean validNPA(String npa){
         boolean response;
         response = regex.validerNPA(npa);
@@ -537,9 +413,6 @@ public class Contact extends JPanel {
     }
 
     //------------------------------- METHODES -----------------------------//
-
-    private static String[] listAffichageJList;
-    private static String[] listSortedAffichageJList;
     /**
      * Méthode qui va ajouter une ligne au tableau de chaine.
      * Elle va créer un tableau temporaire de la longueur du tableau de chaine + 1 pour la nouvelle ligne et y affecter les valeur du tableau de chaine
@@ -563,99 +436,6 @@ public class Contact extends JPanel {
         //updateList();
     }
 
-    /**
-     * Méthode de lecture du fichier pour créer un tableau de contact et une chaine à partir des données contenue dans le fichier.
-     * le premier try va calculer le nombre de ligne contenue dans le fichier afin de créer les tableaux nécessaires
-     * le deuxième try va s'occuper de rajouter chaque ligne dans le fichier sur le tableau définit afin d'être utilisé dans le programme
-     *
-     */
-
-   /* public static void LectureContact() {
-        String ligne;
-        try{
-            BufferedReader br = new BufferedReader( new InputStreamReader( new FileInputStream(pathFiletxt)));
-            int cptLengthChaine = 0;
-            while ((br.readLine())!= null){
-                cptLengthChaine++;
-            }
-            chaine = new String[cptLengthChaine];
-            listAffichageJList = new String[chaine.length];
-            tabContactData = new ContactData[chaine.length];
-            br.close();
-
-        }catch (Exception e){
-            System.out.println("Lecture fichier");
-            System.out.println(e.toString());
-        }
-
-        try{
-            int cpt = 0;
-            BufferedReader br=new BufferedReader( new InputStreamReader( new FileInputStream(pathFiletxt)));
-
-            while ((ligne=br.readLine())!=null ){
-                chaine[cpt] = ligne ;
-                cpt++;
-            }
-            br.close();
-            ViewContactList.updateList();
-            jlistContact.setEnabled(true);
-        }
-        catch (Exception e){
-            System.out.println("Problème lecture fichier");
-            System.out.println(e.toString());
-        }
-    }
-
-    */
-
-    /**
-     * Méthode de mise à jour de la liste des contacts dans la Jlist
-     * La méthode va créer un tableau temporaire afin de placer à chaque position, et dans l'ordre, les informations
-     * de nom, prenom etc... du contact
-     * On va ensuite créer un tableau de contact TabContactData contenant des contacts placer dans le tableau temporaire
-     * Il va aussi omettre d'y inclure les lignes contenant un #delete
-     *
-     */
-
-
-    /*public static void updateList(){
-
-        //sortList(jlistContact);
-        listAffichageJList = new String[chaine.length];
-        listSortedAffichageJList = new String[chaine.length];
-        tabContactData = new ContactData[chaine.length];
-
-        String[] tempo = new String[6];
-        try {
-            for (int i = 0; i<chaine.length; i++){
-
-                if(chaine[i]!= null){
-                    // On découpe chaque ligne du fichier en 6 partie distinctement séparées
-                    tempo = chaine[i].split(" - ", 8);
-                    // On crée un tableau de contact qui contiendra un objet contact avec les infos
-                    tabContactData[i] = new ContactData(tempo[0], tempo[1], tempo[2], tempo[3], tempo[4], tempo[5], tempo[6], tempo[7]);
-                    // On crée le text d'affichage de la JList
-
-                    listAffichageJList[i] = tempo[0] + " " + tempo[1];
-
-                    if(chaine[i].contains("#deleted")){
-                        listAffichageJList[i] = null;
-                    }
-                }
-            }
-
-            jlistContact.setListData(listAffichageJList);
-            sortList(jlistContact);
-            // sortList(jlistContact);
-            statutBtnInitial();
-            formPanel.setVisible(false);
-        }catch (Exception e){
-            System.out.println("Erreur à la mise a jour des informations");
-            System.out.println(e.toString());
-        }
-    }
-
-     */
 
     /**
      * Méthode qui va modifier un tableau de chaine (liste de contact) selon les paramètres reçus à la ligne séléctionnée.
@@ -676,19 +456,6 @@ public class Contact extends JPanel {
         jlistContact.setEnabled(true);
     }
 
-    /**
-     * Méthode qui va simplement reset les champs JTextField null afin de pouvoir inscrire des nouveaux contact
-     */
-
-    public void resetChamp(){
-        jtNom.setText(null);
-        jtPrenom.setText(null);
-        jtNumTel.setText(null);
-        jtEmail.setText(null);
-        jtAdresse.setText(null);
-        jtNpa.setText(null);
-        jtDateNaissance.setText(null);
-    }
 
     /**
      * Méthode qui va simplement réinitialiser les bouton comme si venaient d'arriver sur la page (statut initial)
@@ -718,7 +485,6 @@ public class Contact extends JPanel {
         jtNpa.setEditable(val);
         jtDateNaissance.setEditable(val);
         jtpathImg.setEditable(val);
-        //lbimg.setEnabled(val);
 
     }
 
@@ -738,8 +504,6 @@ public class Contact extends JPanel {
             // va remplacer toutes la ligne que on désire supprimer par des #deleted
             ModifChaine("#deleted", "#deleted", "#deleted", "#deleted", "#deleted", "#deleted", "#deleted","#deleted", numJList);
         }
-
-
 
         listPanel.setVisible(true);
     }
@@ -773,61 +537,16 @@ public class Contact extends JPanel {
         }
     }
 
-
-    /*public static void sortList(JList jlist) {
-
-        ListModel model = jlist.getModel();
-
-        int n = chaine.length;
-
-        String[]data = new String[n];
-
-        for (int i=0; i<n; i++){
-            data[i] = (String) model.getElementAt(i);
-        }
-
-        Arrays.sort(data);
-        jlist.setListData(data);
-    }
-
-    public static void sortList(String[] string) {
-
-        JList jlist = new JList();
-
-        for (int i =0; i<string.length ; i++){
-
-        }
-
-        ListModel model = jlist.getModel();
-
-        int n = chaine.length;
-
-        String[]data = new String[n];
-
-        for (int i=0; i<n; i++){
-            data[i] = (String) model.getElementAt(i);
-        }
-
-        Arrays.sort(data);
-        jlist.setListData(data);
-    }
-
-
-     */
     public static class RoundedBorder implements Border {
 
         private int radius;
-
-
         public RoundedBorder(int radius) {
             this.radius = radius;
         }
 
-
         public Insets getBorderInsets(Component c) {
             return new Insets(this.radius+1, this.radius+1, this.radius+2, this.radius);
         }
-
 
         public boolean isBorderOpaque() {
             return true;

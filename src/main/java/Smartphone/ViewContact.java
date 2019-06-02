@@ -22,7 +22,7 @@ public class ViewContact extends JPanel {
     private JLabel address = new JLabel();
     private JLabel NPA = new JLabel();
     private JLabel dateOfBirth = new JLabel();
-    private JLabel picture;
+    private JLabel picture = new JLabel();
     protected Dimension dim = new Dimension(200, 30);
     protected Dimension dimSmall = new Dimension(100, 30);
     protected Dimension dimJlist = new Dimension(450, 700);
@@ -43,6 +43,16 @@ public class ViewContact extends JPanel {
         addToPanel();
     }
 
+    public ViewContact(ViewContactList viewContactList) {
+        this.viewContactList = viewContactList;
+        viewContactList.jlistContact.getModel().getElementAt(0);
+        backButton.setIcon(new ImageIcon(picDirectory+"iconBack.png"));
+        backButton.addActionListener(new backListener());
+        resetChamp();
+      //  setLabelsSize();
+        addToPanel();
+    }
+
     public void setContactPanel() {
         name.setText(this.contact.getNom());
         firstName.setText(this.contact.getPrenom());
@@ -53,6 +63,7 @@ public class ViewContact extends JPanel {
         dateOfBirth.setText(this.contact.getDateNaissance());
         picture = new imageLabel(this.contact.getPathImg());
     }
+
 
     public void setLabelsSize(){
         name.setPreferredSize(dimSmall);
@@ -84,8 +95,22 @@ public class ViewContact extends JPanel {
                 removeAll();
                 viewContactList.updateList();
                 add(viewContactList.scrollPane);
+                add(viewContactList.jbAdd);
                 viewContactList.jlistContact.setVisible(true);
         }
     }
+    /**
+     * Méthode qui va simplement reset les champs JTextField null afin de pouvoir inscrire des nouveaux contact
+     */
+
+    public void resetChamp(){
+        name.setText(null);
+        firstName.setText(null);
+        phoneNumber.setText(null);
+        mail.setText(null);
+        address.setText(null);
+        NPA.setText(null);
+        dateOfBirth.setText(null);
     }
+}
 

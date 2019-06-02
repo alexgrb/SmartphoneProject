@@ -1,13 +1,20 @@
 package Smartphone;
 
+import net.miginfocom.swing.MigLayout;
+import tools.imageButton;
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.Arrays;
+
+import static Smartphone.display.picDirectory;
 
 public class ViewContactList extends JPanel {
 
@@ -19,15 +26,17 @@ public class ViewContactList extends JPanel {
     private static String[] chaine;
     private ViewContactList viewContactList;
     protected JScrollPane scrollPane;
+    protected static JButton jbAdd = new JButton ();
 
-    /*
-
-
-     */
 
     public ViewContactList() {
-       // updateList();
         viewContactList = this;
+
+        setLayout(new MigLayout());
+
+        jbAdd = new imageButton();
+        jbAdd.setIcon(new ImageIcon(picDirectory+"iconAdd.png"));
+        jbAdd.addActionListener(new ActionAdd());
 
         jlistContact.setBackground(Color.LIGHT_GRAY);
         jlistContact.addListSelectionListener(new EcouteurList());
@@ -35,7 +44,17 @@ public class ViewContactList extends JPanel {
        // jlistContact.setPreferredSize(dimJlist);
         scrollPane = new JScrollPane(jlistContact);
         add(scrollPane);
+        add(jbAdd);
     }
+
+    /**
+     * Méthode de mise à jour de la liste des contacts dans la Jlist
+     * La méthode va créer un tableau temporaire afin de placer à chaque position, et dans l'ordre, les informations
+     * de nom, prenom etc... du contact
+     * On va ensuite créer un tableau de contact TabContactData contenant des contacts placer dans le tableau temporaire
+     * Il va aussi omettre d'y inclure les lignes contenant un #delete
+     *
+     */
 
     public static void updateList(){
 
@@ -84,6 +103,12 @@ public class ViewContactList extends JPanel {
         jlist.setListData(data);
     }
 
+    /**
+     * Méthode de lecture du fichier pour créer un tableau de contact et une chaine à partir des données contenue dans le fichier.
+     * le premier try va calculer le nombre de ligne contenue dans le fichier afin de créer les tableaux nécessaires
+     * le deuxième try va s'occuper de rajouter chaque ligne dans le fichier sur le tableau définit afin d'être utilisé dans le programme
+     *
+     */
     public static void LectureContact() {
         String ligne;
         try{
@@ -139,6 +164,25 @@ public class ViewContactList extends JPanel {
             add(viewContact);
 
         }
+    }
+    class ActionAdd implements ActionListener {
+
+        /**
+         * Appeler la méthode "resetChamp" et va mettre les champs JTextField vide et afficher les boutons correspondant
+         * Rendre les JTextField editable afin de pouvoir ajouter des données
+         *
+         */
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            JPanel viewContact = new ViewContact(viewContactList);
+            jlistContact.removeAll();
+            removeAll();
+            jlistContact.setVisible(false);
+            viewContact.setBounds(0,0,480,800);
+            add(viewContact);
+        }
+
     }
 
 }
