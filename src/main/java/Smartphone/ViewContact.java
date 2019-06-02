@@ -28,6 +28,7 @@ public class ViewContact extends JPanel {
         setLayout(new MigLayout("wrap 2"));
         this.contact = contact;
         setContactPanel();
+        setLabelsSize();
         addToPanel();
        // setBackground(Color.blue);
 

@@ -368,19 +368,19 @@ public class Contact extends JPanel {
          * Va rechercher dans le tableau de contact, le contact séléctionné et l'affecter dans les champs JTextField
          */
         public void valueChanged(ListSelectionEvent evt){
-           // int i = jlistContact.getSelectedIndex();
+          //  int z = jlistContact.getSelectedIndex();
             String i = (String) jlistContact.getSelectedValue();
             String search = i.substring(0,5);
             System.out.println(i);
-           setContactPanel(search);
-           /*
-            JPanel viewContact = new ViewContact(tabContactData[i]);
+            //  setContactPanel(search);
+/*
+            JPanel viewContact = new ViewContact(tabContactData[z]);
             jlistContact.removeAll();
             contact.removeAll();
             jlistContact.setVisible(false);
             viewContact.setBounds(0,0,480,800);
             add(viewContact);
-            -*/
+*/
         }
     }
 
