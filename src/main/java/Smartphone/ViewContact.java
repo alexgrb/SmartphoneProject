@@ -41,6 +41,11 @@ public class ViewContact extends JPanel {
     private static JTextField addressJT = new JTextField();
     private static JTextField NPAJT = new JTextField();
     private static JTextField dateOfBirthJT = new JTextField();
+
+    public static void setPictureJT(String path) {
+        ViewContact.pictureJT.setText(path);
+    }
+
     private static JTextField pictureJT = new JTextField();
 
     protected Dimension dim = new Dimension(200, 30);

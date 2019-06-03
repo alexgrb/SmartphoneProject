@@ -5,7 +5,6 @@ import tools.imageButton;
 import tools.imageLabel;
 import tools.textResizer;
 import javax.swing.*;
-import javax.swing.text.View;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +14,6 @@ import java.io.*;
 
 import static Smartphone.ViewContact.viewContact;
 import static Smartphone.ViewContact.viewContactList;
-import static Smartphone.ViewContactList.tabContactData;
 import static Smartphone.display.picDirectory;
 
 /**
@@ -259,6 +257,8 @@ public class Gallery extends JPanel {
 
             removeAll();
             viewContact.setVisible(false);
+            viewContact.setPictureJT(path);
+            viewContact.imageUpdate();
             viewContactList.setPreferredSize(new Dimension(480,800));
             viewContactList.show.add(viewContactList.scrollPane);
             viewContactList.show.setBorder(null);
