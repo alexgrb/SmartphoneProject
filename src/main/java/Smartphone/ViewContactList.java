@@ -35,7 +35,9 @@ public class ViewContactList extends JPanel {
 
         show.setBackground(Color.white);
         show.setLayout(new MigLayout());
-        show.setPreferredSize(new Dimension(480,700));
+        show.setPreferredSize(new Dimension(480,800));
+        show.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 10));
+
         jbAdd = new imageButton();
         jbAdd.setIcon(new ImageIcon(picDirectory+"iconAdd.png"));
         jbAdd.addActionListener(new ActionAdd());
@@ -51,6 +53,8 @@ public class ViewContactList extends JPanel {
         show.add(scrollPane);
         show.add(jbAdd, "top");
         add(show);
+
+
     }
 
     public static int find(ContactData[] a, String target) {

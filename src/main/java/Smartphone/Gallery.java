@@ -13,6 +13,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.*;
 
+import static Smartphone.ViewContact.viewContact;
+import static Smartphone.ViewContact.viewContactList;
+import static Smartphone.ViewContactList.tabContactData;
 import static Smartphone.display.picDirectory;
 
 /**
@@ -115,7 +118,7 @@ public class Gallery extends JPanel {
         }
     }
     public void chooseImage() {
-        System.out.println("Jai réussi a lacné la méth");
+        System.out.println("Jai réussi à choose Image.");
         removeAll();
         imgPanel.removeAll();
         JLabel[] label = new JLabel[nbPhotos + 1];
@@ -139,7 +142,7 @@ public class Gallery extends JPanel {
         add(jbAdd);
         scroll.setViewportView(imgPanel);
         finalPanel = new JScrollPane(imgPanel);
-        finalPanel.setBounds(0, 40, 480, 700);
+        finalPanel.setBounds(0, 40, 480, 600);
         add(finalPanel);
         revalidate();
         repaint();
@@ -174,7 +177,7 @@ public class Gallery extends JPanel {
         add(jbAdd);
         scroll.setViewportView(imgPanel);
         finalPanel = new JScrollPane(imgPanel);
-        finalPanel.setBounds(0, 40, 480, 700);
+        finalPanel.setBounds(0, 40, 480, 600);
         add(finalPanel);
         revalidate();
         repaint();
@@ -239,6 +242,7 @@ public class Gallery extends JPanel {
             imgzoomPanel = new Picture(path, gallery);
             imgzoomPanel.setBounds(0, 40, 480, 700);
             add(imgzoomPanel);
+            System.out.println("Dans le dernier Mouse Listener, path de la nouvelle image : " + path);
             revalidate();
             repaint();
         }
@@ -247,26 +251,40 @@ public class Gallery extends JPanel {
         String path;
         public chooseListener(String path,int i) {
             this.path = path;
+            //System.out.println("Dans le dernier Mouse Listener, path de la nouvelle image : " + path);
         }
 
         @Override
         public void mousePressed(MouseEvent me) {
 
+            removeAll();
+            viewContact.setVisible(false);
+            viewContactList.setPreferredSize(new Dimension(480,800));
+            viewContactList.show.add(viewContactList.scrollPane);
+            viewContactList.show.setBorder(null);
+            viewContactList.show.add(viewContactList.jbAdd, "top");
+            viewContactList.show.repaint();
+
+            viewContactList.show.revalidate();
+
+            /*
             gallery.removeAll();
             finalPanel.removeAll();
             imgzoomPanel.removeAll();
             imgPanel.removeAll();
 
-            /*contact.picture.setText(path);
+            ViewContact.image.setText(path);
             //contact.imageUpdate();
             contact.setContactPanelJT();
             contact.setLabelsSizeJT();
             contact.addToPanelJT();
-            */
-            contact.show.add(contact.scrollPane);
+            .show.add(contact.scrollPane);
             contact.show.add(contact.jbAdd, "top");
             contact.show.repaint();
             contact.show.revalidate();
+
+             */
+            System.out.println("on est ou làààà");
 
         }
     }

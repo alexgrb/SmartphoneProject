@@ -22,7 +22,7 @@ public class ViewContact extends JPanel {
 
     private ContactData contact;
     static JPanel contactImg = new Gallery();
-    private ViewContact viewContact;
+    static ViewContact viewContact;
     private JLabel name = new JLabel("Nom");
     private JLabel firstName = new JLabel("Prénom");
     private JLabel phoneNumber = new JLabel("Numéro de téléphone");
@@ -30,7 +30,9 @@ public class ViewContact extends JPanel {
     private JLabel address = new JLabel("Adresse");
     private JLabel NPA = new JLabel("NPA");
     private JLabel dateOfBirth = new JLabel("Date de naissance");
-    protected JLabel picture = new imageLabel("iconAdd");
+    protected static JLabel image = new JLabel();
+    //protected JLabel picture = new imageLabel("iconAdd");
+
 
     private static JTextField nameJT = new JTextField();
     private static JTextField firstNameJT = new JTextField();
@@ -43,7 +45,7 @@ public class ViewContact extends JPanel {
 
     protected Dimension dim = new Dimension(200, 30);
     protected Dimension dimSmall = new Dimension(100, 30);
-    private static ViewContactList viewContactList;
+    protected static ViewContactList viewContactList;
 
     private JButton backButton = new JButton();
     private static JButton jbValiderAdd = new JButton ("Valider l'ajout");
@@ -53,7 +55,7 @@ public class ViewContact extends JPanel {
 
 
     public ViewContact(ContactData contact, ViewContactList viewContactList) {
-        setLayout(new MigLayout("wrap"));
+        setLayout(new MigLayout());
         this.contact = contact;
         this.viewContactList = viewContactList;
         viewContact = this;
@@ -66,6 +68,7 @@ public class ViewContact extends JPanel {
         setContactPanelJT();
         setLabelsSizeJT();
         addToPanelJT();
+        //setBorder(BorderFactory.createEmptyBorder(0, 50, 0, 50));
         add(editButton);
 
 
@@ -102,7 +105,15 @@ public class ViewContact extends JPanel {
         addressJT.setText(this.contact.getAdresse());
         NPAJT.setText(this.contact.getNPAloc());
         dateOfBirthJT.setText(this.contact.getDateNaissance());
+        pictureJT.setText(this.contact.getPathImg());
+        ImageIcon imgicon = new ImageIcon(picDirectory+"min\\" + this.contact.getPathImg());
+        image.setIcon(imgicon);
     }
+
+    /*
+    ImageIcon pira = new ImageIcon(picDirectory+"min\\" + path);
+            lbimg.setIcon(pira);
+     */
 
     public void setLabelsSizeJT(){
         nameJT.setPreferredSize(dimSmall);
@@ -128,25 +139,27 @@ public class ViewContact extends JPanel {
     }
 
     public void addToPanelJT(){
-        add(backButton);
-        add(picture, "right");
-        add(name);
-        add(nameJT);
-        add(firstName);
-        add(firstNameJT);
-        add(phoneNumber);
-        add(phoneNumberJT);
-        add(mail);
-        add(mailJT);
-        add(address);
-        add(addressJT);
-        add(NPA);
-        add(NPAJT);
-        add(dateOfBirth);
-        add(dateOfBirthJT);
-        add(jbValiderAdd);
+        add(backButton, "wrap");
+        add(image, "right, wrap");
+        add(name,"wrap");
+        add(nameJT,"wrap");
+        add(firstName,"wrap");
+        add(firstNameJT,"wrap");
+        add(phoneNumber,"wrap");
+        add(phoneNumberJT,"wrap");
+        add(mail,"wrap");
+        add(mailJT,"wrap");
+        add(address,"wrap");
+        add(addressJT,"wrap");
+        add(NPA,"align left");
+        add(dateOfBirth,"wrap");
+        add(NPAJT,"align left");
+        add(dateOfBirthJT, "wrap");
+        add(pictureJT, "align left");
+        add(jbValiderAdd,"wrap");
 
-        picture.addMouseListener(new mouseListener());
+
+        image.addMouseListener(new mouseListener());
 
     }
     /**
@@ -183,11 +196,13 @@ public class ViewContact extends JPanel {
         public void actionPerformed(ActionEvent e) {
             removeAll();
             viewContact.setVisible(false);
-            viewContactList.setPreferredSize(new Dimension(400,700));
+            viewContactList.setPreferredSize(new Dimension(480,800));
             viewContactList.show.add(viewContactList.scrollPane);
+            viewContactList.show.setBorder(null);
             viewContactList.show.add(viewContactList.jbAdd, "top");
             viewContactList.show.repaint();
             viewContactList.show.revalidate();
+
         }
     }
 
@@ -216,7 +231,11 @@ public class ViewContact extends JPanel {
         addressJT.setText(null);
         NPAJT.setText(null);
         dateOfBirthJT.setText(null);
+        pictureJT.setText(null);
     }
+
+
+
     class ValiderAdd implements ActionListener{
         ViewContact viewContact;
         public ValiderAdd(ViewContact viewContact) {
@@ -237,7 +256,14 @@ public class ViewContact extends JPanel {
                     mailJT.setForeground(Color.BLACK);
                     if(validNPA(NPAJT.getText())) {
                         NPAJT.setForeground(Color.BLACK);
-                          addInChaine();
+                        addInChaine();
+                        resetChamp();
+                        removeAll();
+                        viewContactList.show.add(viewContactList.scrollPane);
+                        viewContactList.show.add(viewContactList.jbAdd, "top");
+                        viewContactList.show.repaint();
+                        viewContactList.show.revalidate();
+
                     } else {
                         NPAJT.setForeground(Color.RED);
                     }
@@ -247,12 +273,6 @@ public class ViewContact extends JPanel {
             } else {
                 phoneNumberJT.setForeground(Color.RED);
             }
-            resetChamp();
-            removeAll();
-            viewContactList.show.add(viewContactList.scrollPane);
-            viewContactList.show.add(viewContactList.jbAdd, "top");
-            viewContactList.show.repaint();
-            viewContactList.show.revalidate();
 
         }
 
@@ -359,13 +379,14 @@ public class ViewContact extends JPanel {
                 removeAll();
                 setLayout(new BorderLayout());
                 contactImg = new Gallery(z, viewContactList);
-                add(contactImg, BorderLayout.CENTER);
+                add(contactImg);
                 revalidate();
-                repaint();}
-
-            else {
-                System.out.println("Il faut être en mode edit pour changer l'image");
+                repaint();
             }
+
+            else
+                System.out.println("Il faut être en mode edit pour changer l'image");
+
 
         }
     }
