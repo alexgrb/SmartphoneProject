@@ -30,7 +30,7 @@ public class imageButton extends JButton {
     public imageButton(String text, int text2) {
         setText(text);
         setForeground(Color.BLACK);
-        setBackground(Color.WHITE);
+        setBackground(Color.LIGHT_GRAY);
         Border ligne = new LineBorder(Color.BLACK);
         Border marge = new EmptyBorder(10, 15, 10, 15);
         Border autour = new CompoundBorder(ligne, marge);

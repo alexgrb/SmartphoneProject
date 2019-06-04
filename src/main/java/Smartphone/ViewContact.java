@@ -30,6 +30,7 @@ public class ViewContact extends JPanel {
     private JLabel address = new JLabel("Adresse");
     private JLabel NPA = new JLabel("NPA");
     private JLabel dateOfBirth = new JLabel("Date de naissance");
+    private JLabel emptyLabel = new JLabel("");
     protected static JLabel image = new JLabel();
     //protected JLabel picture = new imageLabel("iconAdd");
 
@@ -52,10 +53,10 @@ public class ViewContact extends JPanel {
     protected Dimension dimSmall = new Dimension(100, 30);
     protected static ViewContactList viewContactList;
 
-    private JButton backButton = new JButton();
-    private static JButton jbValiderAdd = new JButton ("Valider l'ajout");
-    private static JButton editButton = new JButton ("Editer");
-    private static JButton jbValiderEdit = new JButton ("Valider les modifications");
+    private JButton jbBack = new imageButton();
+    private static JButton jbValiderAdd = new imageButton ("Valider l'ajout", 1);
+    private static JButton editButton = new imageButton ("Editer", 1);
+    private static JButton jbValiderEdit = new imageButton ("Valider les modifications", 1);
 
 
 
@@ -66,14 +67,17 @@ public class ViewContact extends JPanel {
         viewContact = this;
 
         setBackground(Color.white);
-        backButton.setIcon(new ImageIcon(picDirectory+"iconBack.png"));
-        backButton.addActionListener(new backListener());
+
+        //jb
+
+        jbBack.setIcon(new ImageIcon(picDirectory+"iconBack.png"));
+        jbBack.addActionListener(new backListener());
 
         editButton.addActionListener(new ActionEdit());
         setContactPanelJT();
         setLabelsSizeJT();
         addToPanelJT();
-        //setBorder(BorderFactory.createEmptyBorder(0, 50, 0, 50));
+        //editButton.setBorder(BorderFactory.createEmptyBorder(30, 50, 30, 50));
         add(editButton);
 
 
@@ -87,12 +91,14 @@ public class ViewContact extends JPanel {
     public ViewContact(ViewContactList viewContactList) {
         this.viewContactList = viewContactList;
         viewContact = this;
-        setLayout(new MigLayout("wrap"));
+        setLayout(new MigLayout());
         setBackground(Color.white);
         viewContactList.jlistContact.getModel().getElementAt(0);
-        backButton.setIcon(new ImageIcon(picDirectory+"iconBack.png"));
-        backButton.addActionListener(new backListener());
-        jbValiderAdd = new imageButton("Valider", 2);
+
+        jbBack.setIcon(new ImageIcon(picDirectory+"iconBack.png"));
+        jbBack.addActionListener(new backListener());
+
+       // jbValiderAdd = new imageButton("Valider", 2);
         jbValiderAdd.setBackground(Color.white);
         jbValiderAdd.addActionListener(new ValiderAdd(this));
 
@@ -144,9 +150,10 @@ public class ViewContact extends JPanel {
     }
 
     public void addToPanelJT(){
-        add(backButton, "wrap");
-        add(image, "right, wrap");
-        add(name,"wrap");
+        add(jbBack, "wrap");
+        add(emptyLabel, "align left");
+        add(image, "wrap");
+        add(name,"align left, wrap");
         add(nameJT,"wrap");
         add(firstName,"wrap");
         add(firstNameJT,"wrap");
@@ -160,8 +167,10 @@ public class ViewContact extends JPanel {
         add(dateOfBirth,"wrap");
         add(NPAJT,"align left");
         add(dateOfBirthJT, "wrap");
-        add(pictureJT, "align left");
+        //add(pictureJT, "align left");
+        //add(emptyLabel, "wrap");
         add(jbValiderAdd,"wrap");
+
 
 
         image.addMouseListener(new mouseListener());
@@ -345,7 +354,7 @@ public class ViewContact extends JPanel {
                         NPAJT.setForeground(Color.BLACK);
                         // On recupère tous les champs, et on réecrit la ligne avec les nouvelles données
                         ModifChaine(nameJT.getText(), firstNameJT.getText(), phoneNumberJT.getText(), mailJT.getText(), addressJT.getText(), NPAJT.getText(), dateOfBirthJT.getText(), pictureJT.getText(), numJList);
-                     } else {
+                    } else {
                         NPAJT.setForeground(Color.RED);
                     }
                 } else {
@@ -368,8 +377,8 @@ public class ViewContact extends JPanel {
          *
          */
         public void actionPerformed(ActionEvent e){
-             imageUpdate();
-             System.out.println("Contact modifié");
+            imageUpdate();
+            System.out.println("Contact modifié");
         }
     }
 

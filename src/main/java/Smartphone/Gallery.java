@@ -122,6 +122,7 @@ public class Gallery extends JPanel {
         JLabel[] label = new JLabel[nbPhotos + 1];
 
         imgPanel.setLayout(new MigLayout("wrap 3"));
+        imgPanel.setBounds(0,40,480,400);
         imgPanel.setBackground(new Color(255,255,255));
         setImages();
         for (int j = 0; j < (images.length); j++) {
@@ -255,6 +256,7 @@ public class Gallery extends JPanel {
         @Override
         public void mousePressed(MouseEvent me) {
 
+
             removeAll();
             viewContact.setVisible(false);
             viewContact.setPictureJT(path);
@@ -264,27 +266,8 @@ public class Gallery extends JPanel {
             viewContactList.show.setBorder(null);
             viewContactList.show.add(viewContactList.jbAdd, "top");
             viewContactList.show.repaint();
-
             viewContactList.show.revalidate();
 
-            /*
-            gallery.removeAll();
-            finalPanel.removeAll();
-            imgzoomPanel.removeAll();
-            imgPanel.removeAll();
-
-            ViewContact.image.setText(path);
-            //contact.imageUpdate();
-            contact.setContactPanelJT();
-            contact.setLabelsSizeJT();
-            contact.addToPanelJT();
-            .show.add(contact.scrollPane);
-            contact.show.add(contact.jbAdd, "top");
-            contact.show.repaint();
-            contact.show.revalidate();
-
-             */
-            System.out.println("on est ou làààà");
 
         }
     }
