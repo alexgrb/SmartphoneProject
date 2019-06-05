@@ -260,7 +260,7 @@ public class Gallery extends JPanel {
             removeAll();
             viewContact.setVisible(false);
             viewContact.setPictureJT(path);
-            viewContact.imageUpdate();
+            viewContact.contactUpdate();
             viewContactList.setPreferredSize(new Dimension(480,800));
             viewContactList.show.add(viewContactList.scrollPane);
             viewContactList.show.setBorder(null);

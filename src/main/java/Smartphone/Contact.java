@@ -3,7 +3,7 @@ package Smartphone;
 /**
  * @author Piranavan Thambirajah & Alex Gharbi
  * Créé en mai 2019
- * Classe contact qui va permettre l'affichage et la gestion de scontacts
+ * Classe contact qui va permettre principalement l'écriture dans le fichier .txt, l'affichage et la gestion de ses contacts
  */
 
 import net.miginfocom.swing.MigLayout;
@@ -27,12 +27,10 @@ public class Contact extends JPanel {
     public static Font fontBouton = new Font("Dialog",Font.BOLD ,15);
     protected Font fontlabels = new Font("Arial",Font.BOLD ,14);
     protected Font fontJtextfields = new Font("Arial",Font.PLAIN ,14);
-    protected Font fontJList = new Font("Arial",Font.PLAIN ,20);
 
 
     protected Dimension dim = new Dimension(200, 30);
     protected Dimension dimSmall = new Dimension(100, 30);
-    protected Dimension dimJlist = new Dimension(450, 700);
 
 
     // Les labels
@@ -66,9 +64,7 @@ public class Contact extends JPanel {
     protected static JButton jbRetour = new JButton ();
 
 
-    //Liste des contacts
 
-   // protected static String[] chaine;
     private static JList jlistContact = new JList();
 
 
@@ -86,7 +82,8 @@ public class Contact extends JPanel {
     protected static ContactData[] tabContactData;
 
     /**
-     * Constructeur Contact, qui va permettre d'instancier la classe, créer l'affichage et appeler les méthodes requise à son fonctionnement
+     * Constructeur Contact, qui va permettre d'instancier la classe, créer l'affichage et
+     * appeler les méthodes requise à son fonctionnement
      */
     public Contact() {
 
@@ -94,13 +91,8 @@ public class Contact extends JPanel {
         this.contact = this;
 
         //---------- Boutons ---------//
-       /* jbAdd = new imageButton();
-        jbAdd.setIcon(new ImageIcon(picDirectory+"iconAdd.png"));
 
-        /*
-        jbRetour = new imageButton();
-        jbRetour.setIcon(new ImageIcon(picDirectory+"iconBack.png"));
-*/
+
         jbEdit = new imageButton("Editer", 2);
         jbEdit.setBackground(Color.LIGHT_GRAY);
         jbValiderEdit = new imageButton("Valider modification(s)", 2);
@@ -110,16 +102,11 @@ public class Contact extends JPanel {
         jbDelete = new imageButton("Supprimer", 2);
         jbDelete.setBackground(Color.LIGHT_GRAY);
 
-        //---------- END ---------//
-
-        //----------- Les boutons -----//
-//
-        //jbValiderEdit.addActionListener(new ValiderEditAdd());
-       // jbValiderAdd.addActionListener(new ValiderAdd());
-      //  jbAdd.addActionListener(new ActionAdd());
         jbEdit.addActionListener(new ActionEdit());
         jbDelete.addActionListener(new ActionDelete());
         lbimg.addMouseListener(new mouseListener());
+
+        //---------- END Boutons---------//
 
         jbAdd.setFont(fontBouton);
         jbRetour.setFont(fontBouton);
@@ -211,50 +198,6 @@ public class Contact extends JPanel {
     }
 
     // ------------------ LIST + ACTION LISTENER ---------------------- //
-    public static int find(ContactData[] a, String target) {
-        String s = "";
-
-        for (int i = 0; i < a.length; i++) {
-
-            s = a[i].getNom().substring(0, 5);
-
-            if (target.equals(s))
-                return i;
-        }
-        return -1;
-    }
-
-    public void setContactPanel(int i){
-        listPanel.setVisible(false);
-        formPanel.setVisible(true);
-        setEditable(false);
-        if(valModifSupp == false){
-            jbRetour.setVisible(true);
-            jbEdit.setVisible(true);
-            jbDelete.setVisible(true);
-            jbAdd.setVisible(false);
-        }
-
-        if(i != -1){
-            jtNom.setText(tabContactData[i].getNom());
-            jtPrenom.setText(tabContactData[i].getPrenom());
-            jtNumTel.setText(tabContactData[i].getNumTel());
-            jtEmail.setText(tabContactData[i].getEmail());
-            jtAdresse.setText(tabContactData[i].getAdresse());
-            jtNpa.setText(tabContactData[i].getNPAloc());
-            jtDateNaissance.setText(tabContactData[i].getDateNaissance());
-            jtpathImg.setText(tabContactData[i].getPathImg());
-
-            path = tabContactData[i].getPathImg();
-
-            ImageIcon pira = new ImageIcon(picDirectory+"min\\" + path);
-            lbimg.setIcon(pira);
-
-        }
-    }
-
-
-
 
     class ActionEdit implements ActionListener{
         /**
@@ -281,9 +224,17 @@ public class Contact extends JPanel {
         }
     }
 
+    /**
+     * Class ActionDelete qui executera les actions effectuer lors de son appel
+     * @see ActionDelete#actionPerformed(ActionEvent)
+     *
+     */
     class ActionDelete implements ActionListener{
+
         /**
-         * Va appeler la méthode "ConfirmSupp()" qui elle va enclencher une JOptionPane de confirmation de supression
+         * Va appeler la méthode "ConfirmSupp()" qui elle va enclencher une
+         * JOptionPane de confirmation de supression
+         * @see Contact#ConfirmSupp()
          *
          */
         @Override
@@ -292,28 +243,38 @@ public class Contact extends JPanel {
         }
     }
 
+    /**
+     * Class mouseListener qui executera les actions effectuer lors de son appel
+     * @see mouseListener#mousePressed(MouseEvent)
+     *
+     */
     class mouseListener extends MouseAdapter {
+
+        /**
+         * Si le bouton jbValiderEdit est visible, cela veut dire que nous avons cliqué sur le bouton "edit"
+         * et que nous pouvons donc modifier l'image. Si ce n'est pas le cas, on renvoie un messag à la console.
+         *
+         * Nous allons enlever tous les panels et ajouter un nouveau panel qui va reprendre un constructeur de la Gallerie.
+         *
+         */
         @Override
         public void mousePressed(MouseEvent me) {
-            System.out.println("Je clique sur l'image numéro " + path);
 
             if (jbValiderEdit.isVisible()){
             removeAll();
             setLayout(null);
-            //contactImg = new Gallery(jlistContact.getSelectedIndex(), contact);
             contactImg.setBounds(0, 40, 480, 700);
             add(contactImg);
             revalidate();
-            repaint();}
+            repaint();
+            }
 
             else {
-                System.out.println("Il faut être en mode edit pour changer l'image");
+                System.out.println("Il faut être en mode edit pour changer l'image.");
             }
 
         }
     }
-
-    //---------------------------- Validators ------------------------//
 
 
 
@@ -325,6 +286,16 @@ public class Contact extends JPanel {
      * Méthode qui va modifier un tableau de chaine (liste de contact) selon les paramètres reçus à la ligne séléctionnée.
      * va lire le tableau au complet jusqu'a une valeur null et se positionner à la ligne du contact que on désire modifier
      * va ecraser la valeur à la position séléctionnée par un nouveau String définit
+     * @param nom contenu du prenom
+     * @param prenom contenu du prenom
+     * @param num contenu du numéro de téléphone
+     * @param mail contenu de l'email
+     * @param adresse contenu de l'adresse
+     * @param npaLoc contenu du NPA
+     * @param date contenu de la date de naissance
+     * @param pathImg contenu du nom du fichier .jpg de l'image
+     *
+     * @see Contact#writeContact()
      */
 
     public void ModifChaine(String nom, String prenom, String num, String mail, String adresse , String npaLoc, String date, String pathImg, int numJList) {
@@ -341,23 +312,10 @@ public class Contact extends JPanel {
     }
 
 
-    /**
-     * Méthode qui va simplement réinitialiser les bouton comme si venaient d'arriver sur la page (statut initial)
-     */
-
-    public static void statutBtnInitial(){
-        jbAdd.setVisible(true);
-        jbEdit.setVisible(false);
-        jbDelete.setVisible(false);
-        jbValiderEdit.setVisible(false);
-        jbValiderAdd.setVisible(false);
-        jbRetour.setVisible(false);
-        jlistContact.setEnabled(true);
-
-    }
 
     /**
      * Méthode qui va permettre de définir que tous les champs soient éditables ou non
+     * @param val de type boolean soit false soit true
      */
 
     public void setEditable(boolean val){
@@ -376,6 +334,7 @@ public class Contact extends JPanel {
      *  Méthode qui va afficher une JOptionPane afin de demander à l'utilisateur de valider la suppresion d'un contact
      * 	Si la réponse est fausse, on ne fait rien.
      * 	Si rep == false vrai -->  ModifChaine(), remplacer le .txt par des #delete
+     * @see Contact#ModifChaine(String, String, String, String, String, String, String, String, int)
      */
 
     public void ConfirmSupp() {
@@ -394,7 +353,7 @@ public class Contact extends JPanel {
 
     /**
      *
-     * Méthode pour ajouter le data d'un contact à l'aide d'un printwriter
+     * Méthode qui va ajouter le data d'un contact à l'aide d'un printwriter
      * Check s'il n'y a pas de valeurs nulles ou deleted avant l'écriture
      *
      */

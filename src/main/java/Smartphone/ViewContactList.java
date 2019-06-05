@@ -1,8 +1,15 @@
 package Smartphone;
 
+
+/**
+ * @author Piranavan Thambirajah & Alex Gharbi
+ * Créé en mai 2019
+ * Classe ViewContactList qui va permettre l'affichage et la gestion de la JList
+ */
+
+
 import net.miginfocom.swing.MigLayout;
 import tools.imageButton;
-
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -53,10 +60,12 @@ public class ViewContactList extends JPanel {
         show.add(scrollPane);
         show.add(jbAdd, "top");
         add(show);
-
-
     }
 
+    /**
+     *?????
+     *
+     */
     public static int find(ContactData[] a, String target) {
         String s = "";
         for (int i = 0; i < a.length; i++) {
@@ -73,7 +82,7 @@ public class ViewContactList extends JPanel {
      * de nom, prenom etc... du contact
      * On va ensuite créer un tableau de contact TabContactData contenant des contacts placer dans le tableau temporaire
      * Il va aussi omettre d'y inclure les lignes contenant un #delete
-     *
+     * @see ViewContactList#sortList(JList)
      */
 
     public static void updateList(){
@@ -82,7 +91,7 @@ public class ViewContactList extends JPanel {
         listSortedAffichageJList = new String[chaine.length];
         tabContactData = new ContactData[chaine.length];
 
-        String[] tempo = new String[6];
+        String[] tempo = new String[8];
         try {
             for (int i = 0; i<chaine.length; i++){
 
@@ -100,7 +109,7 @@ public class ViewContactList extends JPanel {
                     }
                 }
             }
-            System.out.println("Je passe dans le try aussi");
+
             jlistContact.setListData(listAffichageJList);
             sortList(jlistContact);
         }catch (Exception e){
@@ -108,6 +117,11 @@ public class ViewContactList extends JPanel {
             System.out.println(e.toString());
         }
     }
+
+    /**
+     * Méthode sortList qui nous permettera de trier notre liste dans l'ordre alphabétique.
+     * @param jlist une JList (dans notre cas; jListContact)
+     */
     public static void sortList(JList jlist) {
 
         ListModel model = jlist.getModel();
@@ -122,9 +136,13 @@ public class ViewContactList extends JPanel {
     }
 
     /**
-     * Méthode de lecture du fichier pour créer un tableau de contact et une chaine à partir des données contenue dans le fichier.
-     * le premier try va calculer le nombre de ligne contenue dans le fichier afin de créer les tableaux nécessaires
-     * le deuxième try va s'occuper de rajouter chaque ligne dans le fichier sur le tableau définit afin d'être utilisé dans le programme
+     * Méthode de lecture du fichier contact.txt. C'est cette méthode qui va être appelée directement dans le main.
+     * Créer un tableau de contact et une chaine à partir des données contenue dans le fichier.
+     * Le premier try va calculer le nombre de ligne contenue dans le fichier afin de créer les tableaux nécessaires
+     * Le deuxième try va s'occuper de rajouter chaque ligne dans le fichier sur le tableau définit afin d'être utilisé
+     * dans le programme. Il va ensuite faire appel à la méthode UpdateList
+     * @see ViewContactList#updateList()
+     *
      *
      */
     public static void LectureContact() {
@@ -162,10 +180,21 @@ public class ViewContactList extends JPanel {
             System.out.println(e.toString());
         }
     }
+
+    /**
+     * Class EcouteurList qui executera les actions à effectuer lors de son appel
+     * (lorsque l'on clique sur un élément de la JList)
+     * @see EcouteurList#valueChanged(ListSelectionEvent)
+     *
+     */
     class EcouteurList implements ListSelectionListener {
+
         /**
          *
          * Va rechercher dans le tableau de contact, le contact séléctionné et l'affecter dans les champs JTextField
+         * Ce en instanciant un nouveau JPanel de type ViewContact en lui donnant l'attribut de ViewContactJList
+         * @see ViewContact#ViewContact(ContactData, ViewContactList)
+         *
          */
         public void valueChanged(ListSelectionEvent evt){
 
@@ -182,12 +211,19 @@ public class ViewContactList extends JPanel {
             show.revalidate();
         }
     }
+
+    /**
+     * Class ActionAdd qui executera les actions à effectuer lors de son appel
+     * (lorsque l'on clique sur le bouton correspondant)
+     * @see ActionAdd#actionPerformed(ActionEvent)
+     *
+     */
     class ActionAdd implements ActionListener {
 
         /**
-         * Appeler la méthode "resetChamp" et va mettre les champs JTextField vide et afficher les boutons correspondant
-         * Rendre les JTextField editable afin de pouvoir ajouter des données
-         *
+         * Instancier un nouveau JPanel qui fera appel à notre classe viewContactList
+         * Effacer le contenu de notre Panel initial pour le remplacer par notre nouveau panel viewContact
+         * @see ViewContact#ViewContact(ViewContactList)
          */
         @Override
         public void actionPerformed(ActionEvent e) {
