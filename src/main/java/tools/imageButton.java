@@ -10,15 +10,33 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
+/**
+ * @author Piranavan Thambirajah & Alex Gharbi
+ * Créé en mai 2019
+ * Classe ImageButton, fait partie du package Tools, cette classe permet
+ * d'alléger les implémentations et uniformiser les boutons avec ou sans icônes.
+ */
+
 public class imageButton extends JButton {
     private Image mshi;
     private String picDirectory = display.getPicDirectory();
+
+    /**
+     * Constructeur qui permet de construire un bouton de manière uniforme ?????????????
+     */
 
     public imageButton() {
         setOpaque(false);
         setBackground(new Color(0, true));
         setBorder(null);
     }
+
+    /**
+     * Constructeur qui permet de construire un bouton avec une icône, sans fond ni bordure
+     * @param path nom du fichier .jpg
+     * @see imageButton#loadImage(String)
+     */
+
     public imageButton(String path) {
 
         setOpaque(false);
@@ -27,7 +45,13 @@ public class imageButton extends JButton {
         loadImage(path);
     }
 
-    public imageButton(String text, int text2) {
+    /**
+     * Constructeur qui permet de construire un bouton de type texte
+     * @param text le texte que l'on souhaitera afficher dans notre bouton
+     * @param i paramètre qui permet de différencier ce constructeur du  précédent
+     *
+     */
+    public imageButton(String text, int i) {
         setText(text);
         setForeground(Color.BLACK);
         setBackground(Color.LIGHT_GRAY);
@@ -39,9 +63,15 @@ public class imageButton extends JButton {
         setFont(Contact.fontBouton);
     }
 
+    /**
+     * Méthode qui permet de créer une nouvelle ImageIcon à partir d'un nom de fichier
+     * @param path nom du fichier .jpg
+     */
     private void loadImage(String path) {
         mshi =  new ImageIcon(picDirectory+ path+ ".png").getImage();
     }
+
+
 
     private void setSurfaceSize(String text) {
         Dimension d = new Dimension();
@@ -50,6 +80,7 @@ public class imageButton extends JButton {
         setPreferredSize(d);
         setText(text);
     }
+
 
     private void doDrawing(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;

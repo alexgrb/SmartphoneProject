@@ -1,9 +1,9 @@
 package Smartphone;
 
-/*
+/**
  * @author Piranavan Thambirajah & Alex Gharbi
- * Createad: 03.04.2019 - Last Update: 30.04.2019
- * Main frame for the smartphone
+ * Créé en mai 2019
+ * Classe contact qui va permettre l'affichage et la gestion de scontacts
  */
 
 import net.miginfocom.swing.MigLayout;
@@ -85,7 +85,9 @@ public class Contact extends JPanel {
     // Tableau après lecture du fichier
     protected static ContactData[] tabContactData;
 
-
+    /**
+     * Constructeur Contact, qui va permettre d'instancier la classe, créer l'affichage et appeler les méthodes requise à son fonctionnement
+     */
     public Contact() {
 
         setBackground(new Color(255,255,255));

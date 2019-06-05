@@ -4,11 +4,10 @@ package Smartphone;
 import java.util.regex.*;
 
 
-/*
+/**
  * @author Piranavan Thambirajah & Alex Gharbi
- * Createad: 04.05.2019 - Last Update: 30.04.2019
+ * Creé mai 2019
  * Classe qui permet de vérifier les champs dans la classe Contact
- * Main frame for the smartphone
  */
 
 public class ContactRegex {
@@ -16,7 +15,11 @@ public class ContactRegex {
     public ContactRegex() {
     }
 
-  //Méthode qui permet de vérfier si l'adresse e-mail est bel et bien correcte.
+    /**
+     * Méthode qui permet de vérfier si l'adresse e-mail est bel et bien correcte. Via les patterns regex.
+     * @param mail contenu de l'email
+     * @return boolean true ou false
+     */
 
     public boolean validerEmail (String mail){
 
@@ -27,7 +30,11 @@ public class ContactRegex {
         return matcher.matches();
     }
 
-
+    /**
+     * Méthode qui permet de vérfier si l'adresse e-mail est bel et bien correcte. Via les patterns regex.
+     * @param tel contenu du numéro de téléphone
+     * @return boolean true ou false
+     */
     //Méthode qui contrôle le numéro de tel. Contient-il bien 10 caractères? (ex : 0799249044)
 
     public boolean validerNumTel (String tel) {
@@ -37,12 +44,17 @@ public class ContactRegex {
         return matcher.matches();
     }
 
+    /**
+     * Méthode qui permet de vérfier si l'adresse e-mail est bel et bien correcte. Via les patterns regex.
+     * @param npa contenu du NPA
+     * @return boolean true ou false
+     */
 
     //Méthode qui contrôle le numéro de NPA. Contient-il bien 4 caractères? (ex : 1007)
 
     public boolean validerNPA (String npa) {
 
-        Pattern pattern = Pattern.compile("1([0-9]{3})");
+        Pattern pattern = Pattern.compile("[1-9]([0-9]{3})");
         Matcher matcher = pattern.matcher(npa);
         return matcher.matches();
     }
