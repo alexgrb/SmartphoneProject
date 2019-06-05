@@ -1,8 +1,10 @@
 package Smartphone;
 
-/*
+/**
  * @author Piranavan Thambirajah & Alex Gharbi
- * Createad: 30.04.2019 - Last Update: 30.04.2019
+ * C'est la seule et unique frame du programme.
+ * Toutes les applis sont des JPanels qui s'affichent dessus.
+ * Crée mai 2019
  * Main frame for the smartphone
  */
 
@@ -13,16 +15,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
-         * C'est la seule et unique frame du programme.
-         * Toutes les applis sont des JPanels qui s'affichent dessus.
-         */
 
 public class display extends JFrame {
 
     //Main setting wich allows us to switch between panels
     protected static CardLayout cardLayout = new CardLayout();
     protected static int maxApp = 5;
+
     //Panels
     protected static JPanel content = new JPanel();
     protected static JPanel bottom = new JPanel();
@@ -39,14 +38,15 @@ public class display extends JFrame {
         return picDirectory;
     }
 
+    /**
+     * Constructeur
+     */
     public display() {
 
         ///PARAMETRE DE LA FENETRE///
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); //Ferme le programme lorsqu'on ferme la fenêtre
         setResizable(false); //Empêche le redimensionnement
         setUndecorated(true);
-
-
 
         ///BOUTONS///
         for (int i=0 ; i<appButton.length;i++){
@@ -62,13 +62,13 @@ public class display extends JFrame {
 
         bottom.setLayout(new FlowLayout());
 
-        //Background Image
-
-        //Panel
+        ///PANEL///
         JPanel homePanel = new Home(); //Homescreen
-
         JPanel calculPanel = new Calculatrice();
         JPanel contactlPanel = new ViewContactList();
+        JPanel weatherPanel = new weather();
+
+
         try {
             statusPanel = new StatusBar();
             statusPanel.setBounds(0,0,480,40);
@@ -77,7 +77,7 @@ public class display extends JFrame {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        JPanel weatherPanel = new weather();
+
 
         //  bottom.setOpaque(false);
         bottom.setBackground(new Color(255,255,255));
@@ -109,11 +109,28 @@ public class display extends JFrame {
 
     }
 
+    /**
+     * Class homeListener qui executera les actions effectuer lors de son appel
+     * @see homeListener#actionPerformed(ActionEvent)
+     *
+     */
     static class homeListener implements ActionListener{
+        /**
+         * Variable i pour représenter l'id du bouton du menu choisi.
+         * @param appId
+         *
+         */
         int i = 0; // Variable to represent the choosen menu item id
         public homeListener(int appId){
             i = appId;
         }
+
+        /**
+         * Affiche le contenu du panel correspondant à l'id  fourni en paramètre.
+         * ???????????????????????????????????????????????????????????? Pourquoi Pira as-tu mis if(i==4)
+         *
+         *
+         */
         public void actionPerformed(ActionEvent e) {
             //Via cette instruction, on passe au conteneur correspondant au nom fourni en paramètre
             if(i==0) {
