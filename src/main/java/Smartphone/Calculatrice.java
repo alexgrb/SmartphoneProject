@@ -1,8 +1,6 @@
 package Smartphone;
 
 import net.miginfocom.swing.MigLayout;
-
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -10,13 +8,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
-        * Calculatrice reprise de openclassroom et mis en forme à nos gôuts.
-        */
+ *
+ * Calculatrice reprise de openclassroom et mis en forme à nos gôuts.
+ */
 
 public class Calculatrice extends JPanel {
     //Tableau stockant les éléments à afficher dans la calculatrice
@@ -30,6 +28,11 @@ public class Calculatrice extends JPanel {
     private boolean clicOperateur = false, update = false;
     private String operateur = "";
 
+
+    /**
+     * Constructeur faisant appel à la méthode d'initialisation
+     * @see Calculatrice#initComposant()
+     */
     public Calculatrice(){
         this.setSize(240, 260);
 
@@ -40,6 +43,9 @@ public class Calculatrice extends JPanel {
         this.setVisible(true);
     }
 
+    /**
+     * Méthode initialisant le conteneur avec tous les composants
+     */
     private void initComposant(){
         //On définit la police d'écriture à utiliser
         Font police = new Font("Arial", Font.BOLD, 20);
@@ -114,7 +120,9 @@ public class Calculatrice extends JPanel {
         add(tab_button[12],"gapleft 8");
     }
 
-    //Méthode permettant d'effectuer un calcul selon l'opérateur sélectionné
+    /**
+     * Méthode permettant d'effectuer un calcul selon l'opérateur sélectionné
+     */
     private void calcul(){
         if(operateur.equals("+")){
             chiffre1 = chiffre1 +
@@ -143,9 +151,19 @@ public class Calculatrice extends JPanel {
         }
     }
 
-    //Listener utilisé pour les chiffres
-    //Permet de stocker les chiffres et de les afficher
+
+
+    /**
+     * Class ActionDelete qui executera les actions effectuer lors de son appel
+     * @see ChiffreListener#actionPerformed(ActionEvent)
+     *
+     */
     class ChiffreListener implements ActionListener {
+        /**
+         * Listener utilisé pour les chiffres
+         * Permet de stocker les chiffres et de les afficher
+         * @param e
+         */
         public void actionPerformed(ActionEvent e){
             //On affiche le chiffre additionnel dans le label
             String str = ((JButton)e.getSource()).getText();
@@ -160,7 +178,10 @@ public class Calculatrice extends JPanel {
         }
     }
 
-    //Listener affecté au bouton =
+    /**
+     * Listener affecté au bouton =
+     * @see Calculatrice#calcul()
+     */
     class EgalListener implements ActionListener {
         public void actionPerformed(ActionEvent arg0){
             calcul();
@@ -169,7 +190,10 @@ public class Calculatrice extends JPanel {
         }
     }
 
-    //Listener affecté au bouton +
+    /**
+     * Listener affecté au bouton +
+     * @see Calculatrice#calcul()
+     */
     class PlusListener implements ActionListener {
         public void actionPerformed(ActionEvent arg0){
             if(clicOperateur){
@@ -185,7 +209,10 @@ public class Calculatrice extends JPanel {
         }
     }
 
-    //Listener affecté au bouton -
+    /**
+     * Listener affecté au bouton -
+     * @see Calculatrice#calcul()
+     */
     class MoinsListener implements ActionListener {
         public void actionPerformed(ActionEvent arg0){
             if(clicOperateur){
@@ -201,7 +228,10 @@ public class Calculatrice extends JPanel {
         }
     }
 
-    //Listener affecté au bouton *
+    /**
+     * Listener affecté au bouton *
+     * @see Calculatrice#calcul()
+     */
     class MultiListener implements ActionListener {
         public void actionPerformed(ActionEvent arg0){
             if(clicOperateur){
@@ -217,7 +247,10 @@ public class Calculatrice extends JPanel {
         }
     }
 
-    //Listener affecté au bouton /
+    /**
+     * Listener affecté au bouton /
+     * @see Calculatrice#calcul()
+     */
     class DivListener implements ActionListener {
         public void actionPerformed(ActionEvent arg0){
             if(clicOperateur){
@@ -233,7 +266,10 @@ public class Calculatrice extends JPanel {
         }
     }
 
-    //Listener affecté au bouton de remise à zéro
+    /**
+     * Listener affecté au bouton de remise à zero
+     * @see Calculatrice#calcul()
+     */
     class ResetListener implements ActionListener {
         public void actionPerformed(ActionEvent arg0){
             clicOperateur = false;
