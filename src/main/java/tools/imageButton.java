@@ -95,5 +95,6 @@ public class imageButton extends JButton {
         super.paintComponent(g);
         doDrawing(g);
 
-    }
+    }        //mdr
+
 }

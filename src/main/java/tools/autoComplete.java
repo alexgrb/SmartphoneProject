@@ -108,5 +108,6 @@ public class autoComplete extends JPanel {
            // weat.setCityList(comboBox.getSelectedItem().toString());
             System.out.println(comboBox.getSelectedItem().toString());
         }
-    }
+    }        //mdr
+
 }

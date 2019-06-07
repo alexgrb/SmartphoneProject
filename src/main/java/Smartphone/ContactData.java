@@ -122,5 +122,7 @@ public class ContactData implements Serializable {
      */
     public String getPathImg() {
         return pathImg;
+        //mdr
     }
+
 }

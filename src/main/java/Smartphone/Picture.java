@@ -72,6 +72,7 @@ public class Picture extends JPanel {
         }
     }
 
- }
+ }        //mdr
+
 
 

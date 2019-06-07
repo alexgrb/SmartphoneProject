@@ -37,6 +37,7 @@ public class ViewContactList extends JPanel {
     protected JPanel show = new JPanel();
 
 
+
     public ViewContactList() {
         viewContactList = this;
 
@@ -240,5 +241,6 @@ public class ViewContactList extends JPanel {
         }
 
     }
+    //mdr
 
 }

@@ -50,6 +50,7 @@ public class weather extends JPanel {
                 contentWeather.repaint();
                 setVisible(true);
             }
-        }
+        }        //mdr
+
 }
 

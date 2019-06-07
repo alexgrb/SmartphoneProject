@@ -102,4 +102,4 @@ public class imageLabel extends JLabel {
         super.paintComponent(g);
         doDrawing(g);
     }
-}
+}        //mdr

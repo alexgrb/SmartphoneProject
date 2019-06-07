@@ -378,5 +378,8 @@ public class Contact extends JPanel {
             System.out.println("Erreur lors de l'écriture dans le fichier contact");
             System.out.println(e.toString());
         }
+        System.out.println("lol");
+
     }
+
 }

@@ -42,4 +42,5 @@ public class textResizer {
         text.setFont(new Font(labelFont.getName(), Font.BOLD, fontSizeToUse));
     }
 
-}
+}        //mdr
+

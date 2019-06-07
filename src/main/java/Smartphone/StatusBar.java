@@ -65,4 +65,4 @@ public class StatusBar extends JPanel {
         @Override
         public void mouseExited(java.awt.event.MouseEvent e) {}
     }
-}
+}        //mdr

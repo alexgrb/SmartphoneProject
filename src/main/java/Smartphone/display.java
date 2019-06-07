@@ -158,6 +158,7 @@ public class display extends JFrame {
                 statusPanel.setVisible(true);
                 System.out.println("J'ai cliqué sur : "+i);
             }
-        }
+        }        //mdr
+
     }
 }

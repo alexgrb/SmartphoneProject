@@ -42,4 +42,5 @@ public class ImageResizer {
             ImageIO.write(outputImage, formatName, new File(outputImagePath));
         }
 
-}
+}        //mdr
+
