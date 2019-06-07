@@ -69,7 +69,8 @@ public class imageButton extends JButton {
      * @param path nom du fichier .jpg
      */
     private void loadImage(String path) {
-        pic = new ImageIcon(getClass().getClassLoader().getResource(path+".png"));
+       // pic = new ImageIcon(getClass().getClassLoader().getResource(path+".png"));
+        pic = new ImageIcon(picDirectory+path+".png");
         mshi = pic.getImage();
     }
 
