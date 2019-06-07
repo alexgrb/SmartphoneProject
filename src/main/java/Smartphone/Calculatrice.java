@@ -138,6 +138,7 @@ public class Calculatrice extends JPanel {
                 ecran.setText(String.valueOf(chiffre1));
             } catch(ArithmeticException e) {
                 ecran.setText("0");
+
             }
         }
     }

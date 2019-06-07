@@ -88,7 +88,6 @@ public class ViewContact extends JPanel {
         setContactPanelJT();
         setLabelsSizeJT();
         addToPanelJT();
-        //editButton.setBorder(BorderFactory.createEmptyBorder(30, 50, 30, 50));
         add(editButton);
 
 
@@ -119,7 +118,6 @@ public class ViewContact extends JPanel {
         jbBack.setIcon(new ImageIcon(picDirectory+"iconBack.png"));
         jbBack.addActionListener(new backListener());
 
-       // jbValiderAdd = new imageButton("Valider", 2);
         jbValiderAdd.setBackground(Color.white);
         jbValiderAdd.addActionListener(new ValiderAdd(this));
 
@@ -128,6 +126,7 @@ public class ViewContact extends JPanel {
         resetChamp();
         addToPanelJT();
     }
+
 
 
     //---------- END Constructeurs ---------//
@@ -145,7 +144,6 @@ public class ViewContact extends JPanel {
         addressJT.setText(this.contact.getAdresse());
         NPAJT.setText(this.contact.getNPAloc());
         dateOfBirthJT.setText(this.contact.getDateNaissance());
-        pictureJT.setText(this.contact.getPathImg());
         ImageIcon imgicon = new ImageIcon(picDirectory+"min\\" + this.contact.getPathImg());
         image.setIcon(imgicon);
     }
@@ -329,7 +327,7 @@ public class ViewContact extends JPanel {
             temp[i] = viewContactList.chaine[i];
         }
         // Creation du tableau temporaire avec les valeur à inscrire
-        temp[viewContactList.chaine.length] = nameJT.getText() + " - " + firstNameJT.getText() + " - " + phoneNumberJT.getText() + " - "+ mailJT.getText() + " - " + addressJT.getText() + " - " + NPAJT.getText() + " - " +  dateOfBirthJT.getText() + " - " +  pictureJT.getText();
+        temp[viewContactList.chaine.length] = nameJT.getText() + " - " + firstNameJT.getText() + " - " + phoneNumberJT.getText() + " - "+ mailJT.getText() + " - " + addressJT.getText() + " - " + NPAJT.getText() + " - " +  dateOfBirthJT.getText() + " - 10.png";
         viewContactList.chaine = new String [temp.length];
         viewContactList.chaine = temp;
         Contact.writeContact();
@@ -381,7 +379,6 @@ public class ViewContact extends JPanel {
     public static void setPictureJT(String path) {
         ViewContact.pictureJT.setText(path);
     }
-
 
     //---------- END Méthodes ---------//
 
@@ -456,7 +453,6 @@ public class ViewContact extends JPanel {
             this.viewContact = viewContact;
         }
 
-
         /**
          * Va appeler les methodes de validation (validEmain, validPhone, validBirthday) qui si elles retournent toutes une valeur vrai(true)
          * Si une des 3 méthodes de validation retournent false, va afficher le text faut en rouge
@@ -479,6 +475,7 @@ public class ViewContact extends JPanel {
                         viewContactList.show.add(viewContactList.jbAdd, "top");
                         viewContactList.show.repaint();
                         viewContactList.show.revalidate();
+
 
                     } else {
                         NPAJT.setForeground(Color.RED);

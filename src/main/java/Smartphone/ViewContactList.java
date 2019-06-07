@@ -229,6 +229,7 @@ public class ViewContactList extends JPanel {
         public void actionPerformed(ActionEvent e) {
 
             JPanel viewContact = new ViewContact(viewContactList);
+           // JPanel viewContact = new ViewContact();
             show.removeAll();
 
             viewContact.setBounds(0,0,480,800);
