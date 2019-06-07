@@ -26,7 +26,7 @@ public class weather extends JPanel {
             cityList = new JComboBox(cities);
             cityList.addActionListener(new comboListener());
             setLayout(null);
-            JLabel backGround = new imageLabel("weatherBack");
+            JLabel backGround = new imageLabel("weathrBck");
             backGround.setBounds(0,0,480,800);
 
             textField.setBounds(10,40,200,50);

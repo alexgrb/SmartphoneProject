@@ -4,6 +4,9 @@ import Smartphone.display;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 
 public class imageLabel extends JLabel {
@@ -12,10 +15,15 @@ public class imageLabel extends JLabel {
     private String picDirectory = display.getPicDirectory();
 
     public imageLabel(String path) {
+        try {
         loadImage(path);
-        setSurfaceSize();
+        setSurfaceSize();}
+        catch(Exception ex){
+            System.out.println("Le path de l'imgage choisi n'existe pas!!");
+            System.out.println(ex.toString());
+        }
     }
-    public imageLabel(String path, int i) { //i Nous permet de faire une autre méthode quasi identique
+    public imageLabel(String path, int i) { //i Nous permet de faire une autre méthode quasi identique pour
         if(i==1) {
             String imageToResize = picDirectory+"gallery\\" + path;
             String resizedImagePath = picDirectory+"min\\" + path;
@@ -33,9 +41,43 @@ public class imageLabel extends JLabel {
 
     }
 
+    /**
+     * Méthode permettant d'uploader une ImageIcon depuis notre gallerie
+     * @param path le nom de l'image
+     */
+
     public void loadImage(String path) {
+
+        File f = new File(picDirectory + path+".png");
         mshi =  new ImageIcon(picDirectory + path+".png").getImage();
+        FileReader toReturn = null;
+        try
+        {
+           /* if (!f.exists()) {
+                System.out.println("Je suis la");
+                throw new FileNotFoundException();
+            }
+
+            */
+           toReturn = new FileReader(f);
+        }
+        catch(FileNotFoundException e)
+        {
+            //System.out.println("Path de l'image : "+ path + " is " + f.exists());
+           System.out.println("Cette image n'existe pas");
+            System.out.println(e.toString());
+
+
+
+
+        }
+
     }
+
+    /**
+     * Méthode permettant d'uploader une "big" ImageIcon depuis notre gallerie
+     * @param path le nom de l'image
+     */
     public void loadImageBig(String path) {
         mshi =  new ImageIcon(picDirectory+ path).getImage();
     }
