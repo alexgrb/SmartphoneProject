@@ -22,12 +22,12 @@ public class imageLabel extends JLabel {
             try {
                 ImageResizer.resize(imageToResize, resizedImagePath, 100, 100);
             } catch (IOException e) {
-                 e.printStackTrace();
+                e.printStackTrace();
             }
             loadImageGallery(resizedImagePath);
         }
         else {
-        loadImageBig("big\\" + path);
+            loadImageBig("big\\" + path);
         }
         setSurfaceSize();
 

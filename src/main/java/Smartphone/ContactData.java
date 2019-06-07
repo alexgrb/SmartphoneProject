@@ -123,38 +123,4 @@ public class ContactData implements Serializable {
     public String getPathImg() {
         return pathImg;
     }
-
-
-    //Setters
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
-
-    public void setNumTel(String numTel) {
-        this.numTel = numTel;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
-    }
-
-    public void setNPAloc(String NPAloc) {
-        this.NPAloc = NPAloc;
-    }
-
-    public void setDateNaissance(String dateNaissance) {
-        this.dateNaissance = dateNaissance;
-    }
-
-    public void setPathImg(String pathImg) {
-        this.pathImg = pathImg;
-    }
 }
