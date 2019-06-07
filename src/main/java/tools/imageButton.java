@@ -19,6 +19,7 @@ import java.awt.*;
 
 public class imageButton extends JButton {
     private Image mshi;
+    private ImageIcon pic;
     private String picDirectory = display.getPicDirectory();
 
     /**
@@ -68,7 +69,8 @@ public class imageButton extends JButton {
      * @param path nom du fichier .jpg
      */
     private void loadImage(String path) {
-        mshi =  new ImageIcon(picDirectory+ path+ ".png").getImage();
+        pic = new ImageIcon(getClass().getClassLoader().getResource(path+".png"));
+        mshi = pic.getImage();
     }
 
 
