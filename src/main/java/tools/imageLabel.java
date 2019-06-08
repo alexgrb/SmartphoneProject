@@ -1,5 +1,6 @@
 package tools;
 
+
 import Smartphone.display;
 
 import javax.swing.*;
@@ -16,8 +17,8 @@ public class imageLabel extends JLabel {
 
     public imageLabel(String path) {
         try {
-        loadImage(path);
-        setSurfaceSize();}
+            loadImage(path);
+            setSurfaceSize();}
         catch(Exception ex){
             System.out.println("Le path de l'imgage choisi n'existe pas!!");
             System.out.println(ex.toString());
@@ -31,6 +32,7 @@ public class imageLabel extends JLabel {
                 ImageResizer.resize(imageToResize, resizedImagePath, 100, 100);
             } catch (IOException e) {
                 e.printStackTrace();
+                System.out.println("Pas rtouvé");
             }
             loadImageGallery(resizedImagePath);
         }
@@ -53,23 +55,22 @@ public class imageLabel extends JLabel {
         FileReader toReturn = null;
         try
         {
-           /* if (!f.exists()) {
-                System.out.println("Je suis la");
+            if (!f.exists()) {
+                System.out.println("Je suis la "+ picDirectory+ path+".png");
                 throw new FileNotFoundException();
             }
-
-            */
-           toReturn = new FileReader(f);
+            else {
+                System.out.println("Sisi pas d'erreur");
+            }
         }
         catch(FileNotFoundException e)
         {
             //System.out.println("Path de l'image : "+ path + " is " + f.exists());
-           System.out.println("Cette image n'existe pas");
+            System.out.println("Cette image n'existe pas");
             System.out.println(e.toString());
-
-
-
-
+        }
+        catch(IOException e){
+            throw e;
         }
 
     }
