@@ -10,7 +10,15 @@ import java.awt.*;
  * @author Piranavan Thambirajah & Alex Gharbi
  */
 public class Main {
+    // static final String dir = System.getProperty("user.dir");
+    static String dir = "C:\\Users\\piran\\IdeaProjects\\SmartphoneProject";
+
     public static void main(String[] args) {
+
+        //POUR EXéCUTER SANS LE JAR -
+        //METTEZ LE CHEMIN ABSOLU VERS LES SRC DANS LA VARIABLE dir !!!!
+
+        dir = args[0]; //On passe l'argument comme étant le chemin vers les src
 
         ViewContactList.LectureContact();
         display screen = null;

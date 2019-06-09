@@ -27,12 +27,11 @@ public class display extends JFrame {
     protected static JPanel bottom = new JPanel();
     protected static JPanel statusPanel;
     protected static JPanel galleryPanel;
-
     //Array to other apps
     protected static String[] access = {"Home","Weather", "Contacts", "Calcul", "Gallery", "Image"};
 
     private static JButton[] appButton= new JButton[maxApp];
-    protected static String picDirectory = "src\\main\\java\\pictures\\";
+    protected static String picDirectory = Main.dir+"\\src\\main\\java\\pictures\\";
 
     public static String getPicDirectory() {
         return picDirectory;
@@ -44,6 +43,7 @@ public class display extends JFrame {
      */
     public display() {
 
+        System.out.println("Le rep: "+ Main.dir);
         ///PARAMETRE DE LA FENETRE///
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); //Ferme le programme lorsqu'on ferme la fenêtre
         setResizable(false); //Empêche le redimensionnement

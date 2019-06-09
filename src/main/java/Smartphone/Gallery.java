@@ -23,7 +23,7 @@ import static Smartphone.display.picDirectory;
 
 public class Gallery extends JPanel {
 
-    static JPanel imgzoomPanel = new Picture("",null);
+    static JPanel imgzoomPanel = new Picture("1.png",null);
     static JScrollPane finalPanel;
     public static JPanel imgPanel = new JPanel();
     private Gallery gallery;
@@ -96,7 +96,10 @@ public class Gallery extends JPanel {
              *          Contient le chemin de l'image à ajouter
              */
     public void addImage(File path) {
-        String finalPath = path.getPath().substring(74);
+        String finalPath = path.getPath().substring(picDirectory.length()+5);
+        System.out.println("Longeur de pic "+picDirectory);
+        System.out.println("Le chamin sans coup "+path.getPath());
+        System.out.println("Image ajouté dans "+galleryDirectory+finalPath);
         File dest = new File(galleryDirectory+finalPath) ;
         try {
             copyFileUsingStream(path.getPath(), dest.getPath());
@@ -147,8 +150,8 @@ public class Gallery extends JPanel {
         imgPanel.setBounds(0,40,480,400);
         imgPanel.setBackground(new Color(255,255,255));
         setImages();
-        for (int j = 0; j < (images.length); j++) {
-            String path = String.valueOf(images[j]).substring(31);
+        for (int j = 1; j < (images.length); j++) {
+            String path = String.valueOf(images[j]).substring(32+ Main.dir.length());
 
             label[j] = new imageLabel(path, 1);
             imgPanel.add(label[j]);
@@ -181,8 +184,8 @@ public class Gallery extends JPanel {
         imgPanel.setLayout(new MigLayout("wrap 4"));
         imgPanel.setBackground(new Color(255,255,255));
         setImages();
-        for (int j = 0; j < (images.length); j++) {
-            String path = String.valueOf(images[j]).substring(31);
+        for (int j = 1; j < (images.length); j++) {
+            String path = String.valueOf(images[j]).substring(32+ Main.dir.length());
             label[j] = new imageLabel(path, 1);
             imgPanel.add(label[j]);
             label[j].addMouseListener(new mouseListener(path));
@@ -213,7 +216,7 @@ public class Gallery extends JPanel {
 
         String source = galleryDirectory + path;
         //On garde une copie de l'image dans un autre dossier
-        String dest = "src\\main\\java\\bin\\" + path;
+        String dest = Main.dir+"\\src\\main\\java\\bin\\" + path;
 
         try {
             copyFileUsingStream(source, dest);
@@ -252,7 +255,7 @@ public class Gallery extends JPanel {
 
         public void actionPerformed(ActionEvent e) {
 
-            File file = new File("src\\main\\java\\picturesToAdd");
+            File file = new File(Main.dir+"\\src\\main\\java\\picturesToAdd");
             JFileChooser chooser = new JFileChooser(file);
 
             int returnValue = chooser.showOpenDialog(null);

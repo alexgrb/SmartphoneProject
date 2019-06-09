@@ -33,7 +33,7 @@ public class ImageResizer {
             inputImage = ImageIO.read(inputFile);
         }
         catch(IOException e){
-            System.out.println("Pas trouvé : "+inputImagePath);
+            System.out.println("Pas trouvé reszi : "+inputImagePath);
         }
         // creates output image
         BufferedImage outputImage = new BufferedImage(scaledWidth,

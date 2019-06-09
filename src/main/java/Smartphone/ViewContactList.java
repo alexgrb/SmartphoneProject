@@ -29,7 +29,7 @@ public class ViewContactList extends JPanel {
     private static String[] listAffichageJList;
     private static String[] listSortedAffichageJList;
     protected static ContactData[] tabContactData;
-    public static String pathFiletxt = ".\\contact.txt";
+    public static String pathFiletxt = "C:\\Users\\piran\\IdeaProjects\\SmartphoneProject\\contact.txt";
     protected static String[] chaine;
     private ViewContactList viewContactList;
     protected JScrollPane scrollPane;

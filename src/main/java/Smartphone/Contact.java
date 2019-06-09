@@ -73,7 +73,7 @@ public class Contact extends JPanel {
     protected JPanel mainButtonsPanel = new JPanel();
     protected static JPanel formPanel = new JPanel();
 
-    public static String pathFiletxt = ".\\contact.txt";
+    public static String pathFiletxt = "C:\\Users\\piran\\IdeaProjects\\SmartphoneProject\\contact.txt";
 
     // Tableau après lecture du fichier
     protected static ContactData[] tabContactData;

@@ -78,7 +78,7 @@ public class imageLabel extends JLabel {
         }
         catch(FileNotFoundException e)
         {
-            System.out.println("Cette image n'existe pas : "+ path);
+            System.out.println("Cette image n'existe pas : "+ picDirectory+path);
             System.out.println(e.toString());
         }
         catch(IOException e){

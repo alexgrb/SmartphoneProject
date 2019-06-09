@@ -52,7 +52,6 @@ public class GetWeatherData extends JPanel {
             String line;
             while ((line = read.readLine()) != null) {
                 result.append(line);
-                System.out.println(result);
             }
             read.close();
             ObjectMapper objectMapper = new ObjectMapper();
@@ -81,10 +80,10 @@ public class GetWeatherData extends JPanel {
 
             int scaledWidth = 150;
             int scaledHeight = 150;
-            ImageResizer.resize(picDirectory + icon+ ".png", picDirectory + icon+ "2.png", scaledWidth, scaledHeight);
+          //  ImageResizer.resize(dir+"\\pictures\\" + icon+ ".png", picDirectory + icon+ "2.png", scaledWidth, scaledHeight);
             JLabel image = new imageLabel(icon+"2");
 
-            ImageResizer.resize(picDirectory+"iconHumidity.png", picDirectory+"iconHumidity.png", 50, 50);
+          //  ImageResizer.resize(picDirectory+"iconHumidity.png", picDirectory+"iconHumidity.png", 50, 50);
             JLabel imageHumidity = new imageLabel("iconHumidity");
 
             weatherDisplay.setOpaque(false);
@@ -95,7 +94,7 @@ public class GetWeatherData extends JPanel {
             String backPath = "";
             weatherDisplay.add(image, "wrap");
 
-            ImageResizer.resize(picDirectory + "iconWindSpeed.png", picDirectory + "iconWindSpeed.png", 50, 50);
+           // ImageResizer.resize(picDirectory + "iconWindSpeed.png", picDirectory + "iconWindSpeed.png", 50, 50);
             JLabel windSpeedIcon= new imageLabel("iconWindSpeed");
 
             weatherDisplay.add(windSpeedIcon,"split2");
