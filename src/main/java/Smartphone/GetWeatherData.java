@@ -52,6 +52,7 @@ public class GetWeatherData extends JPanel {
             String line;
             while ((line = read.readLine()) != null) {
                 result.append(line);
+                System.out.println(result);
             }
             read.close();
             ObjectMapper objectMapper = new ObjectMapper();
@@ -65,6 +66,7 @@ public class GetWeatherData extends JPanel {
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
+
 
             //Ce code permet de récupérer les données en surface du JSON
             Map<String, Object> respMap = jsonToMap(result.toString());
