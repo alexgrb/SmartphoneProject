@@ -6,6 +6,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Classe reprise et adaptée d'internet
+ * Permet de redimensionner les images
+ */
 public class ImageResizer {
 
 
@@ -29,7 +33,7 @@ public class ImageResizer {
             inputImage = ImageIO.read(inputFile);
         }
         catch(IOException e){
-            System.out.println("Pas trouvé");
+            System.out.println("Pas trouvé : "+inputImagePath);
         }
         // creates output image
         BufferedImage outputImage = new BufferedImage(scaledWidth,
@@ -48,5 +52,5 @@ public class ImageResizer {
         ImageIO.write(outputImage, formatName, new File(outputImagePath));
     }
 
-}        //mdr
+}
 

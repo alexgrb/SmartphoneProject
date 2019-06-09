@@ -1,10 +1,5 @@
 package Smartphone;
 
-/**
- * @author Piranavan Thambirajah & Alex Gharbi
- * Créé en mai 2019
- * Classe contact qui va permettre principalement l'écriture dans le fichier .txt, l'affichage et la gestion de ses contacts
- */
 
 import net.miginfocom.swing.MigLayout;
 import tools.imageButton;
@@ -16,6 +11,11 @@ import java.awt.event.*;
 import java.io.*;
 
 import static Smartphone.display.picDirectory;
+/**
+ * Classe contact qui va permettre principalement l'écriture dans le fichier .txt, l'affichage et la gestion de ses contacts
+ * @author Piranavan Thambirajah & Alex Gharbi
+ * Créé en mai 2019
+ */
 
 public class Contact extends JPanel {
     static JPanel contactImg = new Gallery();
@@ -72,9 +72,6 @@ public class Contact extends JPanel {
     protected JPanel subButtonsPanel = new JPanel();
     protected JPanel mainButtonsPanel = new JPanel();
     protected static JPanel formPanel = new JPanel();
-
-
-    protected static boolean valModifSupp = false;
 
     public static String pathFiletxt = ".\\contact.txt";
 
@@ -172,9 +169,6 @@ public class Contact extends JPanel {
         formPanel.add(lbDateNaissance, "wrap");
         formPanel.add(jtNpa, "align left");
         formPanel.add(jtDateNaissance, "wrap");
-
-
-        //formPanel.add(jtpathImg, "wrap");
 
         mainButtonsPanel.setBackground(new Color(255,255,255));
         listPanel.setBackground(new Color(255,255,255));
@@ -276,11 +270,7 @@ public class Contact extends JPanel {
         }
     }
 
-
-
     //------------------------------- METHODES -----------------------------//
-
-
 
     /**
      * Méthode qui va modifier un tableau de chaine (liste de contact) selon les paramètres reçus à la ligne séléctionnée.
@@ -306,7 +296,6 @@ public class Contact extends JPanel {
                 }
             }
         }
-       // updateList();
         writeContact();
         jlistContact.setEnabled(true);
     }
@@ -378,8 +367,6 @@ public class Contact extends JPanel {
             System.out.println("Erreur lors de l'écriture dans le fichier contact");
             System.out.println(e.toString());
         }
-        System.out.println("lol");
-
     }
 
 }

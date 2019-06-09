@@ -8,7 +8,11 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
+/**
+ * JPanel pour la météo.
+ * Il travaille avec une autre classe pour récupérer les données
+ * @see GetWeatherData
+ */
 public class weather extends JPanel {
 
     //Array to other apps

@@ -7,6 +7,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 
+/**
+ * @author Piranavan Thambirajah & Alex Gharbi
+ * Créé en juin 2019
+ * La classe permet la génération de test REGEX JUnit
+ */
 public class ContactRegexTest {
 
 

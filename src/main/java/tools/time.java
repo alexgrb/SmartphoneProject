@@ -7,9 +7,12 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+/**
+ * Classe reprise et adaptée d'internet
+ * Permet de récupérer l'heure du système et le mettre en forme
+ */
 public class time {
 
-    ////PAS ENCORE FINI A VOIR
     private static JLabel currentTime;
     private DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
     public time() {
@@ -24,13 +27,5 @@ public class time {
             }
         }).start();
     }
-
-    public static JLabel getCurrentTime() {
-        return currentTime;
-    }
-
-    public DateFormat getDateFormat() {
-        return dateFormat;
-    }
-}        //mdr
+}
 

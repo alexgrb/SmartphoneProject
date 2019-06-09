@@ -12,8 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- *
- * Calculatrice reprise de openclassroom et mis en forme à nos gôuts.
+ * Calculatrice reprise et adaptée d'internet.
+ * @author Piranavan Thambirajah & Alex Gharbi
  */
 
 public class Calculatrice extends JPanel {
@@ -39,7 +39,6 @@ public class Calculatrice extends JPanel {
         //On initialise le conteneur avec tous les composants
         initComposant();
         //On ajoute le conteneur
-
         this.setVisible(true);
     }
 
@@ -56,12 +55,9 @@ public class Calculatrice extends JPanel {
         ecran.setPreferredSize(new Dimension(400, 50));
         JPanel operateur = new JPanel();
         operateur.setLayout(new MigLayout("wrap"));
-       // operateur.setPreferredSize(new Dimension(55, 225));
         JPanel chiffre = new JPanel();
         chiffre.setLayout(new MigLayout("wrap 3"));
-       // chiffre.setPreferredSize(new Dimension(165, 225));
         JPanel panEcran = new JPanel();
-       // panEcran.setPreferredSize(new Dimension(220, 30));
 
         setLayout(new MigLayout("wrap 2"));
         setBackground(Color.white);
@@ -146,7 +142,6 @@ public class Calculatrice extends JPanel {
                 ecran.setText(String.valueOf(chiffre1));
             } catch(ArithmeticException e) {
                 ecran.setText("0");
-System.out.println("lol");
             }
         }
     }

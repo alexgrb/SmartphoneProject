@@ -11,6 +11,10 @@ import java.io.*;
 
 import static Smartphone.display.picDirectory;
 
+/**
+ * Constucteur Picture. Permet d'afficher en grand une image.
+ * @author Piranavan Thambirajah & Alex Gharbi
+ */
 public class Picture extends JPanel {
 
     private JButton backBTN = new JButton("");

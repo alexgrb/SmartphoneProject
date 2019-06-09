@@ -22,7 +22,8 @@ import static Smartphone.display.picDirectory;
 
 /**
  * Home est le centre du Smartphone.
- * Il permet de rediriger vers toutes les autres appli.
+ * Il permet de rediriger vers toutes les autres appli
+ * @author Piranavan Thambirajah & Alex Gharbi.
  */
 
 public class Home extends JPanel {
@@ -84,7 +85,6 @@ public class Home extends JPanel {
 
 
         closeButton.addMouseListener(new MouseEvent());
-        // homeDisplay.add(closeButton);
 
         new Timer(interval, new ActionListener() {
             @Override

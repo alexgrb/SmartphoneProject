@@ -16,6 +16,7 @@ import static Smartphone.display.picDirectory;
 /**
  * JPanel d'une bar qui s'affiche tout en haut
  * Elle affiche l'heure et un bouton qui exit le programme
+ * @author Piranavan Thambirajah & Alex Gharbi
  */
 public class StatusBar extends JPanel {
 
@@ -70,4 +71,4 @@ public class StatusBar extends JPanel {
         @Override
         public void mouseExited(java.awt.event.MouseEvent e) {}
     }
-}        //mdr
+}

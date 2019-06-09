@@ -10,11 +10,20 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * Classe qui permet d'alléger le code.
+ */
+
 public class imageLabel extends JLabel {
     private Image mshi;
 
     private String picDirectory = display.getPicDirectory();
 
+    /**
+     * Création d'un label avec une image
+     * @param path
+     *         Nom de l'image a utiliser
+     */
     public imageLabel(String path) {
         try {
             loadImage(path);
@@ -24,6 +33,14 @@ public class imageLabel extends JLabel {
             System.out.println(ex.toString());
         }
     }
+
+    /**
+     * Création d'un label avec une image
+     * @param path
+     *      Nom de l'image à utiliser
+     * @param i
+     *      Selon le nombre on utilise d'autre répertoires
+     */
     public imageLabel(String path, int i) { //i Nous permet de faire une autre méthode quasi identique pour
         if(i==1) {
             String imageToResize = picDirectory+"gallery\\" + path;
@@ -32,7 +49,7 @@ public class imageLabel extends JLabel {
                 ImageResizer.resize(imageToResize, resizedImagePath, 100, 100);
             } catch (IOException e) {
                 e.printStackTrace();
-                System.out.println("Pas rtouvé");
+                System.out.println("Pas trouvé : "+path);
             }
             loadImageGallery(resizedImagePath);
         }
@@ -56,17 +73,12 @@ public class imageLabel extends JLabel {
         try
         {
             if (!f.exists()) {
-                System.out.println("Je suis la "+ picDirectory+ path+".png");
                 throw new FileNotFoundException();
-            }
-            else {
-                System.out.println("Sisi pas d'erreur");
             }
         }
         catch(FileNotFoundException e)
         {
-            //System.out.println("Path de l'image : "+ path + " is " + f.exists());
-            System.out.println("Cette image n'existe pas");
+            System.out.println("Cette image n'existe pas : "+ path);
             System.out.println(e.toString());
         }
         catch(IOException e){
@@ -103,4 +115,4 @@ public class imageLabel extends JLabel {
         super.paintComponent(g);
         doDrawing(g);
     }
-}        //mdr
+}

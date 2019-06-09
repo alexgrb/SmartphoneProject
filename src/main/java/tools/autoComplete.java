@@ -10,6 +10,8 @@ import java.awt.event.*;
 
 /**
  * Classe qui permet l'autocomplétion
+ * @author Piranavan Thambirajah & Alex Gharbi
+ * Créé en mai 2019
  */
 public class autoComplete extends JPanel {
 
@@ -83,7 +85,6 @@ public class autoComplete extends JPanel {
         comboBox.setBorder(null);
         comboBox.setOpaque(false);
         comboBox.setBounds(5, 5, 149, 37);
-        // this.contentPane.add(comboBox);
     }
 
     /**

@@ -20,6 +20,7 @@ import static Smartphone.display.picDirectory;
 
 /**
  * Récupère toutes les données météos et les affiche
+ * @author Piranavan Thambirajah & Alex Gharbi
  */
 public class GetWeatherData extends JPanel {
 
@@ -53,8 +54,6 @@ public class GetWeatherData extends JPanel {
                 result.append(line);
             }
             read.close();
-            System.out.println(result);
-
             ObjectMapper objectMapper = new ObjectMapper();
             //Le code suivant permet de rentrer en profondeur dans l'arbre JSON
             try {
@@ -66,8 +65,6 @@ public class GetWeatherData extends JPanel {
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
-
-            JLabel descriptionLabel = new JLabel(description);
 
             //Ce code permet de récupérer les données en surface du JSON
             Map<String, Object> respMap = jsonToMap(result.toString());
@@ -109,7 +106,6 @@ public class GetWeatherData extends JPanel {
 
             new textResizer(currentHumidity, 35);
             weatherDisplay.add(currentHumidity);
-
 
             weatherDisplay.setBounds(0,0,480,600);
             add(weatherDisplay);

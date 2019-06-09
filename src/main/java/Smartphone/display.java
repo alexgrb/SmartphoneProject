@@ -1,12 +1,5 @@
 package Smartphone;
 
-/**
- * @author Piranavan Thambirajah & Alex Gharbi
- * C'est la seule et unique frame du programme.
- * Toutes les applis sont des JPanels qui s'affichent dessus.
- * Crée mai 2019
- * Main frame for the smartphone
- */
 
 import tools.imageButton;
 
@@ -15,6 +8,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ *
+ * C'est la seule et unique frame du programme.
+ * Toutes les applis sont des JPanels qui s'affichent dessus.
+ * @author Piranavan Thambirajah & Alex Gharbi
+ * Crée mai 2019
+ */
 
 public class display extends JFrame {
 
@@ -39,7 +39,8 @@ public class display extends JFrame {
     }
 
     /**
-     * Constructeur
+     * Constructeur de la seule et unique frame.
+     * Gère le cardLayout vers toutes les applications.
      */
     public display() {
 
@@ -78,8 +79,6 @@ public class display extends JFrame {
             e.printStackTrace();
         }
 
-
-        //  bottom.setOpaque(false);
         bottom.setBackground(new Color(255,255,255));
 
         bottom.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.BLACK));
@@ -104,7 +103,7 @@ public class display extends JFrame {
         add(bottom);
         bottom.setVisible(false);
 
-
+        //Bordure autour de la JFrame
         getRootPane().setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.gray));
 
     }
@@ -136,7 +135,6 @@ public class display extends JFrame {
                 cardLayout.show(content, access[0]);
                 bottom.setVisible(false);
                 statusPanel.setVisible(false);
-                System.out.println("J'ai cliqué sur : "+i);
             }
             else if(i==4){
                 galleryPanel = new Gallery();
@@ -147,14 +145,12 @@ public class display extends JFrame {
                 statusPanel.setVisible(true);
                 content.revalidate();
                 content.revalidate();
-                System.out.println("J'ai cliqué sur : "+i);
             }
             else {
                 content.setBounds(0,35,480,705);
                 cardLayout.show(content, access[i]);
                 bottom.setVisible(true);
                 statusPanel.setVisible(true);
-                System.out.println("J'ai cliqué sur : "+i);
             }
         }
 

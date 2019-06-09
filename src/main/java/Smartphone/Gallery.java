@@ -16,10 +16,10 @@ import static Smartphone.ViewContact.viewContact;
 import static Smartphone.ViewContact.viewContactList;
 import static Smartphone.display.picDirectory;
 
-        /**
-         * C'est un JPanel qui va afficher toutes les images contenu dans le dossier picutures/gallery/
-         *
-         */
+/**
+ * C'est un JPanel qui va afficher toutes les images contenu dans le dossier picutures/gallery/
+ * @author Piranavan Thambirajah & Alex Gharbi
+ */
 
 public class Gallery extends JPanel {
 
@@ -47,7 +47,6 @@ public class Gallery extends JPanel {
 
     /**
      * Constructeur général qui charge toutes les images.
-     *
      * @see Gallery#loadImages()
      */
     public Gallery() {
@@ -73,7 +72,6 @@ public class Gallery extends JPanel {
         this.contact=contact;
 
         setLayout(new MigLayout("wrap 4"));
-        System.out.println("Je suis dans la gallerie");
         setBackground(new Color(255,255,255));
         jbAdd = new imageButton("iconAdd");
         chooseImage();
@@ -99,7 +97,6 @@ public class Gallery extends JPanel {
              */
     public void addImage(File path) {
         String finalPath = path.getPath().substring(74);
-        System.out.println(finalPath);
         File dest = new File(galleryDirectory+finalPath) ;
         try {
             copyFileUsingStream(path.getPath(), dest.getPath());
@@ -135,7 +132,6 @@ public class Gallery extends JPanel {
             os.close();
         }
     }
-
             /**
              * Utilisé lorsque la gallerie est ouverte à partir de contact.
              * Toutes les images sont des labels.
@@ -143,7 +139,6 @@ public class Gallery extends JPanel {
              *
              */
     public void chooseImage() {
-        System.out.println("Jai réussi à choose Image.");
         removeAll();
         imgPanel.removeAll();
         JLabel[] label = new JLabel[nbPhotos + 1];
@@ -159,9 +154,7 @@ public class Gallery extends JPanel {
             imgPanel.add(label[j]);
             label[j].addMouseListener(new chooseListener(path,i));
         }
-
         setNbPhoto(nbPhotos);
-
         add(nbPhoto, "span");
         jbAdd.addActionListener(new addButton());
         jbAdd.setBounds(430, 0, 40, 40);
@@ -213,6 +206,8 @@ public class Gallery extends JPanel {
              * Permet de supprimer une image de la gallerie.
              * @param path
              *          Contient le nom de l'image à supprimer
+             * @see Gallery#reloadNbPhotos()
+             * @see Gallery#loadImages()
              */
     public void deletePhoto (String path) {
 
@@ -291,7 +286,6 @@ public class Gallery extends JPanel {
             imgzoomPanel = new Picture(path, gallery);
             imgzoomPanel.setBounds(0, 40, 480, 700);
             add(imgzoomPanel);
-            System.out.println("Dans le dernier Mouse Listener, path de la nouvelle image : " + path);
             revalidate();
             repaint();
         }

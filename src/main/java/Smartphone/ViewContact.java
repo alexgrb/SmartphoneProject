@@ -1,10 +1,6 @@
 package Smartphone;
 
-/**
- * @author Piranavan Thambirajah & Alex Gharbi
- * Créé en mai 2019
- * Classe ViewContact qui va permettre l'affichage et la modification d'un Contact
- */
+
 
 import net.miginfocom.swing.MigLayout;
 import tools.imageButton;
@@ -19,6 +15,11 @@ import static Smartphone.ViewContactList.tabContactData;
 import static Smartphone.ViewContactList.updateList;
 import static Smartphone.display.picDirectory;
 
+/**
+ * Classe ViewContact qui va permettre l'affichage et la modification d'un Contact
+ * @author Piranavan Thambirajah & Alex Gharbi
+ * Créé en mai 2019
+ */
 public class ViewContact extends JPanel {
 
     private ContactData contact;
@@ -78,8 +79,6 @@ public class ViewContact extends JPanel {
         viewContact = this;
 
         setBackground(Color.white);
-
-        //jb
 
         jbBack.setIcon(new ImageIcon(picDirectory+"iconBack.png"));
         jbBack.addActionListener(new backListener());
@@ -201,14 +200,9 @@ public class ViewContact extends JPanel {
         add(dateOfBirth,"wrap");
         add(NPAJT,"align left");
         add(dateOfBirthJT, "wrap");
-        //add(pictureJT, "align left");
-        //add(emptyLabel, "wrap");
         add(jbValiderAdd,"wrap");
 
-
-
         image.addMouseListener(new mouseListener());
-
     }
 
     /**
@@ -216,14 +210,23 @@ public class ViewContact extends JPanel {
      * va lire le tableau au complet jusqu'a une valeur null et se positionner à la ligne du contact que on désire modifier
      * va ecraser la valeur à la position séléctionnée par un nouveau String définit
      * @param nom
+     *      Nom
      * @param prenom
+     *      Prenom
      * @param num
+     *      Numero
      * @param mail
+     *       Mail
      * @param adresse
+     *      Adresse
      * @param npaLoc
+     *      NPA
      * @param date
+     *      Date
      * @param pathImg
+     *      Chemin vers l'image
      * @param numJList
+     *      Numero de la JList
      * @see ViewContactList#updateList()
      * @see Contact#writeContact()
      * @see ViewContact#setEditable(boolean)
@@ -246,8 +249,11 @@ public class ViewContact extends JPanel {
      * Méthode qui va permettre de récupérer l'index de la personne qui a les memes 5 premiers caractères que la string envoyé.
      * C'est comme cela que nous retrouvons les personnes, car la JList est trier et les index ne correspondent plus.
      * @param a
+     *      Tableau de contact où chercher
      * @param target
-     * @return int, l'indedx qui correspond à la string envoyé
+     *      Les caractères qui vont nous aider à trouver le contact
+     * @return int
+     *         l'indedx qui correspond à la string envoyé
      */
     public static int find(ContactData[] a, String target) {
         String s = "";
@@ -274,8 +280,6 @@ public class ViewContact extends JPanel {
         dateOfBirthJT.setText(null);
         pictureJT.setText(null);
     }
-
-
 
     /**
      * Méthode qui va être appelée afin de valider les champs spéciaux d'un numéro de téléphone,
@@ -434,8 +438,6 @@ public class ViewContact extends JPanel {
 
             else
                 System.out.println("Il faut être en mode edit pour changer l'image");
-
-
         }
     }
 
@@ -448,20 +450,18 @@ public class ViewContact extends JPanel {
         ViewContact viewContact;
 
         /**
-         * ????????????????????????????????????????
-         * @param viewContact
-         */
-        public ValiderAdd(ViewContact viewContact) {
-            this.viewContact = viewContact;
-        }
-
-        /**
          * Va appeler les methodes de validation (validEmain, validPhone, validBirthday) qui si elles retournent toutes une valeur vrai(true)
          * Si une des 3 méthodes de validation retournent false, va afficher le text faut en rouge
          * Si c'est tout bon : va appeler la méthode addInChaine qui va rajouter une ligne à la chaine de contact,
          * reset les champs, supprimer le panel actuel pour nous renvoyer à la Jlist
          * @see ViewContact#addInChaine()
+         * @param viewContact
+         *         Permet de revenir sur le contact
          */
+        public ValiderAdd(ViewContact viewContact) {
+            this.viewContact = viewContact;
+        }
+
         @Override
         public void actionPerformed(ActionEvent e) {
             if(validPhone(phoneNumberJT.getText())) {
@@ -532,11 +532,7 @@ public class ViewContact extends JPanel {
             jbValiderEdit.setVisible(true);
         }
     }
-
     //---------- END Action Listeners ---------//
-
-    //mdr
-
 
 }
 

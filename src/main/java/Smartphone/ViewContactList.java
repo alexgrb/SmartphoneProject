@@ -1,11 +1,6 @@
 package Smartphone;
 
 
-/**
- * @author Piranavan Thambirajah & Alex Gharbi
- * Créé en mai 2019
- * Classe ViewContactList qui va permettre l'affichage et la gestion de la JList
- */
 
 
 import net.miginfocom.swing.MigLayout;
@@ -23,6 +18,11 @@ import java.util.Arrays;
 
 import static Smartphone.display.picDirectory;
 
+/**
+ * Classe ViewContactList qui va permettre l'affichage et la gestion de la JList
+ * @author Piranavan Thambirajah & Alex Gharbi
+ * Créé en mai 2019
+ */
 public class ViewContactList extends JPanel {
 
     protected static JList jlistContact = new JList();
@@ -35,8 +35,6 @@ public class ViewContactList extends JPanel {
     protected JScrollPane scrollPane;
     protected static JButton jbAdd = new JButton ();
     protected JPanel show = new JPanel();
-
-
 
     public ViewContactList() {
         viewContactList = this;
@@ -64,8 +62,13 @@ public class ViewContactList extends JPanel {
     }
 
     /**
-     *?????
-     *
+     * Va retrouver l'index du contact ayant les 5 même premiers caractère que celui sélectionné dans la JList
+     * @param a
+     *      Tableau de contact où aller chercher l'index
+     * @param target
+     *      Les caractères qui vont nous aider à trouver le contact
+     * @return
+     *      L'index du contact qui correspond à la recherche
      */
     public static int find(ContactData[] a, String target) {
         String s = "";
@@ -160,7 +163,7 @@ public class ViewContactList extends JPanel {
             br.close();
 
         }catch (Exception e){
-            System.out.println("Lecture fichier");
+            System.out.println("Problème à la lecture du fichier");
             System.out.println(e.toString());
         }
 
@@ -201,7 +204,6 @@ public class ViewContactList extends JPanel {
 
             String i = (String) jlistContact.getSelectedValue();
             String search = i.substring(0,5);
-            System.out.println(i);
            int  z = find(tabContactData,search);
             JPanel viewContact = new ViewContact(tabContactData[z], viewContactList);
 
@@ -230,17 +232,12 @@ public class ViewContactList extends JPanel {
         public void actionPerformed(ActionEvent e) {
 
             JPanel viewContact = new ViewContact(viewContactList);
-           // JPanel viewContact = new ViewContact();
             show.removeAll();
 
             viewContact.setBounds(0,0,480,800);
             show.add(viewContact);
             show.repaint();
             show.revalidate();
-
         }
-
     }
-    //mdr
-
 }

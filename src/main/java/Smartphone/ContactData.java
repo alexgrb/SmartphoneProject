@@ -3,9 +3,10 @@ package Smartphone;
 import java.io.*;
 
 /**
+ *
+ * Classe ContactData qui contient les valeur d'un contact.
  * @author Piranavan Thambirajah & Alex Gharbi
  * Créé en mai 2019
- * Classe ContactData qui contient les valeur d'un contact.
  */
 
 public class ContactData implements Serializable {
@@ -18,7 +19,6 @@ public class ContactData implements Serializable {
     private String NPAloc;
     private String dateNaissance;
     private String pathImg;
-
 
     /**
      * Permet d'instancier la classe avec les valeur envoyée en parametre.
@@ -122,7 +122,6 @@ public class ContactData implements Serializable {
      */
     public String getPathImg() {
         return pathImg;
-        //mdr
-    }
 
+    }
 }

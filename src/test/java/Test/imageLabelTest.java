@@ -1,11 +1,15 @@
 package Test;
 
-
-import com.sun.org.apache.xerces.internal.util.PropertyState;
 import org.junit.Test;
 import tools.imageLabel;
 
 import java.io.File;
+
+/**
+ * @author Piranavan Thambirajah & Alex Gharbi
+ * Créé en juin 2019
+ * La classe permet de tester si une exception est bien lancée.
+ */
 
 public class imageLabelTest {
 

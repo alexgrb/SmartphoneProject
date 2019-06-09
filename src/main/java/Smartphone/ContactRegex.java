@@ -5,9 +5,9 @@ import java.util.regex.*;
 
 
 /**
+ * Classe qui permet de vérifier les champs dans la classe Contact
  * @author Piranavan Thambirajah & Alex Gharbi
  * Creé mai 2019
- * Classe qui permet de vérifier les champs dans la classe Contact
  */
 
 public class ContactRegex {
@@ -58,6 +58,4 @@ public class ContactRegex {
         Matcher matcher = pattern.matcher(npa);
         return matcher.matches();
     }
-    //mdr
-
 }

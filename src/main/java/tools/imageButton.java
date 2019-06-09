@@ -11,10 +11,10 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 
 /**
- * @author Piranavan Thambirajah & Alex Gharbi
- * Créé en mai 2019
  * Classe ImageButton, fait partie du package Tools, cette classe permet
  * d'alléger les implémentations et uniformiser les boutons avec ou sans icônes.
+ * @author Piranavan Thambirajah & Alex Gharbi
+ * Créé en mai 2019
  */
 
 public class imageButton extends JButton {
@@ -60,7 +60,6 @@ public class imageButton extends JButton {
         Border marge = new EmptyBorder(10, 15, 10, 15);
         Border autour = new CompoundBorder(ligne, marge);
         setBorder(autour);
-        //setBorder(new Contact.RoundedBorder(10));
         setFont(Contact.fontBouton);
     }
 
@@ -69,12 +68,9 @@ public class imageButton extends JButton {
      * @param path nom du fichier .jpg
      */
     private void loadImage(String path) {
-       // pic = new ImageIcon(getClass().getClassLoader().getResource(path+".png"));
         pic = new ImageIcon(picDirectory+path+".png");
         mshi = pic.getImage();
     }
-
-
 
     private void setSurfaceSize(String text) {
         Dimension d = new Dimension();
@@ -83,7 +79,6 @@ public class imageButton extends JButton {
         setPreferredSize(d);
         setText(text);
     }
-
 
     private void doDrawing(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
@@ -95,6 +90,5 @@ public class imageButton extends JButton {
         super.paintComponent(g);
         doDrawing(g);
 
-    }        //mdr
-
+    }
 }

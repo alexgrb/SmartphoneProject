@@ -3,6 +3,9 @@ package tools;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Classe qui permet de mettre en forme le texte
+ */
 public class textResizer {
     private JLabel text;
 
@@ -42,9 +45,7 @@ public class textResizer {
      */
     public textResizer(JLabel givenLabel, int fontSizeToUse) {
         text = givenLabel;
-
         Font labelFont = text.getFont();
-
         text.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
     }
 
