@@ -19,6 +19,15 @@ public class Picture extends JPanel {
     private Gallery gallery;
 
 
+    /**
+     * Constucteur Picture. Permet d'afficher en grand une image.
+     * Il va utiliser une autre classe pour redimensionner l'image.
+     * @see ImageResizer
+     * @param path
+     *      Nom de l'image à afficher
+     * @param gallery
+     *      Objet galerie afin qu'on puisse revenir dessus.
+     */
     public Picture(String path, Gallery gallery){
         this.gallery=gallery;
         this.path=path;
@@ -54,7 +63,11 @@ public class Picture extends JPanel {
         add(picture);
     }
 
-     class backBTNListener implements ActionListener {
+    /**
+     * Enlève tout du panel et raffiche la gallerie
+     */
+
+    class backBTNListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
             removeAll();
@@ -66,13 +79,17 @@ public class Picture extends JPanel {
         }
     }
 
+    /**
+     * Lancer une méthode qui permet de supprimer l'image.
+     * @see Gallery#deletePhoto(String)
+     */
+
     class deleteBTNListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             gallery.deletePhoto(path);
         }
     }
-
- }        //mdr
+ }
 
 
 

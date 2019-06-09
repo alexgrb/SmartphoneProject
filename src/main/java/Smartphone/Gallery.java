@@ -16,8 +16,9 @@ import static Smartphone.ViewContact.viewContact;
 import static Smartphone.ViewContact.viewContactList;
 import static Smartphone.display.picDirectory;
 
-/**
-         * C'est un JPanel qui va afficher toutes les images contenu dans le dossier picture.
+        /**
+         * C'est un JPanel qui va afficher toutes les images contenu dans le dossier picutures/gallery/
+         *
          */
 
 public class Gallery extends JPanel {
@@ -47,7 +48,7 @@ public class Gallery extends JPanel {
     /**
      * Constructeur général qui charge toutes les images.
      *
-   //  * @see loadImages
+     * @see Gallery#loadImages()
      */
     public Gallery() {
         this.gallery = this;
@@ -58,7 +59,7 @@ public class Gallery extends JPanel {
     }
 
     /**
-     *
+     * Constructeur de la Gallerie
      * @param i
      *          Index du contact afin qu'on puisse l'identifier
      * @param contact
@@ -78,7 +79,11 @@ public class Gallery extends JPanel {
         chooseImage();
     }
 
-
+            /**
+             * Mets à jour le label qui affiche le nombre de photos
+             * @param n
+             *      Contient le nombre de photos
+             */
     public void setNbPhoto(int n) {
         this.nbPhoto.setText(n +" photos");
         nbPhoto.setBounds(20,0,100,40);
@@ -86,6 +91,12 @@ public class Gallery extends JPanel {
         nbPhoto.setOpaque(false);
     }
 
+
+            /**
+             * Permet d'ajouter une image à la gallerie.
+             * @param path
+             *          Contient le chemin de l'image à ajouter
+             */
     public void addImage(File path) {
         String finalPath = path.getPath().substring(74);
         System.out.println(finalPath);
@@ -98,6 +109,15 @@ public class Gallery extends JPanel {
         reloadNbPhotos();
     }
 
+            /**
+             * Copie - colle un fichier d'un point A à B.
+             * @param source
+             *         Chemain vers le fichier à copier
+             * @param dest
+             *          Chemin de destination
+             * @throws IOException
+             *          Lance une exception si on trouve pas le fichier.
+             */
     private static void copyFileUsingStream(String source, String dest) throws IOException {
         InputStream is = null;
         OutputStream os = null;
@@ -115,6 +135,13 @@ public class Gallery extends JPanel {
             os.close();
         }
     }
+
+            /**
+             * Utilisé lorsque la gallerie est ouverte à partir de contact.
+             * Toutes les images sont des labels.
+             * Lorsqu'on sélectionne l'image il renvoi vers le mouselistener
+             *
+             */
     public void chooseImage() {
         System.out.println("Jai réussi à choose Image.");
         removeAll();
@@ -181,9 +208,16 @@ public class Gallery extends JPanel {
         revalidate();
         repaint();
     }
+
+            /**
+             * Permet de supprimer une image de la gallerie.
+             * @param path
+             *          Contient le nom de l'image à supprimer
+             */
     public void deletePhoto (String path) {
 
         String source = galleryDirectory + path;
+        //On garde une copie de l'image dans un autre dossier
         String dest = "src\\main\\java\\bin\\" + path;
 
         try {
@@ -205,9 +239,20 @@ public class Gallery extends JPanel {
         revalidate();
         repaint();
     }
+
+            /**
+             * Récupère le nombre de photos dans le dossier gallery
+             */
     public static void reloadNbPhotos() {
         Gallery.nbPhotos = (new File(galleryDirectory).list().length);
     }
+
+            /**
+             * Lorsqu'on click sur le bouton + dans la gallerie.
+             * Il lance un JFileChooser qui va nous permettre de sélectionner une image.
+             * Ensuite il lance une méthode qui va ajouter cette image dans la galerie.
+             * @see Gallery#chooseImage()
+             */
     class addButton implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
@@ -228,6 +273,11 @@ public class Gallery extends JPanel {
         }
     }
 
+            /**
+             * Lorsqu'on click sur une image, il récupère le nom de l'image.
+             * Il enlève tout sur le Panel et mets un nouveau panel pour afficher l'image en grand.
+             * @see Picture
+             */
     class mouseListener extends MouseAdapter {
         String path;
         public mouseListener(String path) {
@@ -246,17 +296,21 @@ public class Gallery extends JPanel {
             repaint();
         }
     }
+
+            /**
+             * Lorsqu'on a ouvert gallerie via contact.
+             * Et lorsqu'on click sur une image, il récupère le path.
+             * Il enlève tout sur le panel et remets la liste des contacts.
+             *
+             */
     class chooseListener extends MouseAdapter {
         String path;
         public chooseListener(String path,int i) {
             this.path = path;
-            //System.out.println("Dans le dernier Mouse Listener, path de la nouvelle image : " + path);
         }
 
         @Override
         public void mousePressed(MouseEvent me) {
-
-
             removeAll();
             viewContact.setVisible(false);
             viewContact.setPictureJT(path);
@@ -267,10 +321,6 @@ public class Gallery extends JPanel {
             viewContactList.show.add(viewContactList.jbAdd, "top");
             viewContactList.show.repaint();
             viewContactList.show.revalidate();
-
-
         }
     }
-    //mdr
-
 }

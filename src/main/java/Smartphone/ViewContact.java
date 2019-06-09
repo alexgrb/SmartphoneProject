@@ -125,6 +125,7 @@ public class ViewContact extends JPanel {
         setLabelsSizeJT();
         resetChamp();
         addToPanelJT();
+        add(jbValiderAdd);
     }
 
 

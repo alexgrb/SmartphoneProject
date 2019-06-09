@@ -20,6 +20,11 @@ import java.util.Calendar;
 import static Smartphone.display.maxApp;
 import static Smartphone.display.picDirectory;
 
+/**
+ * Home est le centre du Smartphone.
+ * Il permet de rediriger vers toutes les autres appli.
+ */
+
 public class Home extends JPanel {
 
     JButton[] appButton = new JButton[maxApp-1];
@@ -28,7 +33,6 @@ public class Home extends JPanel {
 
     public Home() {
 
-        // setOpaque(false);
         JLabel j = new imageLabel("homeBackground");
         j.setBounds(0,0,480,800);
 
@@ -42,7 +46,6 @@ public class Home extends JPanel {
         homeDisplay.setOpaque(true);
 
         for (int i=0 ; i<appButton.length;i++){
-            //  appButton[i] = new JButton();
             appButton[i] = new imageButton(); //Cela va rendre le fond transparent
             appButton[i].addActionListener(new display.homeListener((i+1))); //Ajoute l'action listener afin de pouvoir naviguer entre les appli
         }
@@ -94,8 +97,6 @@ public class Home extends JPanel {
         add(homeDisplay);
         add(closeButton);
         add(j);
-
-
     }
     public class MouseEvent implements MouseListener {
         @Override
@@ -111,6 +112,4 @@ public class Home extends JPanel {
         @Override
         public void mouseExited(java.awt.event.MouseEvent e) {}
     }
-    //mdr
-
 }

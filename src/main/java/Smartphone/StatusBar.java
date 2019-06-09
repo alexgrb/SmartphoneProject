@@ -13,7 +13,10 @@ import java.util.Calendar;
 
 import static Smartphone.display.picDirectory;
 
-
+/**
+ * JPanel d'une bar qui s'affiche tout en haut
+ * Elle affiche l'heure et un bouton qui exit le programme
+ */
 public class StatusBar extends JPanel {
 
     public StatusBar() throws InterruptedException {
@@ -50,7 +53,9 @@ public class StatusBar extends JPanel {
 
     }
 
-
+    /**
+     * Exit le programme lorsqu'on clique sur le bouton.
+     */
     public class MouseEvent implements MouseListener {
         @Override
         public void mouseClicked(java.awt.event.MouseEvent e) {

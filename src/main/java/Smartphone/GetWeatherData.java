@@ -18,12 +18,23 @@ import java.util.Map;
 
 import static Smartphone.display.picDirectory;
 
+/**
+ * Récupère toutes les données météos et les affiche
+ */
 public class GetWeatherData extends JPanel {
 
-    String icon = "01d";
+    String icon = "01d"; //Nom de l'image par défaut
     String description = "";
     private JPanel weatherDisplay = new JPanel();
 
+    /**
+     * Constructeur qui va appeler l'API.
+     * On construit la requête avec la clé API et le nom de la ville.
+     * Ensuite on parse le JSON afin de récupérer les données nécessaire.
+     * Finalement on affiches les données après les avoir mis en forme.
+     * @param city
+     *          Ville que l'utilisateur a cherché
+     */
     public GetWeatherData(String city) {
 
         setLayout(null);
@@ -137,7 +148,6 @@ public class GetWeatherData extends JPanel {
         );
         return map;
     }
-    //mdr
 
 }
 

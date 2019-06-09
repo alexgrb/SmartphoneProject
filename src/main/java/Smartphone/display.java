@@ -127,9 +127,7 @@ public class display extends JFrame {
 
         /**
          * Affiche le contenu du panel correspondant à l'id  fourni en paramètre.
-         * ???????????????????????????????????????????????????????????? Pourquoi Pira as-tu mis if(i==4)
-         *
-         *
+         * ID 0 affiche le homePanel en plein écran sans dock ni status Bar
          */
         public void actionPerformed(ActionEvent e) {
             //Via cette instruction, on passe au conteneur correspondant au nom fourni en paramètre
@@ -158,7 +156,7 @@ public class display extends JFrame {
                 statusPanel.setVisible(true);
                 System.out.println("J'ai cliqué sur : "+i);
             }
-        }        //mdr
+        }
 
     }
 }

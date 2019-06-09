@@ -16,9 +16,14 @@ public class weather extends JPanel {
     public JComboBox cityList;
     private JButton syncCity = new imageButton("iconSync48");
     String[] cities = new String[]{"Lausanne,CH", "Sion,CH", "Zurich,CH", "Montreux,CH", "Sierre,CH", "Dubai, AE"};
-    private JPanel textField = new autoComplete(cities, cityList, this);
+    private JPanel textField = new autoComplete(cities, cityList);
 
-
+    /**
+     * Constructeur du JPanel weather.
+     * Il affiche un JTextField où on peut taper le nom d'une ville.
+     * Le JTextField est créé dans une autre classe qui permet l'autocomplétion
+     * @see autoComplete
+     */
     public weather() {
             syncCity.setBounds(165, 40, 48, 48);
             syncCity.addActionListener(new comboListener());
@@ -50,7 +55,7 @@ public class weather extends JPanel {
                 contentWeather.repaint();
                 setVisible(true);
             }
-        }        //mdr
+        }
 
 }
 
